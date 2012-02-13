@@ -1,0 +1,6 @@
+<!-- BEGIN_INCLUDE(ion:deploy) -->
+    <ion:deploy file="#[payload]" />
+<!-- END_INCLUDE(ion:deploy) -->
+<!-- BEGIN_INCLUDE(ion:undeploy) -->
+    <ion:undeploy />
+<!-- END_INCLUDE(ion:undeploy) -->
