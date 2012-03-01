@@ -461,31 +461,9 @@ Summary:
           private
           
           
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#domain">domain</a></td>
-          <td class="jd-descrcol" width="100%">iON domain.</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
           <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#maxWaitTime">maxWaitTime</a></td>
           <td class="jd-descrcol" width="100%">Maximum time allowed to deplpoy/undeploy.</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#muleVersion">muleVersion</a></td>
-          <td class="jd-descrcol" width="100%">Mule version used.</td>
       </tr>
       
     
@@ -519,17 +497,6 @@ Summary:
           <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#username">username</a></td>
           <td class="jd-descrcol" width="100%">iON username.</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#workers">workers</a></td>
-          <td class="jd-descrcol" width="100%">Number of workers allocated.</td>
       </tr>
       
     
@@ -587,9 +554,9 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#deploy(java.io.File)">deploy</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/io/File.html">File</a> file)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
         
-        <div class="jd-descrdiv">Deploy specified application.</div>
+        <div class="jd-descrdiv">Create a notification inside iON.</div>
   
   </td></tr>
 
@@ -605,8 +572,10 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#setDomain(java.lang.String)">setDomain</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#deleteApplication(java.lang.String)">deleteApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
         
+        <div class="jd-descrdiv">Delete an application.</div>
+  
   </td></tr>
 
 
@@ -621,8 +590,46 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#setMaxWaitTime(java.lang.Long)">setMaxWaitTime</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a> maxWaitTime)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#deployApplication(java.io.File, java.lang.String, java.lang.String, int, java.util.Map<java.lang.String, java.lang.String>)">deployApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/io/File.html">File</a> file, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> muleVersion, int workerCount, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>&gt; environmentVariables)</nobr>
         
+        <div class="jd-descrdiv">Deploy specified application.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Application</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#getApplication(java.lang.String)">getApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
+        
+        <div class="jd-descrdiv">Get an application.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;Application&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#listApplications()">listApplications</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">List applications.</div>
+  
   </td></tr>
 
 
@@ -637,7 +644,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#setMuleVersion(java.lang.String)">setMuleVersion</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> muleVersion)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#setMaxWaitTime(java.lang.Long)">setMaxWaitTime</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a> maxWaitTime)</nobr>
         
   </td></tr>
 
@@ -701,8 +708,10 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#setWorkers(java.lang.Integer)">setWorkers</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> workers)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#startApplication(java.lang.String)">startApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
         
+        <div class="jd-descrdiv">Start an application.</div>
+  
   </td></tr>
 
 
@@ -717,9 +726,27 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#undeploy()">undeploy</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#stopApplication(java.lang.String)">stopApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
         
-        <div class="jd-descrdiv">Undeploy currently deployed application.</div>
+        <div class="jd-descrdiv">Stop an application.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#updateApplication(com.mulesoft.ion.client.Application)">updateApplication</a></span>(Application application)</nobr>
+        
+        <div class="jd-descrdiv">Update an application.</div>
   
   </td></tr>
 
@@ -972,37 +999,6 @@ From class
 
 
 
-<A NAME="domain"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>
-      </span>
-        domain
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>iON domain.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
 <A NAME="maxWaitTime"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1026,37 +1022,6 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Maximum time allowed to deplpoy/undeploy.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
-<A NAME="muleVersion"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>
-      </span>
-        muleVersion
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Mule version used.
 </p></div>
 
     
@@ -1158,37 +1123,6 @@ From class
 
 
 
-<A NAME="workers"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        private 
-         
-         
-        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a>
-      </span>
-        workers
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Number of workers allocated.
-</p></div>
-
-    
-    </div>
-</div>
-
-
-
 
 <!-- Public ctors -->
 
@@ -1244,7 +1178,7 @@ From class
 
 
 
-<A NAME="deploy(java.io.File)"></A>
+<A NAME="createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1256,8 +1190,102 @@ From class
          
         void
       </span>
-      <span class="sympad">deploy</span>
-      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/io/File.html">File</a> file)</span>
+      <span class="sympad">createNotification</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a notification inside iON.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>message</td>
+          <td>The contents of the notification.</td>
+        </tr>
+        <tr>
+          <th>priority</td>
+          <td>The notification priority.</td>
+        </tr>
+        <tr>
+          <th>domain</td>
+          <td>The application domain.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteApplication(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteApplication</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Delete an application.
+
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The application domain.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deployApplication(java.io.File, java.lang.String, java.lang.String, int, java.util.Map<java.lang.String, java.lang.String>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deployApplication</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/io/File.html">File</a> file, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> muleVersion, int workerCount, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>&gt; environmentVariables)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1277,7 +1305,23 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>file</td>
-          <td>Mule application to deploy
+          <td>Mule application to deploy</td>
+        </tr>
+        <tr>
+          <th>domain</td>
+          <td>The application domain.</td>
+        </tr>
+        <tr>
+          <th>muleVersion</td>
+          <td>The version of Mule, e.g. 3.2.2.</td>
+        </tr>
+        <tr>
+          <th>workerCount</td>
+          <td>The number of workers to deploy.</td>
+        </tr>
+        <tr>
+          <th>environmentVariables</td>
+          <td>Environment variables for you application.
 </td>
         </tr>
       </table>
@@ -1287,7 +1331,7 @@ From class
 </div>
 
 
-<A NAME="setDomain(java.lang.String)"></A>
+<A NAME="getApplication(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1297,9 +1341,9 @@ From class
          
          
          
-        void
+        Application
       </span>
-      <span class="sympad">setDomain</span>
+      <span class="sympad">getApplication</span>
       <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</span>
     </h4>
       <div class="api-level">
@@ -1312,15 +1356,60 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Get an application.
+
+ </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>domain</td>
-          <td></td>
+          <td>The application domain.</td>
         </tr>
       </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>An application.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listApplications()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;Application&gt;
+      </span>
+      <span class="sympad">listApplications</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>List applications.
+
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A list of applications.
+</li></ul>
   </div>
 
     </div>
@@ -1358,46 +1447,6 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>maxWaitTime</td>
-          <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="setMuleVersion(java.lang.String)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setMuleVersion</span>
-      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> muleVersion)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>muleVersion</td>
           <td></td>
         </tr>
       </table>
@@ -1527,7 +1576,7 @@ From class
 </div>
 
 
-<A NAME="setWorkers(java.lang.Integer)"></A>
+<A NAME="startApplication(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1539,8 +1588,8 @@ From class
          
         void
       </span>
-      <span class="sympad">setWorkers</span>
-      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> workers)</span>
+      <span class="sympad">startApplication</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1552,13 +1601,16 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Start an application.
+
+ </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
-          <th>workers</td>
-          <td></td>
+          <th>domain</td>
+          <td>The application domain.
+</td>
         </tr>
       </table>
   </div>
@@ -1567,7 +1619,7 @@ From class
 </div>
 
 
-<A NAME="undeploy()"></A>
+<A NAME="stopApplication(java.lang.String)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1579,8 +1631,8 @@ From class
          
         void
       </span>
-      <span class="sympad">undeploy</span>
-      <span class="normal">()</span>
+      <span class="sympad">stopApplication</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1592,10 +1644,62 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Undeploy currently deployed application.
+  <div class="jd-tagdata jd-tagdescr"><p>Stop an application.
 
- 
-</p></div>
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The application domain.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="updateApplication(com.mulesoft.ion.client.Application)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">updateApplication</span>
+      <span class="normal">(Application application)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Update an application.
+
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>application</td>
+          <td>The application to update.
+</td>
+        </tr>
+      </table>
+  </div>
 
     </div>
 </div>
