@@ -37,9 +37,15 @@ public class IONConnectorTest extends FunctionalTestCase
     }
 
     @Test
-    public void testFlow() throws Exception
+    public void testStart() throws Exception
     {
-        runFlowAndExpect("testFlow", NullPayload.getInstance());
+        runFlowAndExpect("start", NullPayload.getInstance());
+    }
+
+    @Test
+    public void testStop() throws Exception
+    {
+        runFlowAndExpect("stop", NullPayload.getInstance());
     }
 
     @Test

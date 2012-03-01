@@ -29,8 +29,12 @@
 
     <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com"/>
 
-    <flow name="testUndeploy">
-        <ion:undeploy domain="helloworld"/>
+    <flow name="start">
+        <ion:start-application domain="${test.domain}"/>
+    </flow>
+    
+    <flow name="stop">
+        <ion:stop-application domain="${test.domain}"/>
     </flow>
 
     <flow name="createGlobalNotification">

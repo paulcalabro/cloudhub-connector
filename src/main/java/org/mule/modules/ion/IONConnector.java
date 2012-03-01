@@ -65,7 +65,7 @@ public class IONConnector {
      */
     @Configurable
     @Optional
-    @Default(value="120000")
+    @Default(value="0")
     private Long maxWaitTime;
 
     public void setUrl(final String url) {
@@ -87,7 +87,7 @@ public class IONConnector {
     /**
      * Deploy specified application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy}
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy-application}
      *
      * @param file mule application to deploy
      * @param domain The application domain.
@@ -96,7 +96,7 @@ public class IONConnector {
      * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void deploy(final File file, 
+    public void deployApplication(final File file, 
                        String domain,
                        @Optional @Default("3.2.2") String muleVersion, 
                        @Optional @Default("1") int workerCount, 
@@ -106,15 +106,39 @@ public class IONConnector {
     }
 
     /**
-     * Undeploy currently deployed application.
+     * Start an application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:undeploy}
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:start-application}
      * @param domain The application domain.
      */
     @Processor
-    public void undeploy(String domain) {
+    public void startApplication(String domain) {
         final DomainConnection domainConnection = getConnection().on(domain);
-        domainConnection.undeploy(this.maxWaitTime);
+        domainConnection.start(this.maxWaitTime);
+    }
+
+    /**
+     * Stop an application.
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:stop-application}
+     * @param domain The application domain.
+     */
+    @Processor
+    public void stopApplication(String domain) {
+        final DomainConnection domainConnection = getConnection().on(domain);
+        domainConnection.stop();
+    }
+
+    /**
+     * Delete an application.
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:delete-application}
+     * @param domain The application domain.
+     */
+    @Processor
+    public void deleteApplication(String domain) {
+        final DomainConnection domainConnection = getConnection().on(domain);
+        domainConnection.delete();
     }
 
     /**
