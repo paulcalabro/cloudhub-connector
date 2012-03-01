@@ -26,6 +26,7 @@ import org.mule.construct.Flow;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.tck.AbstractMuleTestCase;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.transport.NullPayload;
 
@@ -33,6 +34,7 @@ import com.mulesoft.ion.client.Application;
 
 import java.util.List;
 
+@Ignore
 public class IONConnectorTest extends FunctionalTestCase
 {
     @Override
