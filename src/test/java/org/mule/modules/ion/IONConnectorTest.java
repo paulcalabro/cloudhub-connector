@@ -42,6 +42,12 @@ public class IONConnectorTest extends FunctionalTestCase
         runFlowAndExpect("testFlow", NullPayload.getInstance());
     }
 
+    @Test
+    public void testCreateGlobalNotification() throws Exception
+    {
+        runFlowAndExpect("createGlobalNotification", NullPayload.getInstance());
+    }
+
     /**
     * Run the flow specified by name and assert equality on the expected output
     *

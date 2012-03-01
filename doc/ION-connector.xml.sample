@@ -4,3 +4,6 @@
 <!-- BEGIN_INCLUDE(ion:undeploy) -->
     <ion:undeploy />
 <!-- END_INCLUDE(ion:undeploy) -->
+<!-- BEGIN_INCLUDE(ion:create-notification) -->
+    <ion:create-notification />
+<!-- END_INCLUDE(ion:create-notification) -->

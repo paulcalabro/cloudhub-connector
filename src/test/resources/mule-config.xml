@@ -27,10 +27,14 @@
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/ion http://www.mulesoft.org/schema/mule/ion/1.0/mule-ion.xsd">
 
-    <ion:config domain="Some string" username="xxx" password="yyy" />
+    <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com"/>
 
-    <flow name="testFlow">
-        <ion:undeploy />
+    <flow name="testUndeploy">
+        <ion:undeploy domain="helloworld"/>
+    </flow>
+
+    <flow name="createGlobalNotification">
+        <ion:create-notification message="Hello World" priority="INFO"/>
     </flow>
 
 </mule>

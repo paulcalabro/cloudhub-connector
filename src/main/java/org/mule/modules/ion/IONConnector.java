@@ -17,16 +17,18 @@
 
 package org.mule.modules.ion;
 
-import com.github.jeluard.ion.Connection;
-import com.github.jeluard.ion.DomainConnection;
-
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
+import com.mulesoft.ion.client.Connection;
+import com.mulesoft.ion.client.DomainConnection;
+import com.mulesoft.ion.client.Notification.Priority;
+
 import java.io.File;
+import java.util.Map;
 
 /**
  * iON Cloud Connector
@@ -48,35 +50,15 @@ public class IONConnector {
      * iON username.
      */
     @Configurable
+    @Optional
     private String username;
 
     /**
      * iON password.
      */
     @Configurable
+    @Optional
     private String password;
-
-    /**
-     * iON domain.
-     */
-    @Configurable
-    private String domain;
-
-    /**
-     * Mule version used.
-     */
-    @Configurable
-    @Optional
-    @Default(value="3.2.1")
-    private String muleVersion;
-
-    /**
-     * Number of workers allocated.
-     */
-    @Configurable
-    @Optional
-    @Default(value="1")
-    private Integer workers;
 
     /**
      * Maximum time allowed to deplpoy/undeploy.
@@ -98,18 +80,6 @@ public class IONConnector {
         this.password = password;
     }
 
-    public void setDomain(final String domain) {
-        this.domain = domain;
-    }
-
-    public void setMuleVersion(final String muleVersion) {
-        this.muleVersion = muleVersion;
-    }
-
-    public void setWorkers(final Integer workers) {
-        this.workers = workers;
-    }
-
     public void setMaxWaitTime(final Long maxWaitTime) {
         this.maxWaitTime = maxWaitTime;
     }
@@ -120,22 +90,49 @@ public class IONConnector {
      * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy}
      *
      * @param file mule application to deploy
+     * @param domain The application domain.
+     * @param muleVersion The version of Mule, e.g. 3.2.2.
+     * @param workerCount The number of workers to deploy.
+     * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void deploy(final File file) {
-        final DomainConnection domainConnection = new Connection(this.url, this.username, this.password).on(this.domain);
-        domainConnection.deploy(file, this.muleVersion, this.workers, this.maxWaitTime);
+    public void deploy(final File file, 
+                       String domain,
+                       @Optional @Default("3.2.2") String muleVersion, 
+                       @Optional @Default("1") int workerCount, 
+                       @Optional Map<String,String> environmentVariables) {
+        final DomainConnection domainConnection = getConnection().on(domain);
+        domainConnection.deploy(file, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
     }
 
     /**
      * Undeploy currently deployed application.
      *
      * {@sample.xml ../../../doc/ION-connector.xml.sample ion:undeploy}
+     * @param domain The application domain.
      */
     @Processor
-    public void undeploy() {
-        final DomainConnection domainConnection = new Connection(this.url, this.username, this.password).on(this.domain);
+    public void undeploy(String domain) {
+        final DomainConnection domainConnection = getConnection().on(domain);
         domainConnection.undeploy(this.maxWaitTime);
     }
 
+    /**
+     * Create a notification inside iON.
+     * 
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:create-notification}
+     * @param message the contents of the notification.
+     * @param priority The notification priority.
+     * @param domain The application domain.
+     */
+    @Processor
+    public void createNotification(String message, Priority priority, @Optional String domain) {
+        Connection connection = getConnection();
+        // TODO: append exception
+        connection.createNotification(message, priority, domain);
+    }
+
+    private Connection getConnection() {
+        return new Connection(this.url, this.username, this.password);
+    }
 }

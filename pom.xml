@@ -166,6 +166,11 @@
             <version>${mule.devkit.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.mulesoft.ion</groupId>
+            <artifactId>ion-client-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse</groupId>
             <artifactId>eclipse-workbench</artifactId>
             <version>3.6.1.M20100826-1330</version>
@@ -181,12 +186,6 @@
             <groupId>org.osgi</groupId>
             <artifactId>core</artifactId>
             <version>4.3.0</version>
-            <scope>provided</scope>
-        </dependency>
-         <dependency>
-            <groupId>com.github.jeluard.ion</groupId>
-            <artifactId>api</artifactId>
-            <version>0.10</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
