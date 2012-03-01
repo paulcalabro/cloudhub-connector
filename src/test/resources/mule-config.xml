@@ -29,6 +29,14 @@
 
     <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com"/>
 
+    <flow name="listApplications">
+        <ion:list-applications/>
+    </flow>
+    
+    <flow name="getApplication">
+        <ion:get-application domain="${test.domain}"/>
+    </flow>
+    
     <flow name="start">
         <ion:start-application domain="${test.domain}"/>
     </flow>

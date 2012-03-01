@@ -10,6 +10,15 @@
 <!-- BEGIN_INCLUDE(ion:delete-application) -->
     <ion:delete-application />
 <!-- END_INCLUDE(ion:delete-application) -->
+<!-- BEGIN_INCLUDE(ion:get-application) -->
+    <ion:get-application />
+<!-- END_INCLUDE(ion:get-application) -->
+<!-- BEGIN_INCLUDE(ion:update-application) -->
+    <ion:update-application />
+<!-- END_INCLUDE(ion:update-application) -->
+<!-- BEGIN_INCLUDE(ion:list-applications) -->
+    <ion:list-applications />
+<!-- END_INCLUDE(ion:list-applications) -->
 <!-- BEGIN_INCLUDE(ion:create-notification) -->
     <ion:create-notification />
 <!-- END_INCLUDE(ion:create-notification) -->

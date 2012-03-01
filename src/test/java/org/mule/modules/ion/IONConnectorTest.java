@@ -21,12 +21,17 @@
 package org.mule.modules.ion;
 
 import org.mule.api.MuleEvent;
+import org.mule.api.MuleException;
 import org.mule.construct.Flow;
 import org.mule.tck.FunctionalTestCase;
 import org.mule.tck.AbstractMuleTestCase;
 
 import org.junit.Test;
 import org.mule.transport.NullPayload;
+
+import com.mulesoft.ion.client.Application;
+
+import java.util.List;
 
 public class IONConnectorTest extends FunctionalTestCase
 {
@@ -40,6 +45,24 @@ public class IONConnectorTest extends FunctionalTestCase
     public void testStart() throws Exception
     {
         runFlowAndExpect("start", NullPayload.getInstance());
+    }
+
+    @Test
+    public void testGetListApplications() throws Exception
+    {
+        MuleEvent event = runFlow("listApplications");
+        
+        Object payload = event.getMessage().getPayload();
+        assertTrue(payload instanceof List);
+    }
+
+    @Test
+    public void testGetApplication() throws Exception
+    {
+        MuleEvent event = runFlow("getApplication");
+
+        Object payload = event.getMessage().getPayload();
+        assertTrue(payload instanceof Application);
     }
 
     @Test
@@ -62,11 +85,16 @@ public class IONConnectorTest extends FunctionalTestCase
     */
     protected <T> void runFlowAndExpect(String flowName, T expect) throws Exception
     {
+        MuleEvent responseEvent = runFlow(flowName);
+
+        assertEquals(expect, responseEvent.getMessage().getPayload());
+    }
+
+    private MuleEvent runFlow(String flowName) throws Exception, MuleException {
         Flow flow = lookupFlowConstruct(flowName);
         MuleEvent event = AbstractMuleTestCase.getTestEvent(null);
         MuleEvent responseEvent = flow.process(event);
-
-        assertEquals(expect, responseEvent.getMessage().getPayload());
+        return responseEvent;
     }
 
     /**

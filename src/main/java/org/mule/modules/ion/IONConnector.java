@@ -23,11 +23,13 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
+import com.mulesoft.ion.client.Application;
 import com.mulesoft.ion.client.Connection;
 import com.mulesoft.ion.client.DomainConnection;
 import com.mulesoft.ion.client.Notification.Priority;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -105,6 +107,41 @@ public class IONConnector {
         domainConnection.deploy(file, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
     }
 
+    /**
+     * List applications.
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:list-applications}
+     * @return A list of applications.
+     */
+    @Processor
+    public List<Application> listApplications() {
+        return getConnection().list();
+    }
+
+    /**
+     * Get an application.
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:get-application}
+     * @param domain The application domain.
+     * @return An application.
+     */
+    @Processor
+    public Application getApplication(String domain) {
+        return getConnection().on(domain).get();
+    }
+
+    /**
+     * Update an application.
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:update-application}
+     * @param application The application to update.
+     */
+    @Processor
+    public void updateApplication(Application application) {
+        getConnection().on(application.getDomain()).update(application);
+    }
+    
+    
     /**
      * Start an application.
      *
