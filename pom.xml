@@ -261,4 +261,12 @@
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/ion-connector.git</connection>
+        <developerConnection>
+            scm:git:git@github.com:mulesoft/ion-connector.git
+        </developerConnection>
+        <url>http://github.com/mulesoft/ion-connector</url>
+    </scm>
 </project>
