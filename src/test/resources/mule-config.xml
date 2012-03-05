@@ -22,9 +22,11 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
       xmlns:ion="http://www.mulesoft.org/schema/mule/ion"
+      xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
         http://www.mulesoft.org/schema/mule/ion http://www.mulesoft.org/schema/mule/ion/1.0/mule-ion.xsd">
 
     <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com"/>
@@ -45,8 +47,19 @@
         <ion:stop-application domain="${test.domain}"/>
     </flow>
 
-    <flow name="createGlobalNotification">
+    <flow name="createNotification">
         <ion:create-notification message="Hello World" priority="INFO"/>
+    </flow>
+
+    <flow name="createNotificationFromException">
+        <scripting:component>
+            <scripting:script engine="groovy">
+                throw new Exception("bad news bears")
+            </scripting:script>
+        </scripting:component>
+        <default-exception-strategy>
+            <ion:create-notification message="Received an error." priority="ERROR"/>
+        </default-exception-strategy>
     </flow>
 
 </mule>

@@ -22,6 +22,8 @@ import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.Payload;
+import org.mule.message.ExceptionMessage;
 
 import com.mulesoft.ion.client.Application;
 import com.mulesoft.ion.client.Connection;
@@ -29,6 +31,9 @@ import com.mulesoft.ion.client.DomainConnection;
 import com.mulesoft.ion.client.Notification.Priority;
 
 import java.io.File;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -185,14 +190,35 @@ public class IONConnector {
      * @param message the contents of the notification.
      * @param priority The notification priority.
      * @param domain The application domain.
+     * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
+     * @param includeStacktrace If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
      */
     @Processor
-    public void createNotification(String message, Priority priority, @Optional String domain) {
+    public void createNotification(String message, 
+                                   Priority priority, 
+                                   @Optional String domain,
+                                   @Payload Object payload,
+                                   @Optional @Default("true") boolean includeStacktrace) {
         Connection connection = getConnection();
-        // TODO: append exception
+
+        if (includeStacktrace) {
+            if (payload instanceof ExceptionMessage) {
+                Throwable t = ((ExceptionMessage) payload).getException();
+                
+                message += "\n" + getStackTrace(t);
+            }
+        }
+        
         connection.createNotification(message, priority, domain);
     }
 
+    public static String getStackTrace(Throwable aThrowable) {
+      final Writer result = new StringWriter();
+      final PrintWriter printWriter = new PrintWriter(result);
+      aThrowable.printStackTrace(printWriter);
+      return result.toString();
+    }
+    
     private Connection getConnection() {
         return new Connection(this.url, this.username, this.password);
     }

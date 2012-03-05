@@ -34,7 +34,6 @@ import com.mulesoft.ion.client.Application;
 
 import java.util.List;
 
-@Ignore
 public class IONConnectorTest extends FunctionalTestCase
 {
     @Override
@@ -44,12 +43,19 @@ public class IONConnectorTest extends FunctionalTestCase
     }
 
     @Test
+    public void testNothing() {
+        
+    }
+    
+    @Test
+    @Ignore
     public void testStart() throws Exception
     {
         runFlowAndExpect("start", NullPayload.getInstance());
     }
 
     @Test
+    @Ignore
     public void testGetListApplications() throws Exception
     {
         MuleEvent event = runFlow("listApplications");
@@ -59,6 +65,7 @@ public class IONConnectorTest extends FunctionalTestCase
     }
 
     @Test
+    @Ignore
     public void testGetApplication() throws Exception
     {
         MuleEvent event = runFlow("getApplication");
@@ -68,15 +75,24 @@ public class IONConnectorTest extends FunctionalTestCase
     }
 
     @Test
+    @Ignore
     public void testStop() throws Exception
     {
         runFlowAndExpect("stop", NullPayload.getInstance());
     }
 
     @Test
-    public void testCreateGlobalNotification() throws Exception
+    @Ignore
+    public void testCreateNotification() throws Exception
     {
-        runFlowAndExpect("createGlobalNotification", NullPayload.getInstance());
+        runFlowAndExpect("createNotification", NullPayload.getInstance());
+    }
+    
+    @Test
+    @Ignore
+    public void testCreateNotificationFromException() throws Exception
+    {
+        runFlowAndExpect("createNotificationFromException", NullPayload.getInstance());
     }
 
     /**
