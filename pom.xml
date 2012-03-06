@@ -150,25 +150,33 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-spring-config</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-scripting</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.mule</groupId>
             <artifactId>mule-core</artifactId>
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-spring-config</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mule.modules</groupId>
-            <artifactId>mule-module-scripting</artifactId>
-            <version>${mule.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.mule.tools.devkit</groupId>
             <artifactId>mule-devkit-annotations</artifactId>
             <version>${mule.devkit.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mule-module-annotations</artifactId>
+                    <groupId>org.mule.modules</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.mulesoft.ion</groupId>
