@@ -38,8 +38,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * iON Cloud Connector
- *
+ * Provides the ability to interact with Mule iON from within a Mule application. There are operations to deploy, start,
+ * stop, and update applications as well as send notifications from your application to iON.
+ * <p>
+ * When running this connector in an application inside iON, it will use token based authentication
+ * to access the API. This will allow access and usage of the iON APIs without the need
+ * to specify your username and password.
+ * <p>
+ * 
+ * 
  * @author MuleSoft, Inc.
  */
 @Module(name="ion", schemaVersion="1.0")
@@ -213,10 +220,10 @@ public class IONConnector {
     }
 
     public static String getStackTrace(Throwable aThrowable) {
-      final Writer result = new StringWriter();
-      final PrintWriter printWriter = new PrintWriter(result);
-      aThrowable.printStackTrace(printWriter);
-      return result.toString();
+        final Writer result = new StringWriter();
+        final PrintWriter printWriter = new PrintWriter(result);
+        aThrowable.printStackTrace(printWriter);
+        return result.toString();
     }
     
     private Connection getConnection() {
