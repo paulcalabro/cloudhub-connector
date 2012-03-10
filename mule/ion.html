@@ -225,7 +225,13 @@ Summary:
 
 
 <h2>Module Overview</h2>
-<p>iON Cloud Connector</p>
+<p>Provides the ability to interact with Mule iON from within a Mule application. There are operations to deploy, start,
+ stop, and update applications as well as send notifications from your application to iON.
+ <p>
+ When running this connector in an application inside iON, it will use token based authentication
+ to access the API. This will allow access and usage of the iON APIs without the need
+ to specify your username and password.
+ <p></p>
 
 
 </div><!-- jd-descr -->
@@ -461,7 +467,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Create a notification inside iON.
  
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:create-notification /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:create-notification domain="yourapp" message="Hello World" priority="INFO"/&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -495,7 +501,25 @@ specify which configuration to use.</p>
                 <tr class=" api apilevel-" >
                     <td class="jd-linkcol"><nobr>domain</nobr></td>
                     <td class="jd-descrcol"></td>
-                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The application domain.
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>The application domain.</td>
+                </tr>
+                
+                
+          
+                
+                <tr class="alt-color api apilevel-" >
+                    <td class="jd-linkcol"><nobr>payload</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%">The payload of the message. If it's an exception, it'll get appended to the message.</td>
+                </tr>
+                
+                
+          
+                
+                <tr class=" api apilevel-" >
+                    <td class="jd-linkcol"><nobr>includeStacktrace</nobr></td>
+                    <td class="jd-descrcol"></td>
+                    <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
 </td>
                 </tr>
                 
@@ -509,6 +533,10 @@ specify which configuration to use.</p>
       <h5 class="jd-tagtitle">Child Elements</h5>
         <table id="lconfig" class="jd-sumtable">
           
+          
+            
+          
+            
           
             
           
@@ -541,7 +569,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Delete an application.
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:delete-application /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:delete-application domain="yourapp" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -697,7 +725,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Get an application.
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:get-application /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:get-application domain="yourapp" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -810,7 +838,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Start an application.
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:start-application /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:start-application domain="yourapp" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -868,7 +896,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Stop an application.
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:stop-application /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:stop-application domain="yourapp" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 
@@ -926,7 +954,7 @@ specify which configuration to use.</p>
       
   <div class="jd-tagdata jd-tagdescr"><p>Update an application.
 
- <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:update-application /&gt;</pre></div></p></div>
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;ion:update-application application="#[payload]" /&gt;</pre></div></p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Attributes</h5>
 

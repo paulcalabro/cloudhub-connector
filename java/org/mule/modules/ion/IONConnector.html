@@ -406,7 +406,13 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>iON Cloud Connector</p>
+<p>Provides the ability to interact with Mule iON from within a Mule application. There are operations to deploy, start,
+ stop, and update applications as well as send notifications from your application to iON.
+ <p>
+ When running this connector in an application inside iON, it will use token based authentication
+ to access the API. This will allow access and usage of the iON APIs without the need
+ to specify your username and password.
+ <p></p>
 
 
 
@@ -554,7 +560,7 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object, boolean)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</nobr>
         
         <div class="jd-descrdiv">Create a notification inside iON.</div>
   
@@ -621,6 +627,22 @@ Summary:
             
             
             
+            static
+            
+            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#getStackTrace(java.lang.Throwable)">getStackTrace</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Throwable.html">Throwable</a> aThrowable)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
             
             
             <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;Application&gt;</nobr>
@@ -634,7 +656,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -650,7 +672,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -666,7 +688,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -682,7 +704,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -698,7 +720,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -716,7 +738,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -734,7 +756,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1178,7 +1200,7 @@ From class
 
 
 
-<A NAME="createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String)"></A>
+<A NAME="createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object, boolean)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1191,7 +1213,7 @@ From class
         void
       </span>
       <span class="sympad">createNotification</span>
-      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1219,7 +1241,15 @@ From class
         </tr>
         <tr>
           <th>domain</td>
-          <td>The application domain.
+          <td>The application domain.</td>
+        </tr>
+        <tr>
+          <th>payload</td>
+          <td>The payload of the message. If it's an exception, it'll get appended to the message.</td>
+        </tr>
+        <tr>
+          <th>includeStacktrace</td>
+          <td>If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
 </td>
         </tr>
       </table>
@@ -1372,6 +1402,46 @@ From class
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>An application.
 </li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getStackTrace(java.lang.Throwable)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>
+      </span>
+      <span class="sympad">getStackTrace</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Throwable.html">Throwable</a> aThrowable)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>aThrowable</td>
+          <td></td>
+        </tr>
+      </table>
   </div>
 
     </div>
