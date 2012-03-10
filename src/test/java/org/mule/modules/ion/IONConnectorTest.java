@@ -23,8 +23,8 @@ package org.mule.modules.ion;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.construct.Flow;
-import org.mule.tck.FunctionalTestCase;
-import org.mule.tck.AbstractMuleTestCase;
+import org.mule.tck.junit4.FunctionalTestCase;
+import org.mule.tck.junit4.AbstractMuleContextTestCase;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,17 +34,14 @@ import com.mulesoft.ion.client.Application;
 
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class IONConnectorTest extends FunctionalTestCase
 {
     @Override
     protected String getConfigResources()
     {
         return "mule-config.xml";
-    }
-
-    @Test
-    public void testNothing() {
-        
     }
     
     @Test
@@ -82,7 +79,6 @@ public class IONConnectorTest extends FunctionalTestCase
     }
 
     @Test
-    @Ignore
     public void testCreateNotification() throws Exception
     {
         runFlowAndExpect("createNotification", NullPayload.getInstance());
@@ -110,7 +106,7 @@ public class IONConnectorTest extends FunctionalTestCase
 
     private MuleEvent runFlow(String flowName) throws Exception, MuleException {
         Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = AbstractMuleTestCase.getTestEvent(null);
+        MuleEvent event = AbstractMuleContextTestCase.getTestEvent(null);
         MuleEvent responseEvent = flow.process(event);
         return responseEvent;
     }
@@ -126,7 +122,7 @@ public class IONConnectorTest extends FunctionalTestCase
     protected <T, U> void runFlowWithPayloadAndExpect(String flowName, T expect, U payload) throws Exception
     {
         Flow flow = lookupFlowConstruct(flowName);
-        MuleEvent event = AbstractMuleTestCase.getTestEvent(payload);
+        MuleEvent event = AbstractMuleContextTestCase.getTestEvent(payload);
         MuleEvent responseEvent = flow.process(event);
 
         assertEquals(expect, responseEvent.getMessage().getPayload());
@@ -139,6 +135,6 @@ public class IONConnectorTest extends FunctionalTestCase
      */
     protected Flow lookupFlowConstruct(String name)
     {
-        return (Flow) AbstractMuleTestCase.muleContext.getRegistry().lookupFlowConstruct(name);
+        return (Flow) muleContext.getRegistry().lookupFlowConstruct(name);
     }
 }
