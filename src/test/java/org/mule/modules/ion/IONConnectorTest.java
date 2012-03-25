@@ -20,21 +20,23 @@
  */
 package org.mule.modules.ion;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.construct.Flow;
-import org.mule.tck.junit4.FunctionalTestCase;
 import org.mule.tck.junit4.AbstractMuleContextTestCase;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.mule.tck.junit4.FunctionalTestCase;
 import org.mule.transport.NullPayload;
 
 import com.mulesoft.ion.client.Application;
+import com.mulesoft.ion.client.NotificationResults;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class IONConnectorTest extends FunctionalTestCase
 {
@@ -52,7 +54,6 @@ public class IONConnectorTest extends FunctionalTestCase
     }
 
     @Test
-    @Ignore
     public void testGetListApplications() throws Exception
     {
         MuleEvent event = runFlow("listApplications");
@@ -83,9 +84,28 @@ public class IONConnectorTest extends FunctionalTestCase
     {
         runFlowAndExpect("createNotification", NullPayload.getInstance());
     }
+
+    @Test
+    public void testDismissAllNotifications() throws Exception
+    {
+        MuleEvent event = runFlow("dismissAllNotifications");
+
+        Object payload = event.getMessage().getPayload();
+        assertTrue(payload instanceof NotificationResults);
+        assertEquals(0, ((NotificationResults)payload).getTotal());
+    }
+
+    @Test
+    public void testDismissNotification() throws Exception
+    {
+        MuleEvent event = runFlow("dismissNotification");
+
+        Object payload = event.getMessage().getPayload();
+        assertTrue(payload instanceof NotificationResults);
+        assertEquals(0, ((NotificationResults)payload).getTotal());
+    }
     
     @Test
-    @Ignore
     public void testCreateNotificationFromException() throws Exception
     {
         runFlowAndExpect("createNotificationFromException", NullPayload.getInstance());

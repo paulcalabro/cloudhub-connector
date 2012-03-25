@@ -29,7 +29,7 @@
         http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
         http://www.mulesoft.org/schema/mule/ion http://www.mulesoft.org/schema/mule/ion/1.0/mule-ion.xsd">
 
-    <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com"/>
+    <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com" />
 
     <flow name="listApplications">
         <ion:list-applications/>
@@ -51,6 +51,19 @@
         <ion:create-notification message="Hello World" priority="INFO"/>
     </flow>
 
+    <flow name="dismissAllNotifications">
+        <ion:create-notification message="Hello World" priority="INFO"/>
+        <ion:dismiss-all-notifications/>
+        <ion:list-notifications/>
+    </flow>
+    
+    <flow name="dismissNotification">
+        <ion:dismiss-all-notifications/>
+        <ion:create-notification message="Hello World" priority="INFO"/>
+        <ion:dismiss-notification href="#[groovy:payload.href]"/>
+        <ion:list-notifications/>
+    </flow>
+    
     <flow name="createNotificationFromException">
         <scripting:component>
             <scripting:script engine="groovy">

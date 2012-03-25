@@ -28,7 +28,9 @@ import org.mule.message.ExceptionMessage;
 import com.mulesoft.ion.client.Application;
 import com.mulesoft.ion.client.Connection;
 import com.mulesoft.ion.client.DomainConnection;
+import com.mulesoft.ion.client.Notification;
 import com.mulesoft.ion.client.Notification.Priority;
+import com.mulesoft.ion.client.NotificationResults;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -36,6 +38,9 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides the ability to interact with Mule iON from within a Mule application. There are operations to deploy, start,
@@ -51,7 +56,9 @@ import java.util.Map;
  */
 @Module(name="ion", schemaVersion="1.0")
 public class IONConnector {
-
+    
+    private Logger logger = LoggerFactory.getLogger(Connection.class);
+    
     /**
      * iON URL.
      */
@@ -82,6 +89,8 @@ public class IONConnector {
     @Default(value="0")
     private Long maxWaitTime;
 
+    private Connection connection;
+    
     public void setUrl(final String url) {
         this.url = url;
     }
@@ -127,7 +136,7 @@ public class IONConnector {
      */
     @Processor
     public List<Application> listApplications() {
-        return getConnection().list();
+        return getConnection().listApplications();
     }
 
     /**
@@ -191,6 +200,52 @@ public class IONConnector {
     }
 
     /**
+     * List a user's notifications.
+     * 
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:list-notifications}
+     * @param domain The domain to list notifications for.
+     * @param maxResults The maximum number of results to retrieve.
+     * @param offset The offset to start listing alerts from.
+     * @param includeDismissed whether or not to include dismissed messages.
+     * @return A List of notifications.
+     */
+    @Processor
+    public NotificationResults listNotifications(@Optional String domain,
+                                  @Optional Integer maxResults,
+                                  @Optional Integer offset,
+                                  @Optional Boolean includeDismissed) {
+        Connection connection = getConnection();
+
+        return connection.listNotifications(domain, maxResults, offset, includeDismissed);
+    }
+    
+    /**
+     * Dismiss an individual notification.
+     * 
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:dismiss-notification}
+     * @param href the href property of the Notification object.
+     */
+    @Processor
+    public void dismissNotification(String href) {
+        Connection connection = getConnection();
+
+        connection.dismissNotification(href);
+    }
+
+    /**
+     * Dismiss all notifications.
+     * 
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:dismiss-all-notifications}
+     * @param id the ID of the notification.
+     */
+    @Processor
+    public void dismissAllNotifications() {
+        Connection connection = getConnection();
+
+        connection.dismissAllNotifications();
+    }
+
+    /**
      * Create a notification inside iON.
      * 
      * {@sample.xml ../../../doc/ION-connector.xml.sample ion:create-notification}
@@ -198,15 +253,35 @@ public class IONConnector {
      * @param priority The notification priority.
      * @param domain The application domain.
      * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
+     * @return The notification that was created.
+     */
+    @Processor
+    public Notification createNotification(String message, 
+                                           Priority priority, 
+                                           @Optional String domain,
+                                           @Payload Object payload) {
+        Connection connection = getConnection();
+
+        return connection.createNotification(message, priority, domain);
+    }
+
+    /**
+     * Create a notification inside iON for your flow. If not running in an iON environment, this will log
+     * to the console.
+     * 
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:create-notification-from-flow}
+     * @param message the contents of the notification.
+     * @param priority The notification priority.
+     * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
      * @param includeStacktrace If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
      */
     @Processor
-    public void createNotification(String message, 
-                                   Priority priority, 
-                                   @Optional String domain,
-                                   @Payload Object payload,
-                                   @Optional @Default("true") boolean includeStacktrace) {
-        Connection connection = getConnection();
+    public void createNotificationFromFlow(String message, 
+                                           Priority priority,
+                                           @Payload Object payload,
+                                           @Optional @Default("true") boolean includeStacktrace) {
+        String domain = System.getProperty("domain");
+        String token = System.getProperty("ion.api.token");
 
         if (includeStacktrace) {
             if (payload instanceof ExceptionMessage) {
@@ -216,7 +291,15 @@ public class IONConnector {
             }
         }
         
-        connection.createNotification(message, priority, domain);
+        if (domain == null || token == null) {
+            // running locally
+            logger.info(message);
+        } else {
+            // running on iON
+            Connection connection = getConnection();
+    
+            connection.createNotification(message, priority, domain);
+        }
     }
 
     public static String getStackTrace(Throwable aThrowable) {
@@ -226,7 +309,17 @@ public class IONConnector {
         return result.toString();
     }
     
-    private Connection getConnection() {
-        return new Connection(this.url, this.username, this.password);
+    private synchronized Connection getConnection() {
+        if (connection == null) {
+            connection = createConnection();
+        }
+        return connection;
+    }
+
+    private synchronized Connection createConnection() { 
+        if (connection != null) {
+            return connection;
+        }
+        return new Connection(this.url, this.username, this.password, true);
     }
 }
