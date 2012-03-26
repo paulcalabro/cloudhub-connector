@@ -31,6 +31,7 @@ import org.mule.tck.junit4.FunctionalTestCase;
 import org.mule.transport.NullPayload;
 
 import com.mulesoft.ion.client.Application;
+import com.mulesoft.ion.client.Notification;
 import com.mulesoft.ion.client.NotificationResults;
 
 import java.util.List;
@@ -82,7 +83,11 @@ public class IONConnectorTest extends FunctionalTestCase
     @Test
     public void testCreateNotification() throws Exception
     {
-        runFlowAndExpect("createNotification", NullPayload.getInstance());
+        MuleEvent event = runFlow("createNotification");
+
+        Object payload = event.getMessage().getPayload();
+        assertTrue(payload instanceof Notification);
+        assertEquals("Hello World", ((Notification)payload).getMessage());
     }
 
     @Test
