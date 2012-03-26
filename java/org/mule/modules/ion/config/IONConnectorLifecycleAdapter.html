@@ -193,13 +193,17 @@
               
     <li><h2>Classes</h2>
       <ul>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/CreateNotificationFromFlowMessageProcessor.html">CreateNotificationFromFlowMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/CreateNotificationMessageProcessor.html">CreateNotificationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/DeleteApplicationMessageProcessor.html">DeleteApplicationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/DeployApplicationMessageProcessor.html">DeployApplicationMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/DismissAllNotificationsMessageProcessor.html">DismissAllNotificationsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/DismissNotificationMessageProcessor.html">DismissNotificationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/GetApplicationMessageProcessor.html">GetApplicationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/IONConnectorCapabilitiesAdapter.html">IONConnectorCapabilitiesAdapter</a></li>
           <li class="selected api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/IONConnectorLifecycleAdapter.html">IONConnectorLifecycleAdapter</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/ListApplicationsMessageProcessor.html">ListApplicationsMessageProcessor</a></li>
+          <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/ListNotificationsMessageProcessor.html">ListNotificationsMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/PriorityEnumTransformer.html">PriorityEnumTransformer</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/StartApplicationMessageProcessor.html">StartApplicationMessageProcessor</a></li>
           <li class="api apilevel-"><a href="../../../../../../java/org/mule/modules/ion/config/StopApplicationMessageProcessor.html">StopApplicationMessageProcessor</a></li>
@@ -677,6 +681,28 @@ org.mule.api.lifecycle.Stoppable
           private
           
           
+          Connection</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#connection">connection</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#logger">logger</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#maxWaitTime">maxWaitTime</a></td>
           <td class="jd-descrcol" width="100%">Maximum time allowed to deplpoy/undeploy.</td>
@@ -925,10 +951,10 @@ From class
             
             
             
-            void</nobr>
+            Notification</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object, boolean)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload)</nobr>
         
         <div class="jd-descrdiv">Create a notification inside iON.</div>
   
@@ -946,6 +972,24 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#createNotificationFromFlow(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.Object, boolean)">createNotificationFromFlow</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</nobr>
+        
+        <div class="jd-descrdiv">Create a notification inside iON for your flow.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#deleteApplication(java.lang.String)">deleteApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
         
         <div class="jd-descrdiv">Delete an application.</div>
@@ -954,7 +998,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -972,7 +1016,43 @@ From class
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#dismissAllNotifications()">dismissAllNotifications</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Dismiss all notifications.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#dismissNotification(java.lang.String)">dismissNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> href)</nobr>
+        
+        <div class="jd-descrdiv">Dismiss an individual notification.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -990,7 +1070,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1006,7 +1086,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1019,6 +1099,24 @@ From class
         <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#listApplications()">listApplications</a></span>()</nobr>
         
         <div class="jd-descrdiv">List applications.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            NotificationResults</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#listNotifications(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean)">listNotifications</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> maxResults, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> offset, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Boolean.html">Boolean</a> includeDismissed)</nobr>
+        
+        <div class="jd-descrdiv">List a user's notifications.</div>
   
   </td></tr>
 

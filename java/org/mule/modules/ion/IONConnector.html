@@ -467,6 +467,28 @@ Summary:
           private
           
           
+          Connection</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#connection">connection</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
+          Logger</nobr></td>
+          <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#logger">logger</a></td>
+          <td class="jd-descrcol" width="100%"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          private
+          
+          
           <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a></nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/ion/IONConnector.html#maxWaitTime">maxWaitTime</a></td>
           <td class="jd-descrcol" width="100%">Maximum time allowed to deplpoy/undeploy.</td>
@@ -557,10 +579,10 @@ Summary:
             
             
             
-            void</nobr>
+            Notification</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object, boolean)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload)</nobr>
         
         <div class="jd-descrdiv">Create a notification inside iON.</div>
   
@@ -578,6 +600,24 @@ Summary:
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#createNotificationFromFlow(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.Object, boolean)">createNotificationFromFlow</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</nobr>
+        
+        <div class="jd-descrdiv">Create a notification inside iON for your flow.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#deleteApplication(java.lang.String)">deleteApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
         
         <div class="jd-descrdiv">Delete an application.</div>
@@ -586,7 +626,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -604,7 +644,43 @@ Summary:
 
 
 	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#dismissAllNotifications()">dismissAllNotifications</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">Dismiss all notifications.</div>
+  
+  </td></tr>
+
+
+	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#dismissNotification(java.lang.String)">dismissNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> href)</nobr>
+        
+        <div class="jd-descrdiv">Dismiss an individual notification.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -622,7 +698,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -638,7 +714,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -651,6 +727,24 @@ Summary:
         <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#listApplications()">listApplications</a></span>()</nobr>
         
         <div class="jd-descrdiv">List applications.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            NotificationResults</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/ion/IONConnector.html#listNotifications(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean)">listNotifications</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> maxResults, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> offset, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Boolean.html">Boolean</a> includeDismissed)</nobr>
+        
+        <div class="jd-descrdiv">List a user's notifications.</div>
   
   </td></tr>
 
@@ -1021,6 +1115,66 @@ From class
 
 
 
+<A NAME="connection"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Connection
+      </span>
+        connection
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
+<A NAME="logger"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        private 
+         
+         
+        Logger
+      </span>
+        logger
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+    </div>
+</div>
+
+
+
 <A NAME="maxWaitTime"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1200,7 +1354,7 @@ From class
 
 
 
-<A NAME="createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object, boolean)"></A>
+<A NAME="createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1210,10 +1364,10 @@ From class
          
          
          
-        void
+        Notification
       </span>
       <span class="sympad">createNotification</span>
-      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1242,6 +1396,62 @@ From class
         <tr>
           <th>domain</td>
           <td>The application domain.</td>
+        </tr>
+        <tr>
+          <th>payload</td>
+          <td>The payload of the message. If it's an exception, it'll get appended to the message.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>The notification that was created.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createNotificationFromFlow(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.Object, boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">createNotificationFromFlow</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a notification inside iON for your flow. If not running in an iON environment, this will log
+ to the console.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>message</td>
+          <td>The contents of the notification.</td>
+        </tr>
+        <tr>
+          <th>priority</td>
+          <td>The notification priority.</td>
         </tr>
         <tr>
           <th>payload</td>
@@ -1352,6 +1562,82 @@ From class
         <tr>
           <th>environmentVariables</td>
           <td>Environment variables for you application.
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="dismissAllNotifications()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">dismissAllNotifications</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Dismiss all notifications.
+ 
+ </p></div>
+
+    </div>
+</div>
+
+
+<A NAME="dismissNotification(java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">dismissNotification</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> href)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Dismiss an individual notification.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>href</td>
+          <td>The href property of the Notification object.
 </td>
         </tr>
       </table>
@@ -1479,6 +1765,65 @@ From class
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>A list of applications.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listNotifications(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        NotificationResults
+      </span>
+      <span class="sympad">listNotifications</span>
+      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> maxResults, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> offset, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Boolean.html">Boolean</a> includeDismissed)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>List a user's notifications.
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The domain to list notifications for.</td>
+        </tr>
+        <tr>
+          <th>maxResults</td>
+          <td>The maximum number of results to retrieve.</td>
+        </tr>
+        <tr>
+          <th>offset</td>
+          <td>The offset to start listing alerts from.</td>
+        </tr>
+        <tr>
+          <th>includeDismissed</td>
+          <td>Whether or not to include dismissed messages.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A List of notifications.
 </li></ul>
   </div>
 
