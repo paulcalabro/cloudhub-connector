@@ -320,6 +320,6 @@ public class IONConnector {
         if (connection != null) {
             return connection;
         }
-        return new Connection(this.url, this.username, this.password, true);
+        return new Connection(this.url, this.username, this.password, false);
     }
 }
