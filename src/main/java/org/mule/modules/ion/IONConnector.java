@@ -1,18 +1,11 @@
 /**
- * Mule Development Kit
- * Copyright 2010-2011 (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ * Mule iON Connector
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
  */
 
 package org.mule.modules.ion;
@@ -20,6 +13,8 @@ package org.mule.modules.ion;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.display.Password;
+import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.Payload;
@@ -72,6 +67,7 @@ public class IONConnector {
      */
     @Configurable
     @Optional
+    @Placement(order=1, group="Credentials")
     private String username;
 
     /**
@@ -79,6 +75,8 @@ public class IONConnector {
      */
     @Configurable
     @Optional
+    @Password
+    @Placement(order=2, group="Credentials")
     private String password;
 
     /**
