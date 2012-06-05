@@ -13,6 +13,7 @@ package org.mule.modules.ion;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.Default;
@@ -67,7 +68,7 @@ public class IONConnector {
      */
     @Configurable
     @Optional
-    @Placement(order=1, group="Credentials")
+    @Placement(order=1, group="Credentials", tab="General")
     private String username;
 
     /**
@@ -76,7 +77,7 @@ public class IONConnector {
     @Configurable
     @Optional
     @Password
-    @Placement(order=2, group="Credentials")
+    @Placement(order=2, group="Credentials", tab="General")
     private String password;
 
     /**
@@ -85,6 +86,7 @@ public class IONConnector {
     @Configurable
     @Optional
     @Default(value="0")
+    @FriendlyName("Maximum time allowed to deplpoy/undeploy.")
     private Long maxWaitTime;
 
     private Connection connection;
