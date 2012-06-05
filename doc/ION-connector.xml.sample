@@ -1,7 +1,16 @@
 <!-- BEGIN_INCLUDE(ion:deploy-application) -->
-    <ion:deploy file="#[payload]" />
+    <ion:deploy-application file="#[payload]" />
 <!-- END_INCLUDE(ion:deploy-application) -->
-<!-- BEGIN_INCLUDE(ion:start-application) -->
+
+<!-- BEGIN_INCLUDE(ion:deploy-application) -->
+    <ion:deploy-application file="#[payload]" />
+<!-- END_INCLUDE(ion:deploy-application) -->
+
+<!-- BEGIN_INCLUDE(ion:deploy-application-from-input-stream) -->
+    <ion:deploy-application file="#[payload]" />
+<!-- END_INCLUDE(ion:deploy-application-from-input-stream) -->
+
+<!-- BEGIN_INCLUDE(ion:start-application-) -->
     <ion:start-application domain="yourapp" />
 <!-- END_INCLUDE(ion:start-application) -->
 <!-- BEGIN_INCLUDE(ion:stop-application) -->

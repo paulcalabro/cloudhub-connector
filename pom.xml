@@ -4,21 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-ion</artifactId>
-    <version>1.0-RC2</version>
+    <version>1.2-RC3</version>
     <packaging>mule-module</packaging>
     <name>Mule iON Connector</name>
 
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.4-SNAPSHOT</version>
+        <version>3.3.0-EA</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>com.mulesoft.ion</groupId>
             <artifactId>ion-client-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
