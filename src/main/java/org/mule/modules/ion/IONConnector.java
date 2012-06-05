@@ -22,6 +22,7 @@ import org.mule.api.annotations.param.Payload;
 import org.mule.message.ExceptionMessage;
 
 import com.mulesoft.ion.client.Application;
+import com.mulesoft.ion.client.ApplicationUpdateInfo;
 import com.mulesoft.ion.client.Connection;
 import com.mulesoft.ion.client.DomainConnection;
 import com.mulesoft.ion.client.Notification;
@@ -32,6 +33,11 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -112,7 +118,7 @@ public class IONConnector {
      *
      * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy-application}
      *
-     * @param file mule application to deploy
+     * @param file mule application to deploy, Input Object type: java.io.File
      * @param domain The application domain.
      * @param muleVersion The version of Mule, e.g. 3.2.2.
      * @param workerCount The number of workers to deploy.
@@ -128,6 +134,82 @@ public class IONConnector {
         domainConnection.deploy(file, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
     }
 
+    /**
+     * Deploy specified application.
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy-application-from-byte-array}
+     *
+     * @param file mule application to deploy, Input Object type: byte[]
+     * @param domain The application domain.
+     * @param muleVersion The version of Mule, e.g. 3.2.2.
+     * @param workerCount The number of workers to deploy.
+     * @param environmentVariables Environment variables for you application.
+     */
+    @Processor
+    public void deployApplicationFromByteArray(@Payload byte[] file, 
+                       String domain,
+                       @Optional @Default("3.2.2") String muleVersion, 
+                       @Optional @Default("1") int workerCount, 
+                       @Optional Map<String,String> environmentVariables) {
+        final DomainConnection domainConnection = getConnection().on(domain);
+        File applicationTempBinary = null;
+        try {
+            applicationTempBinary = File.createTempFile(domain, "zip");
+            FileOutputStream fos = new FileOutputStream(applicationTempBinary);
+            fos.write(file);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        domainConnection.deploy(applicationTempBinary, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
+    }
+
+    /**
+     * Deploy specified application. blablabla
+     *
+     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy-application-from-file-input-stream}
+     *
+     * @param file mule application to deploy, Input Object type: FileInputStream
+     * @param domain The application domain.
+     * @param muleVersion The version of Mule, e.g. 3.2.2.
+     * @param workerCount The number of workers to deploy.
+     * @param environmentVariables Environment variables for you application.
+     */
+    @Processor
+    public void deployApplicationFromInputStream(final FileInputStream file, 
+                       String domain,
+                       @Optional @Default("3.2.2") String muleVersion, 
+                       @Optional @Default("1") int workerCount, 
+                       @Optional Map<String,String> environmentVariables) {
+        final DomainConnection domainConnection = getConnection().on(domain);
+        File applicationTempBinary = null;
+        try {
+            applicationTempBinary = File.createTempFile(domain, "zip");
+
+        InputStream inputStream = file;
+         
+        // write the inputStream to a FileOutputStream
+        OutputStream out = new FileOutputStream(applicationTempBinary);
+     
+        int read = 0;
+        byte[] bytes = new byte[1024];
+     
+        while ((read = inputStream.read(bytes)) != -1) {
+            out.write(bytes, 0, read);
+        }
+     
+        inputStream.close();
+        out.flush();
+        out.close();
+        
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+        domainConnection.deploy(applicationTempBinary, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
+    }
+    
     /**
      * List applications.
      *
@@ -159,7 +241,8 @@ public class IONConnector {
      */
     @Processor
     public void updateApplication(Application application) {
-        getConnection().on(application.getDomain()).update(application);
+        ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(application); 
+        getConnection().on(application.getDomain()).update(appUdateInfo);
     }
     
     
