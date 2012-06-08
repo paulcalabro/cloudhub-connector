@@ -1,12 +1,6 @@
 <!-- BEGIN_INCLUDE(ion:deploy-application) -->
     <ion:deploy-application file="#[payload]" />
 <!-- END_INCLUDE(ion:deploy-application) -->
-<!-- BEGIN_INCLUDE(ion:deploy-application-from-byte-array) -->
-    <ion:deploy-application-from-byte-array />
-<!-- END_INCLUDE(ion:deploy-application-from-byte-array) -->
-<!-- BEGIN_INCLUDE(ion:deploy-application-from-file-input-stream) -->
-    <ion:deploy-application-from-file-input-stream file="#[payload]" />
-<!-- END_INCLUDE(ion:deploy-application-from-file-input-stream) -->
 <!-- BEGIN_INCLUDE(ion:start-application) -->
     <ion:start-application domain="yourapp" />
 <!-- END_INCLUDE(ion:start-application) -->
