@@ -118,14 +118,15 @@ public class IONConnector {
      *
      * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy-application}
      *
-     * @param file mule application to deploy, Input Object type: java.io.File
+     * @param file mule application to deploy, Input Object type: java.io.InputStream
+     * @param file mule application to deploy, Input Object type: java.io.InputStream
      * @param domain The application domain.
      * @param muleVersion The version of Mule, e.g. 3.2.2.
      * @param workerCount The number of workers to deploy.
      * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void deployApplication(final File file, 
+    public void deployApplication(@Payload InputStream file,
                        String domain,
                        @Optional @Default("3.2.2") String muleVersion, 
                        @Optional @Default("1") int workerCount, 
