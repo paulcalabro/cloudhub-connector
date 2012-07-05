@@ -211,20 +211,17 @@ public class CloudHubConnector {
      * List a user's notifications.
      * 
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:list-notifications}
-     * @param domain The domain to list notifications for.
      * @param maxResults The maximum number of results to retrieve.
      * @param offset The offset to start listing alerts from.
      * @param includeDismissed whether or not to include dismissed messages.
      * @return A List of notifications.
      */
     @Processor
-    public NotificationResults listNotifications(@Optional String domain,
-                                  @Optional Integer maxResults,
-                                  @Optional Integer offset,
-                                  @Optional Boolean includeDismissed) {
+    public NotificationResults listNotifications(@Optional Integer maxResults,
+                                  @Optional Integer offset) {
         Connection connection = getConnection();
 
-        return connection.listNotifications(domain, maxResults, offset, includeDismissed);
+        return connection.listNotifications(maxResults, offset);
     }
     
     /**
