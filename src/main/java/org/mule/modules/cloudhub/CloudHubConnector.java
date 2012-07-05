@@ -1,5 +1,5 @@
 /**
- * Mule iON Connector
+ * Mule CloudHub Connector
  *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
  *
@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.ion;
+package org.mule.modules.cloudhub;
 
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
@@ -45,24 +45,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Provides the ability to interact with Mule iON from within a Mule application. There are operations to deploy, start,
- * stop, and update applications as well as send notifications from your application to iON.
+ * Provides the ability to interact with Mule CloudHub from within a Mule application. There are operations to deploy, start,
+ * stop, and update applications as well as send notifications from your application to CloudHub.
  * <p>
- * When running this connector in an application inside iON, it will use token based authentication
- * to access the API. This will allow access and usage of the iON APIs without the need
+ * When running this connector in an application inside CloudHub, it will use token based authentication
+ * to access the API. This will allow access and usage of the CloudHub APIs without the need
  * to specify your username and password.
  * <p>
  * 
  * 
  * @author MuleSoft, Inc.
  */
-@Module(name="ion", schemaVersion="1.0")
-public class IONConnector {
+@Module(name="cloudhub", schemaVersion="1.0")
+public class CloudHubConnector {
     
     private Logger logger = LoggerFactory.getLogger(Connection.class);
     
     /**
-     * iON URL.
+     * CloudHub URL.
      */
     @Configurable
     @Optional
@@ -70,7 +70,7 @@ public class IONConnector {
     private String url;
 
     /**
-     * iON username.
+     * CloudHub username.
      */
     @Configurable
     @Optional
@@ -78,7 +78,7 @@ public class IONConnector {
     private String username;
 
     /**
-     * iON password.
+     * CloudHub password.
      */
     @Configurable
     @Optional
@@ -116,7 +116,7 @@ public class IONConnector {
     /**
      * Deploy specified application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:deploy-application}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:deploy-application}
      *
      * @param file mule application to deploy, Input Object type: java.io.InputStream
      * @param file mule application to deploy, Input Object type: java.io.InputStream
@@ -138,7 +138,7 @@ public class IONConnector {
     /**
      * List applications.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:list-applications}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:list-applications}
      * @return A list of applications.
      */
     @Processor
@@ -149,7 +149,7 @@ public class IONConnector {
     /**
      * Get an application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:get-application}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:get-application}
      * @param domain The application domain.
      * @return An application.
      */
@@ -161,7 +161,7 @@ public class IONConnector {
     /**
      * Update an application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:update-application}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:update-application}
      * @param application The application to update.
      */
     @Processor
@@ -174,7 +174,7 @@ public class IONConnector {
     /**
      * Start an application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:start-application}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:start-application}
      * @param domain The application domain.
      */
     @Processor
@@ -186,7 +186,7 @@ public class IONConnector {
     /**
      * Stop an application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:stop-application}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:stop-application}
      * @param domain The application domain.
      */
     @Processor
@@ -198,7 +198,7 @@ public class IONConnector {
     /**
      * Delete an application.
      *
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:delete-application}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:delete-application}
      * @param domain The application domain.
      */
     @Processor
@@ -210,7 +210,7 @@ public class IONConnector {
     /**
      * List a user's notifications.
      * 
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:list-notifications}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:list-notifications}
      * @param domain The domain to list notifications for.
      * @param maxResults The maximum number of results to retrieve.
      * @param offset The offset to start listing alerts from.
@@ -230,7 +230,7 @@ public class IONConnector {
     /**
      * Dismiss an individual notification.
      * 
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:dismiss-notification}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:dismiss-notification}
      * @param href the href property of the Notification object.
      */
     @Processor
@@ -243,7 +243,7 @@ public class IONConnector {
     /**
      * Dismiss all notifications.
      * 
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:dismiss-all-notifications}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:dismiss-all-notifications}
      * @param id the ID of the notification.
      */
     @Processor
@@ -254,9 +254,9 @@ public class IONConnector {
     }
 
     /**
-     * Create a notification inside iON.
+     * Create a notification inside CloudHub.
      * 
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:create-notification}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:create-notification}
      * @param message the contents of the notification.
      * @param priority The notification priority.
      * @param domain The application domain.
@@ -274,10 +274,10 @@ public class IONConnector {
     }
 
     /**
-     * Create a notification inside iON for your flow. If not running in an iON environment, this will log
+     * Create a notification inside CloudHub for your flow. If not running in an CloudHub environment, this will log
      * to the console.
      * 
-     * {@sample.xml ../../../doc/ION-connector.xml.sample ion:create-notification-from-flow}
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:create-notification-from-flow}
      * @param message the contents of the notification.
      * @param priority The notification priority.
      * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
@@ -303,7 +303,7 @@ public class IONConnector {
             // running locally
             logger.info(message);
         } else {
-            // running on iON
+            // running on CloudHub
             Connection connection = getConnection();
     
             connection.createNotification(message, priority, domain);

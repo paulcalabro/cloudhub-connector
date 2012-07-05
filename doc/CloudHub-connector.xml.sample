@@ -1,0 +1,36 @@
+<!-- BEGIN_INCLUDE(cloudhub:deploy-application) -->
+    <cloudhub:deploy-application file="#[payload]" />
+<!-- END_INCLUDE(cloudhub:deploy-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:start-application) -->
+    <cloudhub:start-application domain="yourapp" />
+<!-- END_INCLUDE(cloudhub:start-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:stop-application) -->
+    <cloudhub:stop-application domain="yourapp" />
+<!-- END_INCLUDE(cloudhub:stop-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:delete-application) -->
+    <cloudhub:delete-application domain="yourapp" />
+<!-- END_INCLUDE(cloudhub:delete-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:get-application) -->
+    <cloudhub:get-application domain="yourapp" />
+<!-- END_INCLUDE(cloudhub:get-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:update-application) -->
+    <cloudhub:update-application application="#[payload]" />
+<!-- END_INCLUDE(cloudhub:update-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:list-applications) -->
+    <cloudhub:list-applications />
+<!-- END_INCLUDE(cloudhub:list-applications) -->
+<!-- BEGIN_INCLUDE(cloudhub:list-notifications) -->
+    <cloudhub:list-notifications />
+<!-- END_INCLUDE(cloudhub:list-notifications) -->
+<!-- BEGIN_INCLUDE(cloudhub:dismiss-notification) -->
+    <cloudhub:dismiss-notification />
+<!-- END_INCLUDE(cloudhub:dismiss-notification) -->
+<!-- BEGIN_INCLUDE(cloudhub:dismiss-all-notifications) -->
+    <cloudhub:dismiss-all-notifications />
+<!-- END_INCLUDE(cloudhub:dismiss-all-notifications) -->
+<!-- BEGIN_INCLUDE(cloudhub:create-notification) -->
+    <cloudhub:create-notification domain="yourapp" message="Hello World" priority="INFO"/>
+<!-- END_INCLUDE(cloudhub:create-notification) -->
+<!-- BEGIN_INCLUDE(cloudhub:create-notification-from-flow) -->
+    <cloudhub:create-notification message="Hello World" priority="INFO"/>
+<!-- END_INCLUDE(cloudhub:create-notification) -->

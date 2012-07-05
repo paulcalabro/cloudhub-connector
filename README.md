@@ -1,4 +1,4 @@
-Mule iON Connector
+Mule CloudHub Connector
 =======================
 
 Installation and Usage

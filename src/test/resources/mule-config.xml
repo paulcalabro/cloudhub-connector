@@ -21,47 +21,47 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:spring="http://www.springframework.org/schema/beans"
-      xmlns:ion="http://www.mulesoft.org/schema/mule/ion"
+      xmlns:cloudhub="http://www.mulesoft.org/schema/mule/cloudhub"
       xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
       xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
-        http://www.mulesoft.org/schema/mule/ion http://www.mulesoft.org/schema/mule/ion/1.0/mule-ion.xsd">
+        http://www.mulesoft.org/schema/mule/cloudhub http://www.mulesoft.org/schema/mule/cloudhub/1.0/mule-cloudhub.xsd">
 
-    <ion:config username="${ion.username}" password="${ion.password}" url="https://qa.muleion.com" />
+    <cloudhub:config username="${cloudhub.username}" password="${cloudhub.password}" url="https://qa.muleion.com" />
 
     <flow name="listApplications">
-        <ion:list-applications/>
+        <cloudhub:list-applications/>
     </flow>
     
     <flow name="getApplication">
-        <ion:get-application domain="${test.domain}"/>
+        <cloudhub:get-application domain="${test.domain}"/>
     </flow>
     
     <flow name="start">
-        <ion:start-application domain="${test.domain}"/>
+        <cloudhub:start-application domain="${test.domain}"/>
     </flow>
     
     <flow name="stop">
-        <ion:stop-application domain="${test.domain}"/>
+        <cloudhub:stop-application domain="${test.domain}"/>
     </flow>
 
     <flow name="createNotification">
-        <ion:create-notification message="Hello World" priority="INFO"/>
+        <cloudhub:create-notification message="Hello World" priority="INFO"/>
     </flow>
 
     <flow name="dismissAllNotifications">
-        <ion:create-notification message="Hello World" priority="INFO"/>
-        <ion:dismiss-all-notifications/>
-        <ion:list-notifications/>
+        <cloudhub:create-notification message="Hello World" priority="INFO"/>
+        <cloudhub:dismiss-all-notifications/>
+        <cloudhub:list-notifications/>
     </flow>
     
     <flow name="dismissNotification">
-        <ion:dismiss-all-notifications/>
-        <ion:create-notification message="Hello World" priority="INFO"/>
-        <ion:dismiss-notification href="#[groovy:payload.href]"/>
-        <ion:list-notifications/>
+        <cloudhub:dismiss-all-notifications/>
+        <cloudhub:create-notification message="Hello World" priority="INFO"/>
+        <cloudhub:dismiss-notification href="#[groovy:payload.href]"/>
+        <cloudhub:list-notifications/>
     </flow>
     
     <flow name="createNotificationFromException">
@@ -71,7 +71,7 @@
             </scripting:script>
         </scripting:component>
         <default-exception-strategy>
-            <ion:create-notification message="Received an error." priority="ERROR"/>
+            <cloudhub:create-notification message="Received an error." priority="ERROR"/>
         </default-exception-strategy>
     </flow>
 
