@@ -21,13 +21,13 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.Payload;
 import org.mule.message.ExceptionMessage;
 
-import com.mulesoft.ion.client.Application;
-import com.mulesoft.ion.client.ApplicationUpdateInfo;
-import com.mulesoft.ion.client.Connection;
-import com.mulesoft.ion.client.DomainConnection;
-import com.mulesoft.ion.client.Notification;
-import com.mulesoft.ion.client.Notification.Priority;
-import com.mulesoft.ion.client.NotificationResults;
+import com.mulesoft.cloudhub.client.Application;
+import com.mulesoft.cloudhub.client.ApplicationUpdateInfo;
+import com.mulesoft.cloudhub.client.Connection;
+import com.mulesoft.cloudhub.client.DomainConnection;
+import com.mulesoft.cloudhub.client.Notification;
+import com.mulesoft.cloudhub.client.NotificationResults;
+import com.mulesoft.cloudhub.client.Notification.Priority;
 
 import java.io.File;
 import java.io.PrintWriter;

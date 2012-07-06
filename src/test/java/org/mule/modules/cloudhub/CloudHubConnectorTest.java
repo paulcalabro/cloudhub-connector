@@ -23,9 +23,9 @@ import org.mule.tck.junit4.AbstractMuleContextTestCase;
 import org.mule.tck.junit4.FunctionalTestCase;
 import org.mule.transport.NullPayload;
 
-import com.mulesoft.ion.client.Application;
-import com.mulesoft.ion.client.Notification;
-import com.mulesoft.ion.client.NotificationResults;
+import com.mulesoft.cloudhub.client.Application;
+import com.mulesoft.cloudhub.client.Notification;
+import com.mulesoft.cloudhub.client.NotificationResults;
 
 import java.util.List;
 
