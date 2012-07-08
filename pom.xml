@@ -14,6 +14,11 @@
         <version>3.3.0</version>
     </parent>
 
+    <properties>
+        <category>Community</category>
+        <licensePath>LICENSE.md</licensePath>
+     </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.mulesoft.cloudhub</groupId>
