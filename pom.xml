@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.mule.modules</groupId>
     <artifactId>mule-module-cloudhub</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>mule-module</packaging>
     <name>Mule CloudHub Connector</name>
 
@@ -49,8 +49,8 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com:mulesoft/ion-connector.git</connection>
-        <developerConnection>scm:git:git@github.com:mulesoft/ion-connector.git</developerConnection>
-        <url>http://github.com/mulesoft/ion-connector</url>
+        <connection>scm:git:git://github.com:mulesoft/cloudhub-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/cloudhub-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/cloudhub-connector</url>
     </scm>
 </project>
