@@ -29,7 +29,7 @@
         http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
         http://www.mulesoft.org/schema/mule/cloudhub http://www.mulesoft.org/schema/mule/cloudhub/1.0/mule-cloudhub.xsd">
 
-    <cloudhub:config username="${cloudhub.username}" password="${cloudhub.password}" url="https://qa.muleion.com" />
+    <cloudhub:config username="${cloudhub.username}" password="${cloudhub.password}" url="https://qa.cloudhub.io" />
 
     <flow name="listApplications">
         <cloudhub:list-applications/>
@@ -50,15 +50,8 @@
     <flow name="createNotification">
         <cloudhub:create-notification message="Hello World" priority="INFO"/>
     </flow>
-
-    <flow name="dismissAllNotifications">
-        <cloudhub:create-notification message="Hello World" priority="INFO"/>
-        <cloudhub:dismiss-all-notifications/>
-        <cloudhub:list-notifications/>
-    </flow>
     
     <flow name="dismissNotification">
-        <cloudhub:dismiss-all-notifications/>
         <cloudhub:create-notification message="Hello World" priority="INFO"/>
         <cloudhub:dismiss-notification href="#[groovy:payload.href]"/>
         <cloudhub:list-notifications/>

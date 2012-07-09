@@ -238,19 +238,6 @@ public class CloudHubConnector {
     }
 
     /**
-     * Dismiss all notifications.
-     * 
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:dismiss-all-notifications}
-     * @param id the ID of the notification.
-     */
-    @Processor
-    public void dismissAllNotifications() {
-        Connection connection = getConnection();
-
-        connection.dismissAllNotifications();
-    }
-
-    /**
      * Create a notification inside CloudHub.
      * 
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:create-notification}

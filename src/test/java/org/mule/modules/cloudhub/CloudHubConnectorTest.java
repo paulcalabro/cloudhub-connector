@@ -84,16 +84,6 @@ public class CloudHubConnectorTest extends FunctionalTestCase
     }
 
     @Test
-    public void testDismissAllNotifications() throws Exception
-    {
-        MuleEvent event = runFlow("dismissAllNotifications");
-
-        Object payload = event.getMessage().getPayload();
-        assertTrue(payload instanceof NotificationResults);
-        assertEquals(0, ((NotificationResults)payload).getTotal());
-    }
-
-    @Test
     public void testDismissNotification() throws Exception
     {
         MuleEvent event = runFlow("dismissNotification");
