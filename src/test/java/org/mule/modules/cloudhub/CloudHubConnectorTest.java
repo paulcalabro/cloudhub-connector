@@ -84,6 +84,7 @@ public class CloudHubConnectorTest extends FunctionalTestCase
     }
 
     @Test
+    @Ignore
     public void testDismissNotification() throws Exception
     {
         MuleEvent event = runFlow("dismissNotification");
@@ -94,6 +95,7 @@ public class CloudHubConnectorTest extends FunctionalTestCase
     }
     
     @Test
+    @Ignore
     public void testCreateNotificationFromException() throws Exception
     {
         runFlowAndExpect("createNotificationFromException", NullPayload.getInstance());
