@@ -30,4 +30,4 @@
 <!-- END_INCLUDE(cloudhub:create-notification) -->
 <!-- BEGIN_INCLUDE(cloudhub:create-notification-from-flow) -->
     <cloudhub:create-notification message="Hello World" priority="INFO"/>
-<!-- END_INCLUDE(cloudhub:create-notification) -->
+<!-- END_INCLUDE(cloudhub:create-notification-from-flow) -->
