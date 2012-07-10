@@ -63,6 +63,8 @@
 
 
 
+
+
 <html>
 <style>
     .jd-hierarchy-spacer {
@@ -76,7 +78,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule iON Connector." />
+  <meta name="description" content="Documentation for Mule CloudHub Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
 <title>
@@ -84,7 +86,7 @@
   Class Hierarchy
 
 
-| Mule iON Connector
+| Mule CloudHub Connector
 
 </title>
 <link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -93,6 +95,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -111,13 +114,34 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule CloudHub Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule iON Connector</span>
+      <span id="masthead-title">Mule CloudHub Connector</span>
     
     <ul id="header-tabs" class="java">
     
@@ -187,7 +211,15 @@
               <ul>
                 
     <li class="api apilevel-">
-  <a href="../java/org/mule/modules/ion/package-summary.html">org.mule.modules.ion</a></li>
+  <a href="../java/org/mule/modules/cloudhub/package-summary.html">org.mule.modules.cloudhub</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/cloudhub/adapters/package-summary.html">org.mule.modules.cloudhub.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/cloudhub/config/package-summary.html">org.mule.modules.cloudhub.config</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/cloudhub/processors/package-summary.html">org.mule.modules.cloudhub.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../java/org/mule/modules/cloudhub/transformers/package-summary.html">org.mule.modules.cloudhub.transformers</a></li>
     <li class="api apilevel-">
   <a href="../java/org/mule/modules/ion/config/package-summary.html">org.mule.modules.ion.config</a></li>
     <li class="api apilevel-">
@@ -266,7 +298,7 @@
     <td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="3">
     
-        <a href="../java/org/mule/modules/ion/IONConnector.html">IONConnector</a>
+        <a href="../java/org/mule/modules/cloudhub/CloudHubConnector.html">CloudHubConnector</a>
     
     </td>
     <td class="jd-hierarchy-data">
@@ -280,7 +312,7 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="2">
     
-        <a href="../java/org/mule/modules/ion/config/IONConnectorCapabilitiesAdapter.html">IONConnectorCapabilitiesAdapter</a>
+        <a href="../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorCapabilitiesAdapter.html">CloudHubConnectorCapabilitiesAdapter</a>
     
     </td>
     <td class="jd-hierarchy-data">
@@ -298,7 +330,7 @@
     <td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td><td class="jd-hierarchy-spacer"></td>
     <td class="jd-hierarchy-data" colspan="1">
     
-        <a href="../java/org/mule/modules/ion/config/IONConnectorLifecycleAdapter.html">IONConnectorLifecycleAdapter</a>
+        <a href="../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorLifecycleAdapter.html">CloudHubConnectorLifecycleAdapter</a>
     
     </td>
     <td class="jd-hierarchy-data">
@@ -326,6 +358,730 @@
 
 
 
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/CloudHubConnectorConfigDefinitionParser.html">CloudHubConnectorConfigDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/CreateNotificationDefinitionParser.html">CreateNotificationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/CreateNotificationFromFlowDefinitionParser.html">CreateNotificationFromFlowDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/DeleteApplicationDefinitionParser.html">DeleteApplicationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/DeployApplicationDefinitionParser.html">DeployApplicationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/DismissNotificationDefinitionParser.html">DismissNotificationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/GetApplicationDefinitionParser.html">GetApplicationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/ListApplicationsDefinitionParser.html">ListApplicationsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/ListNotificationsDefinitionParser.html">ListNotificationsDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/StartApplicationDefinitionParser.html">StartApplicationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/StopApplicationDefinitionParser.html">StopApplicationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/config/UpdateApplicationDefinitionParser.html">UpdateApplicationDefinitionParser</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            BeanDefinitionParser
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/CreateNotificationFromFlowMessageProcessor.html">CreateNotificationFromFlowMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/CreateNotificationMessageProcessor.html">CreateNotificationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/DeleteApplicationMessageProcessor.html">DeleteApplicationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/DeployApplicationMessageProcessor.html">DeployApplicationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/DismissNotificationMessageProcessor.html">DismissNotificationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/GetApplicationMessageProcessor.html">GetApplicationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/ListApplicationsMessageProcessor.html">ListApplicationsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/ListNotificationsMessageProcessor.html">ListNotificationsMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/StartApplicationMessageProcessor.html">StartApplicationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/StopApplicationMessageProcessor.html">StopApplicationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
+
+
+
+
+<tr>
+    <td class="jd-hierarchy-spacer"></td>
+    <td class="jd-hierarchy-data" colspan="3">
+    
+        <a href="../java/org/mule/modules/cloudhub/processors/UpdateApplicationMessageProcessor.html">UpdateApplicationMessageProcessor</a>
+    
+    </td>
+    <td class="jd-hierarchy-data">
+    
+        
+            FlowConstructAware
+         &nbsp;&nbsp;
+    
+        
+            MuleContextAware
+         &nbsp;&nbsp;
+    
+        
+            Disposable
+         &nbsp;&nbsp;
+    
+        
+            Initialisable
+         &nbsp;&nbsp;
+    
+        
+            Startable
+         &nbsp;&nbsp;
+    
+        
+            Stoppable
+         &nbsp;&nbsp;
+    
+        
+            MessageProcessor
+         &nbsp;&nbsp;
+    
+    &nbsp;
+    </td>
+</tr>
 
 
 

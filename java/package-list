@@ -1,4 +1,8 @@
-org.mule.modules.ion
+org.mule.modules.cloudhub
+org.mule.modules.cloudhub.adapters
+org.mule.modules.cloudhub.config
+org.mule.modules.cloudhub.processors
+org.mule.modules.cloudhub.transformers
 org.mule.modules.ion.config
 org.mule.modules.ion.config.spring
 

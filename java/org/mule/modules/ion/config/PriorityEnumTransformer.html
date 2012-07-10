@@ -63,11 +63,13 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule iON Connector." />
+  <meta name="description" content="Documentation for Mule CloudHub Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
@@ -75,7 +77,7 @@
   PriorityEnumTransformer
 
 
-| Mule iON Connector
+| Mule CloudHub Connector
 
 </title>
 <link href="../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule CloudHub Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -109,7 +133,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule iON Connector</span>
+      <span id="masthead-title">Mule CloudHub Connector</span>
     
     <ul id="header-tabs" class="">
     
@@ -179,7 +203,15 @@
               <ul>
                 
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/ion/package-summary.html">org.mule.modules.ion</a></li>
+  <a href="../../../../../../java/org/mule/modules/cloudhub/package-summary.html">org.mule.modules.cloudhub</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/adapters/package-summary.html">org.mule.modules.cloudhub.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/config/package-summary.html">org.mule.modules.cloudhub.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/processors/package-summary.html">org.mule.modules.cloudhub.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/transformers/package-summary.html">org.mule.modules.cloudhub.transformers</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/ion/config/package-summary.html">org.mule.modules.ion.config</a></li>
     <li class="api apilevel-">
@@ -332,6 +364,11 @@
   
 
   
+  
+  
+  
+
+  
    
   
   
@@ -441,7 +478,7 @@ Summary:
 
     <tr>
         
-        <td colspan="3" class="jd-inheritance-class-cell"><a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">java.lang.Object</a></td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -543,7 +580,7 @@ org.mule.api.AnnotatedObject
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></td>
+        <td class="jd-typecol">String</td>
         <td class="jd-linkcol">PROPERTY_NAME</td>
         <td class="jd-descrcol" width="100%"></td>
     </tr>
@@ -580,7 +617,7 @@ org.mule.api.lifecycle.Disposable
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></td>
+        <td class="jd-typecol">String</td>
         <td class="jd-linkcol">PHASE_NAME</td>
         <td class="jd-descrcol" width="100%"></td>
     </tr>
@@ -611,7 +648,7 @@ org.mule.api.lifecycle.Initialisable
 
     
     <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></td>
+        <td class="jd-typecol">String</td>
         <td class="jd-linkcol">PHASE_NAME</td>
         <td class="jd-descrcol" width="100%"></td>
     </tr>
@@ -629,16 +666,16 @@ org.mule.api.lifecycle.Initialisable
 <tr class="api apilevel-" >
 <td colspan="12">
 
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.transformer.DiscoverableTransformer" class="jd-expando-trigger closed"
-          ><img id="inherited-constants-org.mule.api.transformer.DiscoverableTransformer-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-constants-org.mule.api.transformer.Converter" class="jd-expando-trigger closed"
+          ><img id="inherited-constants-org.mule.api.transformer.Converter-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>From interface
-org.mule.api.transformer.DiscoverableTransformer
-<div id="inherited-constants-org.mule.api.transformer.DiscoverableTransformer">
-  <div id="inherited-constants-org.mule.api.transformer.DiscoverableTransformer-list"
+org.mule.api.transformer.Converter
+<div id="inherited-constants-org.mule.api.transformer.Converter">
+  <div id="inherited-constants-org.mule.api.transformer.Converter-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-constants-org.mule.api.transformer.DiscoverableTransformer-summary" style="display: none;">
+  <div id="inherited-constants-org.mule.api.transformer.Converter-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -668,6 +705,8 @@ org.mule.api.transformer.DiscoverableTransformer
   </div>
 </div>
 </td></tr>
+
+
 
 
 
@@ -765,7 +804,7 @@ org.mule.transformer.AbstractTransformer
           private
           
           final
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;QName,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a>&gt;</nobr></td>
+          Map&lt;QName,&nbsp;Object&gt;</nobr></td>
           <td class="jd-linkcol">annotations</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -776,7 +815,7 @@ org.mule.transformer.AbstractTransformer
           protected
           
           
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
+          String</nobr></td>
           <td class="jd-linkcol">encoding</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -820,7 +859,7 @@ org.mule.transformer.AbstractTransformer
           protected
           
           
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
+          String</nobr></td>
           <td class="jd-linkcol">mimeType</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -842,7 +881,7 @@ org.mule.transformer.AbstractTransformer
           protected
           
           
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
+          String</nobr></td>
           <td class="jd-linkcol">name</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -864,7 +903,7 @@ org.mule.transformer.AbstractTransformer
           protected
           
           final
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;DataType&lt;?&gt;&gt;</nobr></td>
+          List&lt;DataType&lt;?&gt;&gt;</nobr></td>
           <td class="jd-linkcol">sourceTypes</td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -874,6 +913,8 @@ org.mule.transformer.AbstractTransformer
   </div>
 </div>
 </td></tr>
+
+
 
 
 
@@ -1006,10 +1047,10 @@ org.mule.transformer.AbstractTransformer
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/config/PriorityEnumTransformer.html#doTransform(java.lang.Object, java.lang.String)">doTransform</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> src, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> encoding)</nobr>
+        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/config/PriorityEnumTransformer.html#doTransform(java.lang.Object, java.lang.String)">doTransform</a></span>(Object src, String encoding)</nobr>
         
   </td></tr>
 
@@ -1054,22 +1095,6 @@ From class
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">checkReturnClass</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
@@ -1079,30 +1104,30 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             abstract
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">doTransform</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg1)</nobr>
+        <span class="sympad">doTransform</span>(Object arg0, String arg1)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">generateTransformerName</span>()</nobr>
@@ -1111,14 +1136,14 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             final
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getAnnotation</span>(QName arg0)</nobr>
@@ -1127,14 +1152,14 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             final
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;QName,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a>&gt;</nobr>
+            Map&lt;QName,&nbsp;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getAnnotations</span>()</nobr>
@@ -1143,14 +1168,14 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getEncoding</span>()</nobr>
@@ -1159,23 +1184,23 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">getEncoding</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
+        <span class="sympad">getEncoding</span>(Object arg0)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1191,14 +1216,14 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getMimeType</span>()</nobr>
@@ -1207,14 +1232,14 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getName</span>()</nobr>
@@ -1223,14 +1248,14 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;</nobr>
+            Class&lt;?&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getReturnClass</span>()</nobr>
@@ -1239,7 +1264,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1255,14 +1280,14 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;DataType&lt;?&gt;&gt;</nobr>
+            List&lt;DataType&lt;?&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getSourceDataTypes</span>()</nobr>
@@ -1271,14 +1296,14 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;&gt;</nobr>
+            List&lt;Class&lt;?&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getSourceTypes</span>()</nobr>
@@ -1287,7 +1312,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1303,7 +1328,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1319,7 +1344,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1335,7 +1360,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1345,13 +1370,13 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isConsumed</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
+        <span class="sympad">isConsumed</span>(Class&lt;?&gt; arg0)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1367,7 +1392,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1383,7 +1408,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1399,22 +1424,6 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            boolean</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isSourceTypeSupported</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1425,13 +1434,29 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isSourceTypeSupported</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;MuleMessage&gt; arg0, boolean arg1)</nobr>
+        <span class="sympad">isSourceTypeSupported</span>(Class&lt;?&gt; arg0)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            boolean</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">isSourceTypeSupported</span>(Class&lt;MuleMessage&gt; arg0, boolean arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1447,7 +1472,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1463,7 +1488,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1473,13 +1498,13 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">registerSourceType</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
+        <span class="sympad">registerSourceType</span>(Class&lt;?&gt; arg0)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1495,7 +1520,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             synchronized
@@ -1505,13 +1530,13 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setAnnotations</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;QName,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a>&gt; arg0)</nobr>
+        <span class="sympad">setAnnotations</span>(Map&lt;QName,&nbsp;Object&gt; arg0)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1521,13 +1546,13 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setEncoding</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg0)</nobr>
+        <span class="sympad">setEncoding</span>(String arg0)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1543,7 +1568,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1559,7 +1584,7 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1569,13 +1594,13 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setMimeType</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg0)</nobr>
+        <span class="sympad">setMimeType</span>(String arg0)</nobr>
         
   </td></tr>
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1591,22 +1616,6 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setName</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
     <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
@@ -1617,13 +1626,29 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setReturnClass</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
+        <span class="sympad">setName</span>(String arg0)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">setReturnClass</span>(Class&lt;?&gt; arg0)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1639,14 +1664,14 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">toString</span>()</nobr>
@@ -1655,39 +1680,39 @@ From class
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
             final
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg1)</nobr>
+        <span class="sympad">transform</span>(Object arg0)</nobr>
         
   </td></tr>
 
 
 	 
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Object</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad">transform</span>(Object arg0, String arg1)</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1703,7 +1728,7 @@ From class
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol"><nobr>
             
             
@@ -1713,7 +1738,7 @@ From class
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">unregisterSourceType</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
+        <span class="sympad">unregisterSourceType</span>(Class&lt;?&gt; arg0)</nobr>
         
   </td></tr>
 
@@ -1733,7 +1758,7 @@ From class
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">java.lang.Object</a>
+  java.lang.Object
 
 <div id="inherited-methods-java.lang.Object">
   <div id="inherited-methods-java.lang.Object-list"
@@ -1752,7 +1777,7 @@ From class
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">clone</span>()</nobr>
@@ -1771,7 +1796,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">equals</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
+        <span class="sympad">equals</span>(Object arg0)</nobr>
         
   </td></tr>
 
@@ -1800,7 +1825,7 @@ From class
             final
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;</nobr>
+            Class&lt;?&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getClass</span>()</nobr>
@@ -1864,7 +1889,7 @@ From class
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">toString</span>()</nobr>
@@ -1954,7 +1979,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getAnnotation</span>(QName arg0)</nobr>
@@ -1970,7 +1995,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;QName,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a>&gt;</nobr>
+            Map&lt;QName,&nbsp;Object&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getAnnotations</span>()</nobr>
@@ -1989,7 +2014,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setAnnotations</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;QName,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a>&gt; arg0)</nobr>
+        <span class="sympad">setAnnotations</span>(Map&lt;QName,&nbsp;Object&gt; arg0)</nobr>
         
   </td></tr>
 
@@ -2031,7 +2056,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setName</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg0)</nobr>
+        <span class="sympad">setName</span>(String arg0)</nobr>
         
   </td></tr>
 
@@ -2070,7 +2095,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getName</span>()</nobr>
@@ -2255,19 +2280,19 @@ From interface
 
 <tr class="api apilevel-" >
 <td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.transformer.DiscoverableTransformer" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.api.transformer.DiscoverableTransformer-trigger"
+  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.transformer.Converter" class="jd-expando-trigger closed"
+          ><img id="inherited-methods-org.mule.api.transformer.Converter-trigger"
           src="../../../../../../assets/images/triangle-closed.png"
           class="jd-expando-trigger-img" /></a>
 From interface
 
-  org.mule.api.transformer.DiscoverableTransformer
+  org.mule.api.transformer.Converter
 
-<div id="inherited-methods-org.mule.api.transformer.DiscoverableTransformer">
-  <div id="inherited-methods-org.mule.api.transformer.DiscoverableTransformer-list"
+<div id="inherited-methods-org.mule.api.transformer.Converter">
+  <div id="inherited-methods-org.mule.api.transformer.Converter-list"
         class="jd-inheritedlinks">
   </div>
-  <div id="inherited-methods-org.mule.api.transformer.DiscoverableTransformer-summary" style="display: none;">
+  <div id="inherited-methods-org.mule.api.transformer.Converter-summary" style="display: none;">
     <table class="jd-sumtable-expando">
     
 
@@ -2311,6 +2336,8 @@ From interface
 
 
 
+
+
 <tr class="api apilevel-" >
 <td colspan="12">
   <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.api.transformer.Transformer" class="jd-expando-trigger closed"
@@ -2338,7 +2365,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getEncoding</span>()</nobr>
@@ -2370,7 +2397,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getMimeType</span>()</nobr>
@@ -2386,7 +2413,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;</nobr>
+            Class&lt;?&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getReturnClass</span>()</nobr>
@@ -2418,7 +2445,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;DataType&lt;?&gt;&gt;</nobr>
+            List&lt;DataType&lt;?&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getSourceDataTypes</span>()</nobr>
@@ -2434,7 +2461,7 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;&gt;</nobr>
+            List&lt;Class&lt;?&gt;&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getSourceTypes</span>()</nobr>
@@ -2501,7 +2528,7 @@ From interface
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">isSourceTypeSupported</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
+        <span class="sympad">isSourceTypeSupported</span>(Class&lt;?&gt; arg0)</nobr>
         
   </td></tr>
 
@@ -2517,7 +2544,7 @@ From interface
             void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">setReturnClass</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt; arg0)</nobr>
+        <span class="sympad">setReturnClass</span>(Class&lt;?&gt; arg0)</nobr>
         
   </td></tr>
 
@@ -2546,10 +2573,10 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
+        <span class="sympad">transform</span>(Object arg0)</nobr>
         
   </td></tr>
 
@@ -2562,10 +2589,10 @@ From interface
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">transform</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> arg1)</nobr>
+        <span class="sympad">transform</span>(Object arg0, String arg1)</nobr>
         
   </td></tr>
 
@@ -2898,10 +2925,10 @@ From interface
          
          
          
-        <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a>
+        Object
       </span>
       <span class="sympad">doTransform</span>
-      <span class="normal">(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> src, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> encoding)</span>
+      <span class="normal">(Object src, String encoding)</span>
     </h4>
       <div class="api-level">
         <div>

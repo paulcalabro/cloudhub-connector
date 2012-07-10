@@ -63,11 +63,13 @@
 
 
 
+
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-  <meta name="description" content="Documentation for Mule iON Connector." />
+  <meta name="description" content="Documentation for Mule CloudHub Connector." />
 
 <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.ico" />
 <title>
@@ -75,7 +77,7 @@
   IONConnectorCapabilitiesAdapter
 
 
-| Mule iON Connector
+| Mule CloudHub Connector
 
 </title>
 <link href="../../../../../../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
@@ -84,6 +86,7 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
 <script src="../../../../../../assets/search_autocomplete.js" type="text/javascript"></script>
 <script src="../../../../../../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../../../../../../assets/jquery-toc.js" type="text/javascript"></script>
 <script src="../../../../../../assets/mule-developer-docs.js" type="text/javascript"></script>
 <script src="../../../../../../assets/prettify.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -102,6 +105,27 @@
     #resize-packages-nav{border-bottom:3px solid #666;}
   </style>
 </noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule CloudHub Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
 </head>
 
 <body class="">
@@ -109,7 +133,7 @@
 <div id="header">
     <div id="headerLeft">
     
-      <span id="masthead-title">Mule iON Connector</span>
+      <span id="masthead-title">Mule CloudHub Connector</span>
     
     <ul id="header-tabs" class="">
     
@@ -179,7 +203,15 @@
               <ul>
                 
     <li class="api apilevel-">
-  <a href="../../../../../../java/org/mule/modules/ion/package-summary.html">org.mule.modules.ion</a></li>
+  <a href="../../../../../../java/org/mule/modules/cloudhub/package-summary.html">org.mule.modules.cloudhub</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/adapters/package-summary.html">org.mule.modules.cloudhub.adapters</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/config/package-summary.html">org.mule.modules.cloudhub.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/processors/package-summary.html">org.mule.modules.cloudhub.processors</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../../java/org/mule/modules/cloudhub/transformers/package-summary.html">org.mule.modules.cloudhub.transformers</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../../java/org/mule/modules/ion/config/package-summary.html">org.mule.modules.ion.config</a></li>
     <li class="api apilevel-">
@@ -252,11 +284,7 @@
 
 
   
-   
   
-  
-  
-   
   
   
 
@@ -287,11 +315,8 @@ Summary:
 
 
 
-  <a href="#inhfields">Inherited Fields</a>
-  
 
-
-  &#124; <a href="#pubctors">Ctors</a>
+  <a href="#pubctors">Ctors</a>
   
 
 
@@ -334,7 +359,7 @@ Summary:
   
 
   
-    extends <a href="../../../../../../java/org/mule/modules/ion/IONConnector.html">IONConnector</a><br/>
+    extends IONConnector<br/>
   
   
   
@@ -359,7 +384,7 @@ Summary:
 
     <tr>
         
-        <td colspan="3" class="jd-inheritance-class-cell"><a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">java.lang.Object</a></td>
+        <td colspan="3" class="jd-inheritance-class-cell">java.lang.Object</td>
     </tr>
     
 
@@ -367,7 +392,7 @@ Summary:
         
             <td class="jd-inheritance-space">&nbsp;&nbsp;&nbsp;&#x21b3;</td>
         
-        <td colspan="2" class="jd-inheritance-class-cell"><a href="../../../../../../java/org/mule/modules/ion/IONConnector.html">org.mule.modules.ion.IONConnector</a></td>
+        <td colspan="2" class="jd-inheritance-class-cell">org.mule.modules.ion.IONConnector</td>
     </tr>
     
 
@@ -410,7 +435,7 @@ Summary:
   <table class="jd-sumtable-expando">
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../../java/org/mule/modules/ion/config/IONConnectorLifecycleAdapter.html">IONConnectorLifecycleAdapter</a></td>
-              <td class="jd-descrcol" width="100%">A <code>IONConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../../../../../../java/org/mule/modules/ion/IONConnector.html">IONConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+              <td class="jd-descrcol" width="100%">A <code>IONConnectorLifecycleAdapter</code> is a wrapper around IONConnector that adds lifecycle methods to the pojo.&nbsp;</td>
           </tr>
   </table>
       </div>
@@ -424,7 +449,7 @@ Summary:
 
 
 <h2>Class Overview</h2>
-<p>A <code>IONConnectorCapabilitiesAdapter</code> is a wrapper around <code><a href="../../../../../../java/org/mule/modules/ion/IONConnector.html">IONConnector</a></code> that implements org.mule.api.Capabilities interface.
+<p>A <code>IONConnectorCapabilitiesAdapter</code> is a wrapper around org.mule.modules.ion.IONConnector that implements org.mule.api.Capabilities interface.
  
 </p>
 
@@ -472,108 +497,6 @@ Summary:
 
 
 
-
-
-<!-- =========== FIELD SUMMARY =========== -->
-<table id="inhfields" class="jd-sumtable"><tr><th>
-  <a href="#" class="toggle-all" onclick="return toggleAllInherited(this, null)">[Expand]</a>
-  <div style="clear:left;">Inherited Fields</div></th></tr>
-
-
-<tr class="api apilevel-" >
-<td colspan="12">
-
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-fields-org.mule.modules.ion.IONConnector" class="jd-expando-trigger closed"
-          ><img id="inherited-fields-org.mule.modules.ion.IONConnector-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>From class
-<a href="../../../../../../org/mule/modules/ion/IONConnector.html">org.mule.modules.ion.IONConnector</a>
-<div id="inherited-fields-org.mule.modules.ion.IONConnector">
-  <div id="inherited-fields-org.mule.modules.ion.IONConnector-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-fields-org.mule.modules.ion.IONConnector-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Connection</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#connection">connection</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          Logger</nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#logger">logger</a></td>
-          <td class="jd-descrcol" width="100%"></td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#maxWaitTime">maxWaitTime</a></td>
-          <td class="jd-descrcol" width="100%">Maximum time allowed to deplpoy/undeploy.</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#password">password</a></td>
-          <td class="jd-descrcol" width="100%">iON password.</td>
-      </tr>
-      
-    
-      <tr class="alt-color api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#url">url</a></td>
-          <td class="jd-descrcol" width="100%">iON URL.</td>
-      </tr>
-      
-    
-      <tr class=" api apilevel-" >
-          <td class="jd-typecol"><nobr>
-          private
-          
-          
-          <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr></td>
-          <td class="jd-linkcol"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#username">username</a></td>
-          <td class="jd-descrcol" width="100%">iON username.</td>
-      </tr>
-      
-    
-</table>
-  </div>
-</div>
-</td></tr>
-
-
-
-
-
-
-</table>
 
 
 
@@ -647,326 +570,6 @@ Summary:
   <div style="clear:left;">Inherited Methods</div></th></tr>
 
 
-<tr class="api apilevel-" >
-<td colspan="12">
-  <a href="#" onclick="return toggleInherited(this, null)" id="inherited-methods-org.mule.modules.ion.IONConnector" class="jd-expando-trigger closed"
-          ><img id="inherited-methods-org.mule.modules.ion.IONConnector-trigger"
-          src="../../../../../../assets/images/triangle-closed.png"
-          class="jd-expando-trigger-img" /></a>
-From class
-
-  <a href="../../../../../../org/mule/modules/ion/IONConnector.html">org.mule.modules.ion.IONConnector</a>
-
-<div id="inherited-methods-org.mule.modules.ion.IONConnector">
-  <div id="inherited-methods-org.mule.modules.ion.IONConnector-list"
-        class="jd-inheritedlinks">
-  </div>
-  <div id="inherited-methods-org.mule.modules.ion.IONConnector-summary" style="display: none;">
-    <table class="jd-sumtable-expando">
-    
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Notification</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#createNotification(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.String, java.lang.Object)">createNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload)</nobr>
-        
-        <div class="jd-descrdiv">Create a notification inside iON.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#createNotificationFromFlow(java.lang.String, com.mulesoft.ion.client.Notification.Priority, java.lang.Object, boolean)">createNotificationFromFlow</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> message, Notification.Priority priority, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> payload, boolean includeStacktrace)</nobr>
-        
-        <div class="jd-descrdiv">Create a notification inside iON for your flow.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#deleteApplication(java.lang.String)">deleteApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
-        
-        <div class="jd-descrdiv">Delete an application.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#deployApplication(java.io.File, java.lang.String, java.lang.String, int, java.util.Map<java.lang.String, java.lang.String>)">deployApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/io/File.html">File</a> file, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> muleVersion, int workerCount, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/Map.html">Map</a>&lt;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>,&nbsp;<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a>&gt; environmentVariables)</nobr>
-        
-        <div class="jd-descrdiv">Deploy specified application.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#dismissAllNotifications()">dismissAllNotifications</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">Dismiss all notifications.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#dismissNotification(java.lang.String)">dismissNotification</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> href)</nobr>
-        
-        <div class="jd-descrdiv">Dismiss an individual notification.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            Application</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#getApplication(java.lang.String)">getApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
-        
-        <div class="jd-descrdiv">Get an application.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            static
-            
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#getStackTrace(java.lang.Throwable)">getStackTrace</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Throwable.html">Throwable</a> aThrowable)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/util/List.html">List</a>&lt;Application&gt;</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#listApplications()">listApplications</a></span>()</nobr>
-        
-        <div class="jd-descrdiv">List applications.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            NotificationResults</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#listNotifications(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.Boolean)">listNotifications</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> maxResults, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Integer.html">Integer</a> offset, <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Boolean.html">Boolean</a> includeDismissed)</nobr>
-        
-        <div class="jd-descrdiv">List a user's notifications.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#setMaxWaitTime(java.lang.Long)">setMaxWaitTime</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Long.html">Long</a> maxWaitTime)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#setPassword(java.lang.String)">setPassword</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> password)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#setUrl(java.lang.String)">setUrl</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> url)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#setUsername(java.lang.String)">setUsername</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> username)</nobr>
-        
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#startApplication(java.lang.String)">startApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
-        
-        <div class="jd-descrdiv">Start an application.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#stopApplication(java.lang.String)">stopApplication</a></span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a> domain)</nobr>
-        
-        <div class="jd-descrdiv">Stop an application.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol"><nobr>
-            
-            
-            
-            
-            
-            void</nobr>
-        </td>
-        <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../../org/mule/modules/ion/IONConnector.html#updateApplication(com.mulesoft.ion.client.Application)">updateApplication</a></span>(Application application)</nobr>
-        
-        <div class="jd-descrdiv">Update an application.</div>
-  
-  </td></tr>
-
-
-</table>
-  </div>
-</div>
-</td></tr>
-
 
 
 <tr class="api apilevel-" >
@@ -977,7 +580,7 @@ From class
           class="jd-expando-trigger-img" /></a>
 From class
 
-  <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">java.lang.Object</a>
+  java.lang.Object
 
 <div id="inherited-methods-java.lang.Object">
   <div id="inherited-methods-java.lang.Object-list"
@@ -996,7 +599,7 @@ From class
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a></nobr>
+            Object</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">clone</span>()</nobr>
@@ -1015,7 +618,7 @@ From class
             boolean</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad">equals</span>(<a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Object.html">Object</a> arg0)</nobr>
+        <span class="sympad">equals</span>(Object arg0)</nobr>
         
   </td></tr>
 
@@ -1044,7 +647,7 @@ From class
             final
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/Class.html">Class</a>&lt;?&gt;</nobr>
+            Class&lt;?&gt;</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">getClass</span>()</nobr>
@@ -1108,7 +711,7 @@ From class
             
             
             
-            <a href="http://download.oracle.com/javase/6/docs/api/index.html?java/lang/String.html">String</a></nobr>
+            String</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad">toString</span>()</nobr>
