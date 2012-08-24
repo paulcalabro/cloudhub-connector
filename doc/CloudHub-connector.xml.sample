@@ -1,5 +1,5 @@
 <!-- BEGIN_INCLUDE(cloudhub:deploy-application) -->
-    <cloudhub:deploy-application file="#[payload]" />
+    <cloudhub:deploy-application file-ref="#[payload]" domain="my-domain" />
 <!-- END_INCLUDE(cloudhub:deploy-application) -->
 <!-- BEGIN_INCLUDE(cloudhub:start-application) -->
     <cloudhub:start-application domain="yourapp" />
@@ -14,7 +14,7 @@
     <cloudhub:get-application domain="yourapp" />
 <!-- END_INCLUDE(cloudhub:get-application) -->
 <!-- BEGIN_INCLUDE(cloudhub:update-application) -->
-    <cloudhub:update-application application="#[payload]" />
+    <cloudhub:update-application />
 <!-- END_INCLUDE(cloudhub:update-application) -->
 <!-- BEGIN_INCLUDE(cloudhub:list-applications) -->
     <cloudhub:list-applications />
@@ -23,7 +23,7 @@
     <cloudhub:list-notifications />
 <!-- END_INCLUDE(cloudhub:list-notifications) -->
 <!-- BEGIN_INCLUDE(cloudhub:dismiss-notification) -->
-    <cloudhub:dismiss-notification />
+    <cloudhub:dismiss-notification href="someLink"/>
 <!-- END_INCLUDE(cloudhub:dismiss-notification) -->
 <!-- BEGIN_INCLUDE(cloudhub:create-notification) -->
     <cloudhub:create-notification domain="yourapp" message="Hello World" priority="INFO"/>

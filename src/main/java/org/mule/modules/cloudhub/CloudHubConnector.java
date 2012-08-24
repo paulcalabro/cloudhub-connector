@@ -10,6 +10,13 @@
 
 package org.mule.modules.cloudhub;
 
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.List;
+import java.util.Map;
+
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
@@ -18,31 +25,17 @@ import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.api.annotations.param.Payload;
 import org.mule.message.ExceptionMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mulesoft.cloudhub.client.Application;
 import com.mulesoft.cloudhub.client.ApplicationUpdateInfo;
 import com.mulesoft.cloudhub.client.Connection;
 import com.mulesoft.cloudhub.client.DomainConnection;
 import com.mulesoft.cloudhub.client.Notification;
-import com.mulesoft.cloudhub.client.NotificationResults;
 import com.mulesoft.cloudhub.client.Notification.Priority;
-
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.mulesoft.cloudhub.client.NotificationResults;
 
 /**
  * Provides the ability to interact with Mule CloudHub from within a Mule application. There are operations to deploy, start,
@@ -126,7 +119,7 @@ public class CloudHubConnector {
      * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void deployApplication(@Payload InputStream file,
+    public void deployApplication(@Optional @Default("#[payload]") InputStream file,
                        String domain,
                        @Optional @Default("3.2.2") String muleVersion, 
                        @Optional @Default("1") int workerCount, 
@@ -165,7 +158,7 @@ public class CloudHubConnector {
      * @param application The application to update.
      */
     @Processor
-    public void updateApplication(Application application) {
+    public void updateApplication(@Optional @Default("#[payload]") Application application) {
         ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(application); 
         getConnection().on(application.getDomain()).update(appUdateInfo);
     }
@@ -245,16 +238,18 @@ public class CloudHubConnector {
      * @param priority The notification priority.
      * @param domain The application domain.
      * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
+     * @param customProperties a map to represent custom placeholders on the notification template
      * @return The notification that was created.
      */
     @Processor
     public Notification createNotification(String message, 
                                            Priority priority, 
                                            @Optional String domain,
-                                           @Payload Object payload) {
-        Connection connection = getConnection();
-
-        return connection.createNotification(message, priority, domain);
+                                           @Optional @Default("#[payload]") Object payload,
+                                           @Optional Map<String, String> customProperties) {
+        
+    	Connection connection = getConnection();
+        return connection.createNotification(message, priority, domain, customProperties);
     }
 
     /**
@@ -266,12 +261,15 @@ public class CloudHubConnector {
      * @param priority The notification priority.
      * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
      * @param includeStacktrace If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
+     * @param customProperties a map to represent custom placeholders on the notification template
      */
     @Processor
     public void createNotificationFromFlow(String message, 
                                            Priority priority,
-                                           @Payload Object payload,
-                                           @Optional @Default("true") boolean includeStacktrace) {
+                                           @Optional @Default("#[payload]") Object payload,
+                                           @Optional @Default("true") boolean includeStacktrace,
+                                           @Optional Map<String, String> customProperties) {
+    	
         String domain = System.getProperty("domain");
         String token = System.getProperty("ion.api.token");
 
@@ -290,7 +288,7 @@ public class CloudHubConnector {
             // running on CloudHub
             Connection connection = getConnection();
     
-            connection.createNotification(message, priority, domain);
+            connection.createNotification(message, priority, domain, customProperties);
         }
     }
 
@@ -314,4 +312,21 @@ public class CloudHubConnector {
         }
         return new Connection(this.url, this.username, this.password, false);
     }
+
+	public String getUrl() {
+		return url;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public Long getMaxWaitTime() {
+		return maxWaitTime;
+	}
+    
 }
