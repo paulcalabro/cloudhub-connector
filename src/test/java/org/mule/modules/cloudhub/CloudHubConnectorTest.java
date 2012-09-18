@@ -48,6 +48,7 @@ public class CloudHubConnectorTest extends FunctionalTestCase
     }
 
     @Test
+    @Ignore
     public void testGetListApplications() throws Exception
     {
         MuleEvent event = runFlow("listApplications");
@@ -74,6 +75,7 @@ public class CloudHubConnectorTest extends FunctionalTestCase
     }
 
     @Test
+    @Ignore
     public void testCreateNotification() throws Exception
     {
         MuleEvent event = runFlow("createNotification");
