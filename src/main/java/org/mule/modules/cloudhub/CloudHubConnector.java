@@ -49,7 +49,7 @@ import com.mulesoft.cloudhub.client.NotificationResults;
  * 
  * @author MuleSoft, Inc.
  */
-@Module(name="cloudhub", schemaVersion="1.0")
+@Module(name="cloudhub", schemaVersion="1.0",friendlyName="Cloudhub")
 public class CloudHubConnector {
     
     private Logger logger = LoggerFactory.getLogger(Connection.class);
