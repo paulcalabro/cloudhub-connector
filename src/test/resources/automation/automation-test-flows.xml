@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:context="http://www.springframework.org/schema/context"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:cloudhub="http://www.mulesoft.org/schema/mule/cloudhub"
+      xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+      xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+        http://www.mulesoft.org/schema/mule/cloudhub http://www.mulesoft.org/schema/mule/cloudhub/1.0/mule-cloudhub.xsd">
+
+	<context:property-placeholder location="automation/automation-credentials.properties"/>
+    <cloudhub:config username="${username}" password="${password}" url="${endpoint}" />
+
+<!--     <flow name="deploy-application"> -->
+<!--  		<cloudhub:deploy-application domain="#[payload.domain]" muleVersion="#[payload.muleVersion]"/> -->
+<!-- 	</flow> -->
+<!--     <flow name="delete-application">	 -->
+<!-- 		<cloudhub:delete-application domain="#[payload]"/> -->
+<!-- 	</flow> -->
+    <flow name="list-applications">
+        <cloudhub:list-applications/>
+    </flow>
+    
+    <flow name="get-application">
+        <cloudhub:get-application domain="#[payload]"/>
+    </flow>
+    
+    <flow name="start-application">
+        <cloudhub:start-application domain="#[payload]"/>
+    </flow>
+    
+    <flow name="stop-application">
+        <cloudhub:stop-application domain="#[payload]"/>
+    </flow>
+
+    <flow name="create-notification">
+        <cloudhub:create-notification message="#[payload.message]" priority="#[payload.priority]" domain="#[payload.domain]"/>
+    </flow>
+    
+    <flow name="list-notifications">
+    	<cloudhub:list-notifications/>
+    </flow>
+    <flow name="dismiss-notification">
+        <cloudhub:dismiss-notification href="#[payload]"/>
+    </flow>
+    
+</mule>
