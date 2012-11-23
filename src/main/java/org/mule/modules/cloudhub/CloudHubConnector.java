@@ -244,7 +244,7 @@ public class CloudHubConnector {
     @Processor
     public Notification createNotification(String message, 
                                            Priority priority, 
-                                           @Optional String domain,
+                                           String domain,
                                            @Optional @Default("#[payload]") Object payload,
                                            @Optional Map<String, String> customProperties) {
         
