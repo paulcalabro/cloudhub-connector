@@ -26,7 +26,7 @@ import static org.mule.modules.cloudhub.CloudHubConnector.getStackTrace;
  */
 public class CloudHubConnectorTest {
     public static final NotificationResults NOTIFICATION_RESULTS = new NotificationResults();
-    public static final String TENANT_ID_PROPERTY = "tenant.id";
+    public static final String TENANT_ID_PROPERTY = "tenantId";
     public static final String TRANSACTION_ID = "transactionId";
     public static final String TENANT_ID = "tenantId";
     public static final Exception EXCEPTION = new Exception();
@@ -57,7 +57,7 @@ public class CloudHubConnectorTest {
         assertEquals(NOTIFICATION_RESULTS, connector().listNotifications(null,null, muleEvent));
 
 
-        verify(muleMessage, times(1)).getInboundProperty("tenant.id");
+        verify(muleMessage, times(1)).getInboundProperty("tenantId");
         verify(connection, times(1)).listNotifications(null,null,null);
     }
 

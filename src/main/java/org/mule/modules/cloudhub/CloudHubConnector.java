@@ -52,7 +52,7 @@ import javax.inject.Inject;
 @Module(name="cloudhub", schemaVersion="1.0",friendlyName="Cloudhub")
 public class CloudHubConnector {
 
-    public static final String TENANT_ID_PROPERTY = "tenant.id";
+    public static final String TENANT_ID_PROPERTY = "tenantId";
     public static final String EXCEPTION_MESSAGE_CUSTOM_PROPERTY = "exception.message";
     public static final String EXCEPTION_STACKTRACE_CUSTOM_PROPERTY = "exception.stacktrace";
     public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
