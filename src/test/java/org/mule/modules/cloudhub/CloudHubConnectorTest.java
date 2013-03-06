@@ -1,3 +1,13 @@
+/**
+ * Mule CloudHub Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
+
 package org.mule.modules.cloudhub;
 
 import com.mulesoft.cloudhub.client.CloudhubConnection;
@@ -31,6 +41,7 @@ public class CloudHubConnectorTest {
     public static final String TENANT_ID = "tenantId";
     public static final Exception EXCEPTION = new Exception();
     public static final String EXCEPTION_MESSAGE = "exceptionMessage";
+    public static final String DOMAIN = "myDomain";
 
     CloudhubConnection connection = mock(CloudhubConnection.class);
     MuleEvent muleEvent = mock(MuleEvent.class);
@@ -40,6 +51,7 @@ public class CloudHubConnectorTest {
     @Before
     public void defineBehaviour(){
         when(muleEvent.getMessage()).thenReturn(muleMessage);
+        System.setProperty("domain",DOMAIN);
     }
 
     /**
@@ -91,7 +103,7 @@ public class CloudHubConnectorTest {
 
         connector().createNotification("message", Notification.Priority.ERROR, null, muleEvent);
 
-        verify(connection).create(argThat(new NotificationMatcher(null, null,  Notification.Priority.ERROR, null, TRANSACTION_ID)));
+        verify(connection).create(argThat(new NotificationMatcher(null, DOMAIN,  Notification.Priority.ERROR, null, TRANSACTION_ID)));
     }
 
 
@@ -108,7 +120,7 @@ public class CloudHubConnectorTest {
 
         connector().createNotification("message", Notification.Priority.ERROR, null, muleEvent);
 
-        verify(connection).create(argThat(new NotificationMatcher(TENANT_ID, null,  Notification.Priority.ERROR, null, TRANSACTION_ID)));
+        verify(connection).create(argThat(new NotificationMatcher(TENANT_ID, DOMAIN,  Notification.Priority.ERROR, null, TRANSACTION_ID)));
     }
 
     /**
@@ -126,7 +138,7 @@ public class CloudHubConnectorTest {
 
         connector().createNotification("message", Notification.Priority.ERROR, null, muleEvent);
 
-        verify(connection).create(argThat(new NotificationMatcher(TENANT_ID, null, Notification.Priority.ERROR, expectedExceptionProperties(), TRANSACTION_ID)));
+        verify(connection).create(argThat(new NotificationMatcher(TENANT_ID, DOMAIN, Notification.Priority.ERROR, expectedExceptionProperties(), TRANSACTION_ID)));
     }
 
     /**
@@ -148,7 +160,7 @@ public class CloudHubConnectorTest {
         connector().createNotification("message", Notification.Priority.ERROR, customProperties, muleEvent);
 
         customProperties.putAll(expectedExceptionProperties());
-        verify(connection).create(argThat(new NotificationMatcher(TENANT_ID, null, Notification.Priority.ERROR, customProperties, TRANSACTION_ID)));
+        verify(connection).create(argThat(new NotificationMatcher(TENANT_ID, DOMAIN, Notification.Priority.ERROR, customProperties, TRANSACTION_ID)));
     }
 
     private HashMap<String, String> expectedExceptionProperties() {

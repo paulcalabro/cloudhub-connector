@@ -312,12 +312,6 @@ public class CloudHubConnector {
      * <p>
      *     Processed mule event
      * </p>
-     * @returns
-     * <p>
-     *     The created Notification with its href. The Href property is important for things such as dismiss
-     *     notification.
-     * </p>
-     *
      * @throws
      * <p>
      *     A CloudhubException in case the notification could not be created
@@ -326,22 +320,28 @@ public class CloudHubConnector {
      */
     @Processor
     @Inject
-    public Notification createNotification(String message,
+    public void createNotification(String message,
                                            Priority priority,
                                            @Optional Map<String, String> customProperties,
                                            MuleEvent muleEvent) {
         customProperties = merge(customProperties, handleException(muleEvent));
 
 
+        String domain = System.getProperty(DOMAIN_SYSTEM_PROPERTY);
+
         Notification notification = new Notification();
         notification.setMessage(message);
         notification.setPriority(priority);
-        notification.setDomain(System.getProperty(DOMAIN_SYSTEM_PROPERTY));
+        notification.setDomain(domain);
         notification.setCustomProperties(customProperties);
         notification.setTenantId(getTenantIdFrom(muleEvent));
         notification.setTransactionId(getTransactionIdFrom(muleEvent));
-
-        return getConnection().create(notification);
+        if ( domain != null ){
+            getConnection().create(notification);
+        }
+        else{
+            logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
+        }
     }
 
     private Map<String, String> merge(Map<String, String> customProperties,
