@@ -14,9 +14,13 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mulesoft.cloudhub.client.*;
+import org.mule.api.ExceptionPayload;
+import org.mule.api.MuleEvent;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Module;
 import org.mule.api.annotations.Processor;
@@ -29,13 +33,9 @@ import org.mule.message.ExceptionMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mulesoft.cloudhub.client.Application;
-import com.mulesoft.cloudhub.client.ApplicationUpdateInfo;
-import com.mulesoft.cloudhub.client.Connection;
-import com.mulesoft.cloudhub.client.DomainConnection;
-import com.mulesoft.cloudhub.client.Notification;
 import com.mulesoft.cloudhub.client.Notification.Priority;
-import com.mulesoft.cloudhub.client.NotificationResults;
+
+import javax.inject.Inject;
 
 /**
  * Provides the ability to interact with Mule CloudHub from within a Mule application. There are operations to deploy, start,
@@ -51,9 +51,14 @@ import com.mulesoft.cloudhub.client.NotificationResults;
  */
 @Module(name="cloudhub", schemaVersion="1.0",friendlyName="Cloudhub")
 public class CloudHubConnector {
-    
+
+    public static final String TENANT_ID_PROPERTY = "tenantId";
+    public static final String EXCEPTION_MESSAGE_CUSTOM_PROPERTY = "exception.message";
+    public static final String EXCEPTION_STACKTRACE_CUSTOM_PROPERTY = "exception.stacktrace";
+    public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
+
     private Logger logger = LoggerFactory.getLogger(Connection.class);
-    
+
     /**
      * CloudHub URL.
      */
@@ -88,7 +93,7 @@ public class CloudHubConnector {
     @FriendlyName("Maximum time allowed to deplpoy/undeploy.")
     private Long maxWaitTime;
 
-    private Connection connection;
+    private CloudhubConnection connection;
     
     public void setUrl(final String url) {
         this.url = url;
@@ -189,10 +194,16 @@ public class CloudHubConnector {
     }
 
     /**
-     * Delete an application.
+     * <p>
+     *    Delete an application.
+     * </p>
      *
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:delete-application}
-     * @param domain The application domain.
+     * @param domain
+     * <p>
+     *     The application domain.
+     * </p>
+     *
      */
     @Processor
     public void deleteApplication(String domain) {
@@ -201,96 +212,169 @@ public class CloudHubConnector {
     }
 
     /**
-     * List a user's notifications.
-     * 
+     * <p>
+     *     List a user's notifications.
+     * </p>
+     *
+     * <p>
+     *     In the case of a multitenant application it searches for the notifications registered for the current
+     * tenant.
+     * </p>
+     *
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:list-notifications}
-     * @param maxResults The maximum number of results to retrieve.
-     * @param offset The offset to start listing alerts from.
-     * @param includeDismissed whether or not to include dismissed messages.
+     *
+     * @param maxResults
+     * <p>
+     *   The maximum number of results to retrieve.
+     * </p>
+     *
+     * @param offset
+     *  <p>
+     *     The offset to start listing alerts from.
+     *  </p>
+     *
+     * @param muleEvent
+     * <p>
+     *     Processed mule event
+     * </p>
+     * @throws
+     * <p>
+     *     Cloudhub exception in case there was a problem with cloudhub communication
+     * </p>
      * @return A List of notifications.
      */
     @Processor
+    @Inject
     public NotificationResults listNotifications(@Optional Integer maxResults,
-                                  @Optional Integer offset) {
-        Connection connection = getConnection();
-
-        return connection.listNotifications(maxResults, offset);
+                                  @Optional Integer offset,
+                                  MuleEvent muleEvent) {
+        return getConnection().listNotifications(maxResults, offset, getTenantIdFrom(muleEvent));
     }
-    
+
+
     /**
-     * Dismiss an individual notification.
+     * <p>
+     *     Dismiss an individual notification.
+     * </p>
+     *
+     * <p>
+     *     This operation does not depend on the tenant environment.
+     * </p>
      * 
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:dismiss-notification}
-     * @param href the href property of the Notification object.
+     *
+     *
+     * @param href
+     * <p>
+     *     The href property of the Notification object.
+     * </p>
      */
     @Processor
     public void dismissNotification(String href) {
-        Connection connection = getConnection();
-
-        connection.dismissNotification(href);
+        getConnection().dismissNotification(href);
     }
 
     /**
-     * Create a notification inside CloudHub.
-     * 
+     * <p>
+     *     Create a notification inside CloudHub.
+     * </p>
+     *
+     * <p>
+     *     If the notification is sent after an exception, it attaches the exception.message and exception.stacktrace as
+     *     as custom properties of the notification.
+     *
+     *     Those custom properties can be accessed from Cloudhub console with the names
+     *     'exception.message' and 'exception.stacktrace'
+     * </p>
+     *
+     * <p>
+     *     In the case of multitenant applications the connector will create a notification for a particular
+     *     tenant. (the one that is executing the flow)
+     * </p>
+     *
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:create-notification}
-     * @param message the contents of the notification.
-     * @param priority The notification priority.
-     * @param domain The application domain.
-     * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
-     * @param customProperties a map to represent custom placeholders on the notification template
-     * @return The notification that was created.
+     *
+     *
+     * @param message
+     * <p>
+     *     The contents of the notification.
+     * </p>
+     * @param priority
+     * <p>
+     *     The notification priority.
+     * </p>
+     * @param customProperties
+     * <p>
+     *     a map to represent custom placeholders on the notification template
+     * </p>
+     *
+     * @param muleEvent
+     * <p>
+     *     Processed mule event
+     * </p>
+     * @throws
+     * <p>
+     *     A CloudhubException in case the notification could not be created
+     * </p>
+     * @since 1.4
      */
     @Processor
-    public Notification createNotification(String message, 
-                                           Priority priority, 
-                                           String domain,
-                                           @Optional @Default("#[payload]") Object payload,
-                                           @Optional Map<String, String> customProperties) {
-        
-    	Connection connection = getConnection();
-        return connection.createNotification(message, priority, domain, customProperties);
-    }
-
-    /**
-     * Create a notification inside CloudHub for your flow. If not running in an CloudHub environment, this will log
-     * to the console.
-     * 
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:create-notification-from-flow}
-     * @param message the contents of the notification.
-     * @param priority The notification priority.
-     * @param payload The payload of the message. If it's an exception, it'll get appended to the message.
-     * @param includeStacktrace If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
-     * @param customProperties a map to represent custom placeholders on the notification template
-     */
-    @Processor
-    public void createNotificationFromFlow(String message, 
+    @Inject
+    public void createNotification(String message,
                                            Priority priority,
-                                           @Optional @Default("#[payload]") Object payload,
-                                           @Optional @Default("true") boolean includeStacktrace,
-                                           @Optional Map<String, String> customProperties) {
-    	
-        String domain = System.getProperty("domain");
-        String token = System.getProperty("ion.api.token");
+                                           @Optional Map<String, String> customProperties,
+                                           MuleEvent muleEvent) {
+        customProperties = merge(customProperties, handleException(muleEvent));
 
-        if (includeStacktrace) {
-            if (payload instanceof ExceptionMessage) {
-                Throwable t = ((ExceptionMessage) payload).getException();
-                
-                message += "\n" + getStackTrace(t);
-            }
+
+        String domain = System.getProperty(DOMAIN_SYSTEM_PROPERTY);
+
+        Notification notification = new Notification();
+        notification.setMessage(message);
+        notification.setPriority(priority);
+        notification.setDomain(domain);
+        notification.setCustomProperties(customProperties);
+        notification.setTenantId(getTenantIdFrom(muleEvent));
+        notification.setTransactionId(getTransactionIdFrom(muleEvent));
+        if ( domain != null ){
+            getConnection().create(notification);
         }
-        
-        if (domain == null || token == null) {
-            // running locally
-            logger.info(message);
-        } else {
-            // running on CloudHub
-            Connection connection = getConnection();
-    
-            connection.createNotification(message, priority, domain, customProperties);
+        else{
+            logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
         }
     }
+
+    private Map<String, String> merge(Map<String, String> customProperties,
+                                      Map<String, String> exceptionProperties) {
+        if ( !exceptionProperties.isEmpty() ) {
+            if (customProperties == null ){
+                customProperties = new HashMap<String, String>();
+            }
+
+            customProperties.putAll(exceptionProperties);
+        }
+        return customProperties;
+    }
+
+    private Map<String, String> handleException( MuleEvent muleEvent) {
+        ExceptionPayload exceptionPayload = muleEvent.getMessage().getExceptionPayload();
+        Map<String, String> customProperties = new HashMap<String, String>();
+        if ( exceptionPayload != null ){
+            customProperties.put(EXCEPTION_MESSAGE_CUSTOM_PROPERTY, exceptionPayload.getMessage());
+            customProperties.put(EXCEPTION_STACKTRACE_CUSTOM_PROPERTY, getStackTrace(exceptionPayload.getException()));
+        }
+
+        return customProperties;
+    }
+
+    private static String getTransactionIdFrom(MuleEvent muleEvent) {
+        return muleEvent.getMessage().getMessageRootId();
+    }
+
+    private static String getTenantIdFrom(MuleEvent muleEvent) {
+        return muleEvent.getMessage().getInboundProperty(TENANT_ID_PROPERTY);
+    }
+
 
     public static String getStackTrace(Throwable aThrowable) {
         final Writer result = new StringWriter();
@@ -299,14 +383,14 @@ public class CloudHubConnector {
         return result.toString();
     }
     
-    private synchronized Connection getConnection() {
+    protected synchronized CloudhubConnection getConnection() {
         if (connection == null) {
             connection = createConnection();
         }
         return connection;
     }
 
-    private synchronized Connection createConnection() { 
+    protected synchronized CloudhubConnection createConnection() {
         if (connection != null) {
             return connection;
         }
