@@ -37,7 +37,7 @@
     </flow>
 
     <flow name="create-notification">
-        <cloudhub:create-notification message="#[payload.message]" priority="#[payload.priority]" domain="#[payload.domain]"/>
+        <cloudhub:create-notification message="#[payload.message]" priority="#[payload.priority]" />
     </flow>
     
     <flow name="list-notifications">

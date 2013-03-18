@@ -26,8 +26,5 @@
     <cloudhub:dismiss-notification href="someLink"/>
 <!-- END_INCLUDE(cloudhub:dismiss-notification) -->
 <!-- BEGIN_INCLUDE(cloudhub:create-notification) -->
-    <cloudhub:create-notification domain="yourapp" message="Hello World" priority="INFO"/>
+    <cloudhub:create-notification message="Hello World" priority="INFO"/>
 <!-- END_INCLUDE(cloudhub:create-notification) -->
-<!-- BEGIN_INCLUDE(cloudhub:create-notification-from-flow) -->
-    <cloudhub:create-notification-from-flow message="Hello World" priority="INFO"/>
-<!-- END_INCLUDE(cloudhub:create-notification-from-flow) -->
