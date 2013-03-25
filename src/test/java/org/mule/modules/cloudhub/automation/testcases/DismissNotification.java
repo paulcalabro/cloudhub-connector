@@ -10,27 +10,18 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.List;
-
-import java.util.Map;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.mule.api.MuleEvent;
 import org.mule.api.MuleException;
 import org.mule.api.processor.MessageProcessor;
-import org.mule.api.transformer.TransformerException;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.mule.api.MuleEvent;
 import org.mule.modules.cloudhub.automation.Sandbox;
 import org.mule.tck.junit4.FunctionalTestCase;
-
-
-import com.mulesoft.cloudhub.client.Application;
-import com.mulesoft.cloudhub.client.Notification;
-import com.mulesoft.cloudhub.client.NotificationResults;
+import org.springframework.context.ApplicationContext;
 
 public class DismissNotification extends FunctionalTestCase {
 	
