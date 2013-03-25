@@ -374,6 +374,22 @@ public class CloudHubConnector {
     
     /**
      * <p>
+     * 	Creates a tenant
+     * </p>
+     * 
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:create-tenant}
+     * 
+     * @param tenant an instance of {@link com.mulesoft.cloudhub.client.Tenant} representing the tenant
+     * @param domain the domain that will own the tenant
+     * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant} carrying the state of the newly created tenant
+     */
+    @Processor
+    public Tenant createTenant(@Optional @Default("#[payload]") Tenant tenant, String domain) {
+    	return this.getConnection().create(tenant, domain);
+    }
+    
+    /**
+     * <p>
      * 	Returns an specific tenant
      * </p>
      * 

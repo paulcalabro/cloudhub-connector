@@ -24,7 +24,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		StopApplication.class,
 		CreateNotification.class,
 		ListNotifications.class,
-		DismissNotification.class
+		DismissNotification.class,
+		CreateTenant.class
 		})
 
 

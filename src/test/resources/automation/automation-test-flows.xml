@@ -47,4 +47,8 @@
         <cloudhub:dismiss-notification href="#[payload]"/>
     </flow>
     
+    <flow name="create-tenant">
+    	<cloudhub:create-tenant domain="${app.domain}" /> 
+    </flow>
+    
 </mule>

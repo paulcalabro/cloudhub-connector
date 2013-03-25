@@ -34,6 +34,9 @@
 <!-- BEGIN_INCLUDE(cloudhub:get-tenant) -->
     <cloudhub:get-tenant domain="${app.domain}" tenantId="acme" />
 <!-- END_INCLUDE(cloudhub:get-tenant) -->
+<!-- BEGIN_INCLUDE(cloudhub:create-tenant) -->
+    <cloudhub:create-tenant domain="${app.domain}" />
+<!-- END_INCLUDE(cloudhub:create-tenant) -->
 <!-- BEGIN_INCLUDE(cloudhub:update-tenant) -->
     <cloudhub:update-tenant domain="${app.domain}" />
 <!-- END_INCLUDE(cloudhub:update-tenant) -->
