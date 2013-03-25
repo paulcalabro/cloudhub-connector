@@ -18,7 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mulesoft.cloudhub.client.*;
+import javax.inject.Inject;
+
 import org.mule.api.ExceptionPayload;
 import org.mule.api.MuleEvent;
 import org.mule.api.annotations.Configurable;
@@ -29,13 +30,19 @@ import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.display.Placement;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
-import org.mule.message.ExceptionMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mulesoft.cloudhub.client.Application;
+import com.mulesoft.cloudhub.client.ApplicationUpdateInfo;
+import com.mulesoft.cloudhub.client.CloudhubConnection;
+import com.mulesoft.cloudhub.client.Connection;
+import com.mulesoft.cloudhub.client.DomainConnection;
+import com.mulesoft.cloudhub.client.Notification;
 import com.mulesoft.cloudhub.client.Notification.Priority;
-
-import javax.inject.Inject;
+import com.mulesoft.cloudhub.client.NotificationResults;
+import com.mulesoft.cloudhub.client.Tenant;
+import com.mulesoft.cloudhub.client.TenantResults;
 
 /**
  * Provides the ability to interact with Mule CloudHub from within a Mule application. There are operations to deploy, start,
@@ -327,7 +334,7 @@ public class CloudHubConnector {
         customProperties = merge(customProperties, handleException(muleEvent));
 
 
-        String domain = System.getProperty(DOMAIN_SYSTEM_PROPERTY);
+        String domain = getDomain();
 
         Notification notification = new Notification();
         notification.setMessage(message);
@@ -342,6 +349,89 @@ public class CloudHubConnector {
         else{
             logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
         }
+    }
+    
+    /**
+     * List all available tenants for the current domain
+     * 
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:list-tenants}
+     * 
+     * @param domain the domain owning the tenants
+     * @param limit The maximum number of results to return by default. Maximum of 100.
+     * @param offset The offset to start searching at
+     * @param query The company name, contact name, and email of the tenant to search form. Performs a case insensitive match to any part of the tenant name. 
+     * @return an instance of {@link com.mulesoft.cloudhub.client.TenantResults}
+     */
+    @Processor
+    public TenantResults listTenants(
+    		String domain,
+    		@Optional @Default("25") Integer limit,
+    		@Optional Integer offset,
+    		@Optional String query) {
+    
+    	return this.getConnection().listTenants(domain, limit, offset, query);
+    }
+    
+    /**
+     * <p>
+     * 	Returns an specific tenant
+     * </p>
+     * 
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:get-tenant}
+     * 
+     * @param domain the domain owning the tenants
+     * @param tenantId the id of the tenant you want
+     * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
+     */
+    @Processor
+    public Tenant getTenant(String domain, String tenantId) {
+    	return this.getConnection().getTenant(domain, tenantId);
+    }
+    
+    /**
+     * <p>
+     * 	Updates a tenant
+     * </p>
+     * 
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:update-tenant}
+     * 
+     * @param tenant an instance of {@link com.mulesoft.cloudhub.client.Tenant} with the tenant's new state
+     * @param domain the domain that will own the tenant
+     * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant} carrying the tenant's updated state
+     */
+    @Processor
+    public Tenant updateTenant(@Optional @Default("#[payload]") Tenant tenant, String domain) {
+    	return this.getConnection().update(tenant, domain);
+    }
+    
+    /**
+     * <p>
+     * 	Deletes a given tenant
+     * </p>
+     * 
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:delete-tenant}
+     * 
+     * @param tenantId the id of the tenant to be deleted
+     * @param domain the domain that owns the tenant to be deleted
+     */
+    @Processor
+    public void deleteTenant(String domain, String tenantId) {
+    	this.getConnection().delete(tenantId, domain);
+    }
+    
+    /**
+     * <p>
+     * 	Deletes all tenants for a given domain
+     * </p>
+     * 
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample cloudhub:delete-tenants}
+     * 
+     * @param domain the domain you want to clear of tenants
+     * @param tenantIds a list with tenant ids to be deleted
+     */
+    @Processor
+    public void deleteTenants(String domain, List<String> tenantIds) {
+    	this.getConnection().deleteTenants(domain, tenantIds);
     }
 
     private Map<String, String> merge(Map<String, String> customProperties,
@@ -382,6 +472,10 @@ public class CloudHubConnector {
         aThrowable.printStackTrace(printWriter);
         return result.toString();
     }
+    
+    private String getDomain() {
+		return System.getProperty(DOMAIN_SYSTEM_PROPERTY);
+	}
     
     protected synchronized CloudhubConnection getConnection() {
         if (connection == null) {

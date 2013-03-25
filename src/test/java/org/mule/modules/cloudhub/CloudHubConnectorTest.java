@@ -10,10 +10,17 @@
 
 package org.mule.modules.cloudhub;
 
-import com.mulesoft.cloudhub.client.CloudhubConnection;
-import com.mulesoft.cloudhub.client.Connection;
-import com.mulesoft.cloudhub.client.Notification;
-import com.mulesoft.cloudhub.client.NotificationResults;
+import static junit.framework.Assert.assertEquals;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mule.modules.cloudhub.CloudHubConnector.getStackTrace;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -22,12 +29,9 @@ import org.mule.api.ExceptionPayload;
 import org.mule.api.MuleEvent;
 import org.mule.api.MuleMessage;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mule.modules.cloudhub.CloudHubConnector.getStackTrace;
+import com.mulesoft.cloudhub.client.CloudhubConnection;
+import com.mulesoft.cloudhub.client.Notification;
+import com.mulesoft.cloudhub.client.NotificationResults;
 
 /**
  * <p>

@@ -28,3 +28,23 @@
 <!-- BEGIN_INCLUDE(cloudhub:create-notification) -->
     <cloudhub:create-notification message="Hello World" priority="INFO"/>
 <!-- END_INCLUDE(cloudhub:create-notification) -->
+<!-- BEGIN_INCLUDE(cloudhub:list-tenants) -->
+    <cloudhub:list-tenants limit="25" domain="${app.domain}" />
+<!-- END_INCLUDE(cloudhub:list-tenants) -->
+<!-- BEGIN_INCLUDE(cloudhub:get-tenant) -->
+    <cloudhub:get-tenant domain="${app.domain}" tenantId="acme" />
+<!-- END_INCLUDE(cloudhub:get-tenant) -->
+<!-- BEGIN_INCLUDE(cloudhub:update-tenant) -->
+    <cloudhub:update-tenant domain="${app.domain}" />
+<!-- END_INCLUDE(cloudhub:update-tenant) -->
+<!-- BEGIN_INCLUDE(cloudhub:delete-tenant) -->
+    <cloudhub:delete-tenant domain="${app.domain}" tenantId="acme" />
+<!-- END_INCLUDE(cloudhub:delete-tenant) -->
+<!-- BEGIN_INCLUDE(cloudhub:delete-tenants) -->
+    <cloudhub:delete-tenants domain="${app.domain}">
+        <cloudhub:tenant-ids>
+            <cloudhub:tenant-id>acme</cloudhub:tenant-id>
+            <cloudhub:tenant-id>Mulesoft</cloudhub:tenant-id>
+        </cloudhub:tenant-ids>
+    </cloudhub:delete-tenants>
+<!-- END_INCLUDE(cloudhub:delete-tenants) -->
