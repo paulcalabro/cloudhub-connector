@@ -10,12 +10,9 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.Map;
 
 import org.junit.Test;
-import org.mule.api.MuleEvent;
 import org.mule.api.processor.MessageProcessor;
 
 import com.mulesoft.cloudhub.client.Tenant;
@@ -25,21 +22,15 @@ import com.mulesoft.cloudhub.client.Tenant;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public class CreateTenant extends AbstractTenantTestCase {
+public class DeleteTenant extends AbstractTenantTestCase {
 
 	@Test
-	public void createTenant() throws Exception {
+	public void delete() throws Exception {
 		Tenant tenant = this.makeTenant();
 		
 		Map<String, Object> payload = this.makePayload(tenant);
+		MessageProcessor sandboxFlow = lookupFlowConstruct("delete-tenant");
 		
-		MessageProcessor sandboxFlow = lookupFlowConstruct("create-tenant");
-		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
-		
-		Tenant responsTenant = (Tenant) response.getMessage().getPayload();
-		
-		assertEquals("ids should be the same", tenant.getId(), responsTenant.getId());
+		sandboxFlow.process(getTestEvent(payload));
 	}
-	
-
 }

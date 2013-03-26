@@ -25,21 +25,22 @@ import com.mulesoft.cloudhub.client.Tenant;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public class CreateTenant extends AbstractTenantTestCase {
-
+public class UpdateTenant extends AbstractTenantTestCase {
+	
 	@Test
-	public void createTenant() throws Exception {
+	public void updateTenant() throws Exception {
 		Tenant tenant = this.makeTenant();
+		tenant.setCompanyName("Mule Rules!");
 		
 		Map<String, Object> payload = this.makePayload(tenant);
+		MessageProcessor sandboxFlow = lookupFlowConstruct("update-tenant");
 		
-		MessageProcessor sandboxFlow = lookupFlowConstruct("create-tenant");
 		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
 		
-		Tenant responsTenant = (Tenant) response.getMessage().getPayload();
+		Tenant responseTenant = (Tenant) response.getMessage().getPayload();
 		
-		assertEquals("ids should be the same", tenant.getId(), responsTenant.getId());
+		assertEquals("companies should be the same", tenant.getCompanyName(), responseTenant.getCompanyName());
 	}
-	
+
 
 }

@@ -47,8 +47,38 @@
         <cloudhub:dismiss-notification href="#[payload]"/>
     </flow>
     
+    <flow name="get-tenant">
+    	<cloudhub:get-tenant domain="#[payload['domain']]" tenantId="#[payload['tenantId']]"/> 
+    </flow>
+    
+    <flow name="list-tenants">
+    	<cloudhub:list-tenants domain="#[payload['domain']]" /> 
+    </flow>
+    
     <flow name="create-tenant">
-    	<cloudhub:create-tenant domain="${app.domain}" /> 
+    	<cloudhub:get-tenant domain="#[payload['domain']]" tenantId="#[payload['tenantId']]"/>
+    	<choice>
+    		<when expression="#[payload is org.mule.transport.NullPayload]">
+    			<logger message="tenant doesn't exists" />
+    		</when>
+    		<otherwise>
+    			<flow-ref name="delete-tenant" />
+    		</otherwise>
+    	</choice> 
+    	
+    	<cloudhub:create-tenant domain="#[payload['domain']]">
+    		<cloudhub:tenant ref="#[payload['tenant']]" />
+    	</cloudhub:create-tenant>
+    </flow>
+    
+    <flow name="update-tenant">
+    	<cloudhub:update-tenant domain="#[payload['domain']]">
+    		<cloudhub:tenant ref="#[payload['tenant']]" />
+    	</cloudhub:update-tenant> 
+    </flow>
+    
+    <flow name="delete-tenant">
+    	<cloudhub:delete-tenant domain="#[payload['domain']]" tenantId="#[payload['tenantId']]"/>
     </flow>
     
 </mule>

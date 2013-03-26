@@ -25,7 +25,11 @@ import org.junit.runners.Suite.SuiteClasses;
 		CreateNotification.class,
 		ListNotifications.class,
 		DismissNotification.class,
-		CreateTenant.class
+		ListTenants.class,
+		GetTenant.class,
+		CreateTenant.class,
+		UpdateTenant.class,
+		DeleteTenant.class
 		})
 
 
