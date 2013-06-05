@@ -1,0 +1,1960 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule CloudHub Connector." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+<title>
+
+  CloudHubConnector
+
+
+| Mule CloudHub Connector
+
+</title>
+<link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="../assets/jquery-toc.js" type="text/javascript"></script>
+<script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../", "../assets/");
+</script>
+<script src="../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+<script type="text/javascript" charset="utf-8">
+  var is_ssl = ("https:" == document.location.protocol);
+  var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
+  document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  var feedback_widget_options = {};
+
+  feedback_widget_options.display = "overlay";
+  feedback_widget_options.company = "mulesoft";
+  feedback_widget_options.placement = "right";
+  feedback_widget_options.color = "#2F74AE";
+  feedback_widget_options.style = "question";
+
+  feedback_widget_options.tag = "Mule CloudHub Connector";
+
+  feedback_widget_options.limit = "3";
+
+  var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
+</script>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule CloudHub Connector</span>
+    
+    <ul id="header-tabs" class="mule">
+    
+    	<li id="guide"><a href="../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../')"
+                      onkeyup="return search_changed(event, false, '../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+<div class="g-unit" id="all-content">
+
+<div id="api-info-block">
+
+<div class="sum-details-links">
+
+Summary:
+<a href="#lconfig">Configuration</a>
+
+
+
+</div><!-- end sum-details-links -->
+
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF MODULE DATA ======== -->
+
+<div id="jd-header">
+    org.mule.modules
+<h1>mule-module-cloudhub</h1>
+    config
+
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+
+
+<br/>
+
+<div class="jd-tagdata">
+      <table class="jd-tagtable">
+        <tbody><tr>
+          <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/cloudhub</td>
+        </tr><tr>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/cloudhub/current/mule-cloudhub.xsd&nbsp;&nbsp;(<a href="cloudhub-schema.html">View Schema</a>)</td>
+        </tr>
+<tr>
+          <th>Schema Version</th><td>1.0</td>
+        </tr>
+<tr>
+          <th>Minimum Mule Version</th><td>3.2</td>
+        </tr>
+    </tbody></table>
+  </div>
+
+<div class="jd-descr">
+
+
+<h2>Module Overview</h2>
+<p>Provides the ability to interact with Mule CloudHub from within a Mule application. There are operations to deploy, start,
+ stop, and update applications as well as send notifications from your application to CloudHub.
+ <p>
+ When running this connector in an application inside CloudHub, it will use token based authentication
+ to access the API. This will allow access and usage of the CloudHub APIs without the need
+ to specify your username and password.
+ <p></p>
+
+
+</div><!-- jd-descr -->
+
+
+
+
+
+
+
+
+
+
+
+<div class="jd-descr">
+
+
+<h2>Summary</h2>
+
+<!-- Config -->
+
+<!-- =========== CONFIG SUMMARY =========== -->
+<table id="lconfig" class="jd-sumtable"><tr><th colspan="12">Configuration</th></tr>
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#config">&lt;cloudhub:config&gt;</a></nobr>
+        <div class="jd-descrdiv">Configure an instance of this module</div>
+  </td></tr>
+</table>
+
+
+
+<table id="promethods" class="jd-sumtable">
+<tr><th colspan="12">Message Processors<br/><span style="font-weight: 200;"></span></th></tr>
+    
+    
+    <!-- ========== MESSAGE PROCESSOR SUMMARY =========== -->
+    
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#create-notification">&lt;cloudhub:create-notification&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+     Create a notification inside CloudHub.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#create-tenant">&lt;cloudhub:create-tenant&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Creates a tenant
+ </p>
+ 
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#delete-application">&lt;cloudhub:delete-application&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+    Delete an application.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#delete-tenant">&lt;cloudhub:delete-tenant&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Deletes a given tenant
+ </p>
+ 
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#delete-tenants">&lt;cloudhub:delete-tenants&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Deletes all tenants for a given domain
+ </p>
+ 
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#deploy-application">&lt;cloudhub:deploy-application&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Deploy specified application.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#dismiss-notification">&lt;cloudhub:dismiss-notification&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+     Dismiss an individual notification.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#get-application">&lt;cloudhub:get-application&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Get an application.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#get-tenant">&lt;cloudhub:get-tenant&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Returns an specific tenant
+ </p>
+ 
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#list-applications">&lt;cloudhub:list-applications&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">List applications.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#list-notifications">&lt;cloudhub:list-notifications&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+     List a user's notifications.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#list-tenants">&lt;cloudhub:list-tenants&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">List all available tenants for the current domain
+ 
+ </div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#start-application">&lt;cloudhub:start-application&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Start an application.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#stop-application">&lt;cloudhub:stop-application&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Stop an application.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#update-application">&lt;cloudhub:update-application&gt;</a></nobr>
+        
+        <div class="jd-descrdiv">Update an application.</div>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../mule/cloudhub-config.html#update-tenant">&lt;cloudhub:update-tenant&gt;</a></nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Updates a tenant
+ </p>
+ 
+ </div>
+        
+  </td></tr>
+
+
+
+    
+    
+    
+</table>
+
+
+
+
+
+
+
+
+
+
+
+</div><!-- jd-descr (summary) -->
+
+
+<!-- ========= CONFIGURATION DETAIL ======== -->
+<A NAME="config"></A>
+<h2>Configuration</h2>
+<p>To use the this module within a flow the namespace to the module must be included. The resulting flow will look
+similar to the following:</p>
+<pre>
+&lt;mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:cloudhub="http://www.mulesoft.org/schema/mule/cloudhub"
+      xsi:schemaLocation="
+               http://www.mulesoft.org/schema/mule/core
+               http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+               http://www.mulesoft.org/schema/mule/cloudhub
+               http://www.mulesoft.org/schema/mule/cloudhub/current/mule-cloudhub.xsd"&gt;
+
+      &lt;!-- here goes your flows and configuration elements --&gt;
+
+&lt;/mule&gt;
+</pre>
+
+<p>This module is configured using the <i>config</i> element. This element must be placed outside of your flows and at
+the root of your Mule application. You can create as many configurations as you deem necessary as long as each carries
+its own name.</p>
+<p>Each message processor, message source or transformer carries a <i>config-ref</i> attribute that allows the invoker to
+specify which configuration to use.</p>
+<table id="lconfig" class="jd-sumtable">
+<tr><th colspan="12">Attributes</th></tr>
+<tr><th>Type</th><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+<td class="jd-typecol"><nobr>xs:string</nobr></td>
+<td class="jd-linkcol"><nobr>name</nobr></td>
+<td class="jd-descrcol"></td>
+<td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Give a name to this configuration so it can be later referenced.</td>
+<td/><td/><td/>
+
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:long</nobr></td>
+          <td class="jd-linkcol"><nobr>maxWaitTime</nobr></td>
+          <td class="jd-descrcol">0</td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Maximum time allowed to deplpoy/undeploy.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>password</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CloudHub password.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class=" api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>url</nobr></td>
+          <td class="jd-descrcol">https://cloudhub.io/</td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CloudHub URL.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+      <tr class="alt-color api apilevel-" >
+          <td class="jd-typecol"><nobr>
+          xs:string</nobr></td>
+          <td class="jd-linkcol"><nobr>username</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>CloudHub username.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+      </tr>
+      
+    
+    
+    
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ========= MESSAGE PROCESSOR DETAIL ======== -->
+<!-- Message Processors -->
+<h2>Message Processors</h2>
+
+
+    
+    
+
+
+<A NAME="create-notification"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:create-notification&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+     Create a notification inside CloudHub.
+ </p>
+
+ <p>
+     If the notification is sent after an exception, it attaches the exception.message and exception.stacktrace as
+     as custom properties of the notification.
+
+     Those custom properties can be accessed from Cloudhub console with the names
+     'exception.message' and 'exception.stacktrace'
+ </p>
+
+ <p>
+     In the case of multitenant applications the connector will create a notification for a particular
+     tenant. (the one that is executing the flow)
+ </p>
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:create-notification message="Hello World" priority="INFO"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>message</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><p>
+     The contents of the notification.
+ </p></td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>priority</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><p>
+     The notification priority.
+ </p></td>
+                        <td class="jd-descrcol">Notification.Priority</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>muleEvent</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><p>
+     Processed mule event
+ </p></td>
+                        <td class="jd-descrcol">MuleEvent</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;cloudhub:custom-properties&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i><p>
+     a map to represent custom placeholders on the notification template
+ </p></td>
+                        <td>Map&lt;String,&nbsp;String&gt;</td>
+                    </tr>
+                
+                
+              
+                
+              
+          </table>
+      </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="create-tenant"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:create-tenant&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Creates a tenant
+ </p>
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:create-tenant domain="${app.domain}" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>tenant</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>An instance of com.mulesoft.cloudhub.client.Tenant representing the tenant</td>
+                        <td class="jd-descrcol">Tenant</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The domain that will own the tenant</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">Tenant</td>
+                <td class="jd-descrcol">an instance of com.mulesoft.cloudhub.client.Tenant carrying the state of the newly created tenant
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="delete-application"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:delete-application&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+    Delete an application.
+ </p>
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:delete-application domain="yourapp" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><p>
+     The application domain.
+ </p>
+
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="delete-tenant"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:delete-tenant&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Deletes a given tenant
+ </p>
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:delete-tenant domain="${app.domain}" tenantId="acme" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The domain that owns the tenant to be deleted
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>tenantId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The id of the tenant to be deleted</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="delete-tenants"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:delete-tenants&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Deletes all tenants for a given domain
+ </p>
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:delete-tenants domain="${app.domain}"&gt;
+    &lt;cloudhub:tenant-ids&gt;
+        &lt;cloudhub:tenant-id&gt;acme&lt;/cloudhub:tenant-id&gt;
+        &lt;cloudhub:tenant-id&gt;Mulesoft&lt;/cloudhub:tenant-id&gt;
+    &lt;/cloudhub:tenant-ids&gt;
+&lt;/cloudhub:delete-tenants&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The domain you want to clear of tenants</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+          
+          
+          
+        </table>
+  </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;cloudhub:tenant-ids&gt;</nobr></td>
+                        <td></td>
+                        <td>A list with tenant ids to be deleted
+</td>
+                        <td>List&lt;String&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="deploy-application"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:deploy-application&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Deploy specified application.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:deploy-application file-ref="#[payload]" domain="my-domain" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>file</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>Mule application to deploy, Input Object type: java.io.InputStream</td>
+                        <td class="jd-descrcol">InputStream</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The application domain.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>muleVersion</nobr></td>
+                        <td class="jd-descrcol">3.2.2</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The version of Mule, e.g. 3.2.2.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>workerCount</nobr></td>
+                        <td class="jd-descrcol">1</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The number of workers to deploy.</td>
+                        <td class="jd-descrcol">int</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+          
+          
+          
+        </table>
+  </div>
+  
+      <div class="jd-tagdata">
+          <h5 class="jd-tagtitle">Child Elements</h5>
+            <table id="lconfig" class="jd-sumtable">
+              
+              <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th></td>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                    <tr>
+                        <td><nobr>&lt;cloudhub:environment-variables&gt;</nobr></td>
+                        <td></td>
+                        <td><i>Optional.&nbsp;</i>Environment variables for you application.
+</td>
+                        <td>Map&lt;String,&nbsp;String&gt;</td>
+                    </tr>
+                
+                
+              
+          </table>
+      </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="dismiss-notification"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:dismiss-notification&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+     Dismiss an individual notification.
+ </p>
+
+ <p>
+     This operation does not depend on the tenant environment.
+ </p>
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:dismiss-notification href="someLink"/&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>href</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><p>
+     The href property of the Notification object.
+ </p>
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="get-application"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:get-application&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Get an application.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:get-application domain="yourapp" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The application domain.</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">Application</td>
+                <td class="jd-descrcol">An application.
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="get-tenant"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:get-tenant&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Returns an specific tenant
+ </p>
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:get-tenant domain="${app.domain}" tenantId="acme" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The domain owning the tenants</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>tenantId</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The id of the tenant you want</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">Tenant</td>
+                <td class="jd-descrcol">an instance of com.mulesoft.cloudhub.client.Tenant
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="list-applications"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:list-applications&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>List applications.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:list-applications /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">List&lt;Application&gt;</td>
+                <td class="jd-descrcol">A list of applications.
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="list-notifications"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:list-notifications&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+     List a user's notifications.
+ </p>
+
+ <p>
+     In the case of a multitenant application it searches for the notifications registered for the current
+ tenant.
+ </p>
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:list-notifications /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>maxResults</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i><p>
+   The maximum number of results to retrieve.
+ </p></td>
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>offset</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i><p>
+     The offset to start listing alerts from.
+  </p></td>
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>muleEvent</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><p>
+     Processed mule event
+ </p></td>
+                        <td class="jd-descrcol">MuleEvent</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">NotificationResults</td>
+                <td class="jd-descrcol">A List of notifications.
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="list-tenants"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:list-tenants&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>List all available tenants for the current domain
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:list-tenants limit="25" domain="${app.domain}" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The domain owning the tenants</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>limit</nobr></td>
+                        <td class="jd-descrcol">25</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The maximum number of results to return by default. Maximum of 100.</td>
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>offset</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The offset to start searching at</td>
+                        <td class="jd-descrcol">Integer</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>query</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The company name, contact name, and email of the tenant to search form. Performs a case insensitive match to any part of the tenant name. </td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">TenantResults</td>
+                <td class="jd-descrcol">an instance of com.mulesoft.cloudhub.client.TenantResults
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="start-application"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:start-application&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Start an application.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:start-application domain="yourapp" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The application domain.
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="stop-application"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:stop-application&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Stop an application.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:stop-application domain="yourapp" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The application domain.
+</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="update-application"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:update-application&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Update an application.
+
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:update-application /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>application</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>The application to update.
+</td>
+                        <td class="jd-descrcol">Application</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+    
+  
+
+    </div>
+</div>
+
+
+<A NAME="update-tenant"></A>
+
+<div class="jd-details api apilevel-">
+    <h4 class="jd-details-title">
+      <span class="sympad">&lt;cloudhub:update-tenant&gt;</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Updates a tenant
+ </p>
+ 
+ <div class="jd-tagdata"><h5 class="jd-tagtitle">XML Sample</h5><pre>&lt;cloudhub:update-tenant domain="${app.domain}" /&gt;</pre></div></p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Attributes</h5>
+
+        <table id="lconfig" class="jd-sumtable">
+        <tr><th>Name</th><th>Default Value</th><th>Description</th><th>Java Type</th><th>MIME Type</th><th>Encoding</th></tr>
+        <tr>
+          <td class="jd-linkcol"><nobr>config-ref</nobr></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol" width="100%"><i>Optional.&nbsp;</i>Specify which configuration to use.</td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+          <td class="jd-descrcol"></td>
+        </tr>
+          
+          
+                
+                    <tr class=" api apilevel-" >
+                        <td class="jd-linkcol"><nobr>tenant</nobr></td>
+                        <td class="jd-descrcol">#[payload]</td>
+                        <td class="jd-descrcol"><i>Optional.&nbsp;</i>An instance of com.mulesoft.cloudhub.client.Tenant with the tenant's new state</td>
+                        <td class="jd-descrcol">Tenant</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol"></td>
+                    </tr>
+                
+                
+          
+                
+                    <tr class="alt-color api apilevel-" >
+                        <td class="jd-linkcol"><nobr>domain</nobr></td>
+                        <td class="jd-descrcol"></td>
+                        <td class="jd-descrcol">The domain that will own the tenant</td>
+                        <td class="jd-descrcol">String</td>
+                        <td class="jd-descrcol">*/*</td>
+                        <td class="jd-descrcol">UTF-8</td>
+                    </tr>
+                
+                
+          
+          
+          
+        </table>
+  </div>
+  
+  
+      <div class="jd-tagdata">
+         <h5 class="jd-tagtitle">Returns</h5>
+         <table id="lconfig" class="jd-sumtable">
+             <tr>
+                <th>Return Type</th>
+                <th>Description</th>
+             </tr>
+             <tr>
+                <td class="jd-descrcol">Tenant</td>
+                <td class="jd-descrcol">an instance of com.mulesoft.cloudhub.client.Tenant carrying the tenant's updated state
+</td>
+             </tr>
+         </table>
+  </div>
+    
+  
+
+    </div>
+</div>
+
+
+    
+
+
+
+
+
+<!-- ========= MESSAGE SOURCES DETAIL ======== -->
+<!-- Message Sources -->
+<h2>Message Sources</h2>
+
+
+    
+
+
+
+
+
+<!-- ========= MESSAGE SOURCES DETAIL ======== -->
+<!-- Transformers -->
+<h2>Transformers</h2>
+
+
+    
+
+
+
+
+
+<!-- ========= END OF CLASS DATA ========= -->
+<A NAME="navbar_top"></A>
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>

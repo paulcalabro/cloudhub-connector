@@ -1,8 +1,10 @@
+com.mulesoft.cloudhub.client.holders
+com.mulesoft.cloudhub.client.transformers
 org.mule.modules.cloudhub
 org.mule.modules.cloudhub.adapters
+org.mule.modules.cloudhub.agents
 org.mule.modules.cloudhub.config
+org.mule.modules.cloudhub.process
 org.mule.modules.cloudhub.processors
 org.mule.modules.cloudhub.transformers
-org.mule.modules.ion.config
-org.mule.modules.ion.config.spring
 

@@ -202,20 +202,24 @@
               </div>
               <ul>
                 
+    <li class="api apilevel-">
+  <a href="../../../../../java/com/mulesoft/cloudhub/client/holders/package-summary.html">com.mulesoft.cloudhub.client.holders</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/com/mulesoft/cloudhub/client/transformers/package-summary.html">com.mulesoft.cloudhub.client.transformers</a></li>
     <li class="selected api apilevel-">
   <a href="../../../../../java/org/mule/modules/cloudhub/package-summary.html">org.mule.modules.cloudhub</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/cloudhub/adapters/package-summary.html">org.mule.modules.cloudhub.adapters</a></li>
     <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/cloudhub/agents/package-summary.html">org.mule.modules.cloudhub.agents</a></li>
+    <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/cloudhub/config/package-summary.html">org.mule.modules.cloudhub.config</a></li>
+    <li class="api apilevel-">
+  <a href="../../../../../java/org/mule/modules/cloudhub/process/package-summary.html">org.mule.modules.cloudhub.process</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/cloudhub/processors/package-summary.html">org.mule.modules.cloudhub.processors</a></li>
     <li class="api apilevel-">
   <a href="../../../../../java/org/mule/modules/cloudhub/transformers/package-summary.html">org.mule.modules.cloudhub.transformers</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/ion/config/package-summary.html">org.mule.modules.ion.config</a></li>
-    <li class="api apilevel-">
-  <a href="../../../../../java/org/mule/modules/ion/config/spring/package-summary.html">org.mule.modules.ion.config.spring</a></li>
               </ul><br/>
             </div> <!-- end packages -->
           </div> <!-- end resize-packages -->
@@ -286,9 +290,12 @@ Summary:
 
 
 
+  <a href="#constants">Constants</a>
+  
 
 
-  <a href="#lfields">Fields</a>
+
+  &#124; <a href="#lfields">Fields</a>
   
 
 
@@ -301,6 +308,9 @@ Summary:
   &#124; <a href="#pubmethods">Methods</a>
   
 
+
+  &#124; <a href="#promethods">Protected Methods</a>
+  
 
 
   &#124; <a href="#inhmethods">Inherited Methods</a>
@@ -416,7 +426,11 @@ Summary:
               >
           
             
-              <a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorLifecycleAdapter.html">CloudHubConnectorLifecycleAdapter</a>
+              <a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorLifecycleAdapter.html">CloudHubConnectorLifecycleAdapter</a>,
+            
+              <a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorMetadataAdapater.html">CloudHubConnectorMetadataAdapater</a>,
+            
+              <a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorProcessAdapter.html">CloudHubConnectorProcessAdapter</a>
             
           
       </div>
@@ -427,6 +441,14 @@ Summary:
         <tr class="alt-color api apilevel-" >
               <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorLifecycleAdapter.html">CloudHubConnectorLifecycleAdapter</a></td>
               <td class="jd-descrcol" width="100%">A <code>CloudHubConnectorLifecycleAdapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/cloudhub/CloudHubConnector.html">CloudHubConnector</a></code> that adds lifecycle methods to the pojo.&nbsp;</td>
+          </tr>
+        <tr class=" api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorMetadataAdapater.html">CloudHubConnectorMetadataAdapater</a></td>
+              <td class="jd-descrcol" width="100%">A <code>CloudHubConnectorMetadataAdapater</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/cloudhub/CloudHubConnector.html">CloudHubConnector</a></code> that adds support for querying metadata about the extension.&nbsp;</td>
+          </tr>
+        <tr class="alt-color api apilevel-" >
+              <td class="jd-linkcol"><a href="../../../../../java/org/mule/modules/cloudhub/adapters/CloudHubConnectorProcessAdapter.html">CloudHubConnectorProcessAdapter</a></td>
+              <td class="jd-descrcol" width="100%">A <code>CloudHubConnectorProcessAdapter</code> is a wrapper around <code><a href="../../../../../java/org/mule/modules/cloudhub/CloudHubConnector.html">CloudHubConnector</a></code> that enables custom processing strategies.&nbsp;</td>
           </tr>
   </table>
       </div>
@@ -484,6 +506,43 @@ Summary:
 
 
 
+<!-- =========== ENUM CONSTANT SUMMARY =========== -->
+<table id="constants" class="jd-sumtable"><tr><th colspan="12">Constants</th></tr>
+
+
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#DOMAIN_SYSTEM_PROPERTY">DOMAIN_SYSTEM_PROPERTY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#EXCEPTION_MESSAGE_CUSTOM_PROPERTY">EXCEPTION_MESSAGE_CUSTOM_PROPERTY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#EXCEPTION_STACKTRACE_CUSTOM_PROPERTY">EXCEPTION_STACKTRACE_CUSTOM_PROPERTY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">String</td>
+        <td class="jd-linkcol"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#TENANT_ID_PROPERTY">TENANT_ID_PROPERTY</a></td>
+        <td class="jd-descrcol" width="100%"></td>
+    </tr>
+    
+    
+
+</table>
+
+
 
 
 
@@ -499,7 +558,7 @@ Summary:
           private
           
           
-          Connection</nobr></td>
+          CloudhubConnection</nobr></td>
           <td class="jd-linkcol"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#connection">connection</a></td>
           <td class="jd-descrcol" width="100%"></td>
       </tr>
@@ -611,12 +670,13 @@ Summary:
             
             
             
-            Notification</nobr>
+            void</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#createNotification(java.lang.String, com.mulesoft.cloudhub.client.Notification.Priority, java.lang.String, java.lang.Object)">createNotification</a></span>(String message, Notification.Priority priority, String domain, Object payload)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#createNotification(java.lang.String, com.mulesoft.cloudhub.client.Notification.Priority, java.util.Map<java.lang.String, java.lang.String>, org.mule.api.MuleEvent)">createNotification</a></span>(String message, Notification.Priority priority, Map&lt;String,&nbsp;String&gt; customProperties, MuleEvent muleEvent)</nobr>
         
-        <div class="jd-descrdiv">Create a notification inside CloudHub.</div>
+        <div class="jd-descrdiv"><p>
+     Create a notification inside CloudHub.</div>
   
   </td></tr>
 
@@ -629,12 +689,16 @@ Summary:
             
             
             
-            void</nobr>
+            Tenant</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#createNotificationFromFlow(java.lang.String, com.mulesoft.cloudhub.client.Notification.Priority, java.lang.Object, boolean)">createNotificationFromFlow</a></span>(String message, Notification.Priority priority, Object payload, boolean includeStacktrace)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#createTenant(com.mulesoft.cloudhub.client.Tenant, java.lang.String)">createTenant</a></span>(Tenant tenant, String domain)</nobr>
         
-        <div class="jd-descrdiv">Create a notification inside CloudHub for your flow.</div>
+        <div class="jd-descrdiv"><p>
+ 	Creates a tenant
+ </p>
+ 
+ </div>
   
   </td></tr>
 
@@ -652,7 +716,52 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#deleteApplication(java.lang.String)">deleteApplication</a></span>(String domain)</nobr>
         
-        <div class="jd-descrdiv">Delete an application.</div>
+        <div class="jd-descrdiv"><p>
+    Delete an application.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#deleteTenant(java.lang.String, java.lang.String)">deleteTenant</a></span>(String domain, String tenantId)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Deletes a given tenant
+ </p>
+ 
+ </div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            void</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#deleteTenants(java.lang.String, java.util.List<java.lang.String>)">deleteTenants</a></span>(String domain, List&lt;String&gt; tenantIds)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Deletes all tenants for a given domain
+ </p>
+ 
+ </div>
   
   </td></tr>
 
@@ -688,7 +797,8 @@ Summary:
         <td class="jd-linkcol" width="100%"><nobr>
         <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#dismissNotification(java.lang.String)">dismissNotification</a></span>(String href)</nobr>
         
-        <div class="jd-descrdiv">Dismiss an individual notification.</div>
+        <div class="jd-descrdiv"><p>
+     Dismiss an individual notification.</div>
   
   </td></tr>
 
@@ -717,6 +827,38 @@ Summary:
             
             
             
+            
+            
+            Long</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#getMaxWaitTime()">getMaxWaitTime</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#getPassword()">getPassword</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
             static
             
             String</nobr>
@@ -735,12 +877,16 @@ Summary:
             
             
             
-            List&lt;Application&gt;</nobr>
+            Tenant</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#listApplications()">listApplications</a></span>()</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#getTenant(java.lang.String, java.lang.String)">getTenant</a></span>(String domain, String tenantId)</nobr>
         
-        <div class="jd-descrdiv">List applications.</div>
+        <div class="jd-descrdiv"><p>
+ 	Returns an specific tenant
+ </p>
+ 
+ </div>
   
   </td></tr>
 
@@ -753,12 +899,83 @@ Summary:
             
             
             
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#getUrl()">getUrl</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            String</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#getUsername()">getUsername</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            List&lt;Application&gt;</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#listApplications()">listApplications</a></span>()</nobr>
+        
+        <div class="jd-descrdiv">List applications.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
             NotificationResults</nobr>
         </td>
         <td class="jd-linkcol" width="100%"><nobr>
-        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#listNotifications(java.lang.Integer, java.lang.Integer)">listNotifications</a></span>(Integer maxResults, Integer offset)</nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#listNotifications(java.lang.Integer, java.lang.Integer, org.mule.api.MuleEvent)">listNotifications</a></span>(Integer maxResults, Integer offset, MuleEvent muleEvent)</nobr>
         
-        <div class="jd-descrdiv">List a user's notifications.</div>
+        <div class="jd-descrdiv"><p>
+     List a user's notifications.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            TenantResults</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#listTenants(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String)">listTenants</a></span>(String domain, Integer limit, Integer offset, String query)</nobr>
+        
+        <div class="jd-descrdiv">List all available tenants for the current domain
+ 
+ </div>
   
   </td></tr>
 
@@ -881,10 +1098,73 @@ Summary:
   </td></tr>
 
 
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            
+            
+            
+            
+            Tenant</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#updateTenant(com.mulesoft.cloudhub.client.Tenant, java.lang.String)">updateTenant</a></span>(Tenant tenant, String domain)</nobr>
+        
+        <div class="jd-descrdiv"><p>
+ 	Updates a tenant
+ </p>
+ 
+ </div>
+  
+  </td></tr>
+
+
 
 </table>
 
 
+
+
+<!-- ========== METHOD SUMMARY =========== -->
+<table id="promethods" class="jd-sumtable"><tr><th colspan="12">Protected Methods</th></tr>
+
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            synchronized
+            
+            
+            
+            CloudhubConnection</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#createConnection()">createConnection</a></span>()</nobr>
+        
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol"><nobr>
+            
+            synchronized
+            
+            
+            
+            CloudhubConnection</nobr>
+        </td>
+        <td class="jd-linkcol" width="100%"><nobr>
+        <span class="sympad"><a href="../../../../../org/mule/modules/cloudhub/CloudHubConnector.html#getConnection()">getConnection</a></span>()</nobr>
+        
+  </td></tr>
+
+
+
+</table>
 
 
 
@@ -1120,6 +1400,169 @@ From class
 <!-- Constants -->
 
 
+<!-- ========= ENUM CONSTANTS DETAIL ======== -->
+<h2>Constants</h2>
+
+
+
+
+<A NAME="DOMAIN_SYSTEM_PROPERTY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        DOMAIN_SYSTEM_PROPERTY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "domain"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+<A NAME="EXCEPTION_MESSAGE_CUSTOM_PROPERTY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        EXCEPTION_MESSAGE_CUSTOM_PROPERTY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "exception.message"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+<A NAME="EXCEPTION_STACKTRACE_CUSTOM_PROPERTY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        EXCEPTION_STACKTRACE_CUSTOM_PROPERTY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "exception.stacktrace"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+<A NAME="TENANT_ID_PROPERTY"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        String
+      </span>
+        TENANT_ID_PROPERTY
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                "tenantId"
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
+
 <!-- Fields -->
 
 
@@ -1137,7 +1580,7 @@ From class
         private 
          
          
-        Connection
+        CloudhubConnection
       </span>
         connection
     </h4>
@@ -1368,66 +1811,7 @@ From class
 
 
 
-<A NAME="createNotification(java.lang.String, com.mulesoft.cloudhub.client.Notification.Priority, java.lang.String, java.lang.Object)"></A>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        Notification
-      </span>
-      <span class="sympad">createNotification</span>
-      <span class="normal">(String message, Notification.Priority priority, String domain, Object payload)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Create a notification inside CloudHub.
- 
- </p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>message</td>
-          <td>The contents of the notification.</td>
-        </tr>
-        <tr>
-          <th>priority</td>
-          <td>The notification priority.</td>
-        </tr>
-        <tr>
-          <th>domain</td>
-          <td>The application domain.</td>
-        </tr>
-        <tr>
-          <th>payload</td>
-          <td>The payload of the message. If it's an exception, it'll get appended to the message.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The notification that was created.
-</li></ul>
-  </div>
-
-    </div>
-</div>
-
-
-<A NAME="createNotificationFromFlow(java.lang.String, com.mulesoft.cloudhub.client.Notification.Priority, java.lang.Object, boolean)"></A>
+<A NAME="createNotification(java.lang.String, com.mulesoft.cloudhub.client.Notification.Priority, java.util.Map<java.lang.String, java.lang.String>, org.mule.api.MuleEvent)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1439,8 +1823,8 @@ From class
          
         void
       </span>
-      <span class="sympad">createNotificationFromFlow</span>
-      <span class="normal">(String message, Notification.Priority priority, Object payload, boolean includeStacktrace)</span>
+      <span class="sympad">createNotification</span>
+      <span class="normal">(String message, Notification.Priority priority, Map&lt;String,&nbsp;String&gt; customProperties, MuleEvent muleEvent)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1452,31 +1836,105 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Create a notification inside CloudHub for your flow. If not running in an CloudHub environment, this will log
- to the console.
- 
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+     Create a notification inside CloudHub.
+ </p>
+
+ <p>
+     If the notification is sent after an exception, it attaches the exception.message and exception.stacktrace as
+     as custom properties of the notification.
+
+     Those custom properties can be accessed from Cloudhub console with the names
+     'exception.message' and 'exception.stacktrace'
+ </p>
+
+ <p>
+     In the case of multitenant applications the connector will create a notification for a particular
+     tenant. (the one that is executing the flow)
+ </p>
+
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>message</td>
-          <td>The contents of the notification.</td>
+          <td><p>
+     The contents of the notification.
+ </p></td>
         </tr>
         <tr>
           <th>priority</td>
-          <td>The notification priority.</td>
+          <td><p>
+     The notification priority.
+ </p></td>
         </tr>
         <tr>
-          <th>payload</td>
-          <td>The payload of the message. If it's an exception, it'll get appended to the message.</td>
+          <th>customProperties</td>
+          <td><p>
+     a map to represent custom placeholders on the notification template
+ </p></td>
         </tr>
         <tr>
-          <th>includeStacktrace</td>
-          <td>If the message payload contains an Exception, whether or not to include the stacktrace. True by default.
-</td>
+          <th>muleEvent</td>
+          <td><p>
+     Processed mule event
+ </p></td>
         </tr>
       </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="createTenant(com.mulesoft.cloudhub.client.Tenant, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Tenant
+      </span>
+      <span class="sympad">createTenant</span>
+      <span class="normal">(Tenant tenant, String domain)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Creates a tenant
+ </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>tenant</td>
+          <td>An instance of com.mulesoft.cloudhub.client.Tenant representing the tenant</td>
+        </tr>
+        <tr>
+          <th>domain</td>
+          <td>The domain that will own the tenant</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an instance of com.mulesoft.cloudhub.client.Tenant carrying the state of the newly created tenant
+</li></ul>
   </div>
 
     </div>
@@ -1508,7 +1966,9 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Delete an application.
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+    Delete an application.
+ </p>
 
  </p></div>
   <div class="jd-tagdata">
@@ -1516,7 +1976,108 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>domain</td>
-          <td>The application domain.
+          <td><p>
+     The application domain.
+ </p>
+
+</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteTenant(java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteTenant</span>
+      <span class="normal">(String domain, String tenantId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Deletes a given tenant
+ </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The domain that owns the tenant to be deleted
+</td>
+        </tr>
+        <tr>
+          <th>tenantId</td>
+          <td>The id of the tenant to be deleted</td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="deleteTenants(java.lang.String, java.util.List<java.lang.String>)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">deleteTenants</span>
+      <span class="normal">(String domain, List&lt;String&gt; tenantIds)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Deletes all tenants for a given domain
+ </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The domain you want to clear of tenants</td>
+        </tr>
+        <tr>
+          <th>tenantIds</td>
+          <td>A list with tenant ids to be deleted
 </td>
         </tr>
       </table>
@@ -1610,7 +2171,13 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Dismiss an individual notification.
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+     Dismiss an individual notification.
+ </p>
+
+ <p>
+     This operation does not depend on the tenant environment.
+ </p>
  
  </p></div>
   <div class="jd-tagdata">
@@ -1618,7 +2185,9 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>href</td>
-          <td>The href property of the Notification object.
+          <td><p>
+     The href property of the Notification object.
+ </p>
 </td>
         </tr>
       </table>
@@ -1675,6 +2244,68 @@ From class
 </div>
 
 
+<A NAME="getMaxWaitTime()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Long
+      </span>
+      <span class="sympad">getMaxWaitTime</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getPassword()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getPassword</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 <A NAME="getStackTrace(java.lang.Throwable)"></A>
 
 <div class="jd-details api apilevel-"> 
@@ -1710,6 +2341,121 @@ From class
         </tr>
       </table>
   </div>
+
+    </div>
+</div>
+
+
+<A NAME="getTenant(java.lang.String, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Tenant
+      </span>
+      <span class="sympad">getTenant</span>
+      <span class="normal">(String domain, String tenantId)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Returns an specific tenant
+ </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The domain owning the tenants</td>
+        </tr>
+        <tr>
+          <th>tenantId</td>
+          <td>The id of the tenant you want</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an instance of com.mulesoft.cloudhub.client.Tenant
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="getUrl()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getUrl</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getUsername()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        String
+      </span>
+      <span class="sympad">getUsername</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
 
     </div>
 </div>
@@ -1753,7 +2499,7 @@ From class
 </div>
 
 
-<A NAME="listNotifications(java.lang.Integer, java.lang.Integer)"></A>
+<A NAME="listNotifications(java.lang.Integer, java.lang.Integer, org.mule.api.MuleEvent)"></A>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1766,7 +2512,7 @@ From class
         NotificationResults
       </span>
       <span class="sympad">listNotifications</span>
-      <span class="normal">(Integer maxResults, Integer offset)</span>
+      <span class="normal">(Integer maxResults, Integer offset, MuleEvent muleEvent)</span>
     </h4>
       <div class="api-level">
         <div>
@@ -1778,25 +2524,101 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>List a user's notifications.
- 
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+     List a user's notifications.
+ </p>
+
+ <p>
+     In the case of a multitenant application it searches for the notifications registered for the current
+ tenant.
+ </p>
+
  </p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>maxResults</td>
-          <td>The maximum number of results to retrieve.</td>
+          <td><p>
+   The maximum number of results to retrieve.
+ </p></td>
         </tr>
         <tr>
           <th>offset</td>
-          <td>The offset to start listing alerts from.</td>
+          <td><p>
+     The offset to start listing alerts from.
+  </p></td>
+        </tr>
+        <tr>
+          <th>muleEvent</td>
+          <td><p>
+     Processed mule event
+ </p></td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>A List of notifications.
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
+<A NAME="listTenants(java.lang.String, java.lang.Integer, java.lang.Integer, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        TenantResults
+      </span>
+      <span class="sympad">listTenants</span>
+      <span class="normal">(String domain, Integer limit, Integer offset, String query)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>List all available tenants for the current domain
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>domain</td>
+          <td>The domain owning the tenants</td>
+        </tr>
+        <tr>
+          <th>limit</td>
+          <td>The maximum number of results to return by default. Maximum of 100.</td>
+        </tr>
+        <tr>
+          <th>offset</td>
+          <td>The offset to start searching at</td>
+        </tr>
+        <tr>
+          <th>query</td>
+          <td>The company name, contact name, and email of the tenant to search form. Performs a case insensitive match to any part of the tenant name. </td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an instance of com.mulesoft.cloudhub.client.TenantResults
 </li></ul>
   </div>
 
@@ -2093,10 +2915,130 @@ From class
 </div>
 
 
+<A NAME="updateTenant(com.mulesoft.cloudhub.client.Tenant, java.lang.String)"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        Tenant
+      </span>
+      <span class="sympad">updateTenant</span>
+      <span class="normal">(Tenant tenant, String domain)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p><p>
+ 	Updates a tenant
+ </p>
+ 
+ </p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>tenant</td>
+          <td>An instance of com.mulesoft.cloudhub.client.Tenant with the tenant's new state</td>
+        </tr>
+        <tr>
+          <th>domain</td>
+          <td>The domain that will own the tenant</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>an instance of com.mulesoft.cloudhub.client.Tenant carrying the tenant's updated state
+</li></ul>
+  </div>
+
+    </div>
+</div>
+
+
 
 
 
 <!-- ========= METHOD DETAIL ======== -->
+
+<h2>Protected Methods</h2>
+
+
+
+<A NAME="createConnection()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+         
+        synchronized 
+        CloudhubConnection
+      </span>
+      <span class="sympad">createConnection</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
+<A NAME="getConnection()"></A>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        protected 
+         
+         
+         
+        synchronized 
+        CloudhubConnection
+      </span>
+      <span class="sympad">getConnection</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p></p></div>
+
+    </div>
+</div>
+
+
 
 
 
