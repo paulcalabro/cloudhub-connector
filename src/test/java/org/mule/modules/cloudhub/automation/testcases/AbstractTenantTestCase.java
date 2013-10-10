@@ -41,9 +41,8 @@ public class AbstractTenantTestCase extends AbstractAutomationTest {
 	
 	protected Tenant makeTenant() {
 		Tenant tenant = new Tenant();
-		tenant.setCompanyName("Acme");
-		tenant.setContactEmail("mariano.gonzalez@mulesoft.com");
-		tenant.setContactName("Mariano Gonzalez");
+        tenant.setName("Acme");
+        tenant.setEmail("mariano.gonzalez@mulesoft.com");
 		tenant.setCreated(new Date());
 		tenant.setEnabled(true);
 		tenant.setHref("acme");

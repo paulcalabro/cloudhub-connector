@@ -30,7 +30,7 @@ public class UpdateTenant extends AbstractTenantTestCase {
 	@Test
 	public void updateTenant() throws Exception {
 		Tenant tenant = this.makeTenant();
-		tenant.setCompanyName("Mule Rules!");
+		tenant.setEnabled(false);
 		
 		Map<String, Object> payload = this.makePayload(tenant);
 		MessageProcessor sandboxFlow = lookupFlowConstruct("update-tenant");
@@ -39,7 +39,7 @@ public class UpdateTenant extends AbstractTenantTestCase {
 		
 		Tenant responseTenant = (Tenant) response.getMessage().getPayload();
 		
-		assertEquals("companies should be the same", tenant.getCompanyName(), responseTenant.getCompanyName());
+		assertEquals("alertsEnabled should be the same", tenant.isEnabled(), responseTenant.isEnabled());
 	}
 
 

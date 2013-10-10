@@ -10,12 +10,12 @@
     <parent>
         <groupId>org.mule.tools.devkit</groupId>
         <artifactId>mule-devkit-parent</artifactId>
-        <version>3.3.2</version>
+        <version>3.4.0</version>
     </parent>
 
   	<properties>
-		<mule.version>3.3.2</mule.version>
-		<mule.devkit.version>3.3.2</mule.devkit.version>
+		<mule.version>3.4.0</mule.version>
+		<mule.devkit.version>3.4.0</mule.devkit.version>
 		<junit.version>4.9</junit.version>
 		<mockito.version>1.8.2</mockito.version>
 		<jdk.version>1.6</jdk.version>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.mulesoft.cloudhub</groupId>
             <artifactId>cloudhub-client-api</artifactId>
-            <version>1.4.1</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
