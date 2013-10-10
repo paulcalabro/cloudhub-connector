@@ -28,7 +28,7 @@
         <dependency>
             <groupId>com.mulesoft.cloudhub</groupId>
             <artifactId>cloudhub-client-api</artifactId>
-            <version>1.4.1</version>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
