@@ -1,6 +1,9 @@
 <!-- BEGIN_INCLUDE(cloudhub:deploy-application) -->
     <cloudhub:deploy-application file-ref="#[payload]" domain="my-domain" />
 <!-- END_INCLUDE(cloudhub:deploy-application) -->
+<!-- BEGIN_INCLUDE(cloudhub:create-and-deploy-application) -->
+    <cloudhub:create-and-deploy-application file-ref="#[payload]" domain="my-domain" />
+<!-- END_INCLUDE(cloudhub:create-and-deploy-application) -->
 <!-- BEGIN_INCLUDE(cloudhub:start-application) -->
     <cloudhub:start-application domain="yourapp" />
 <!-- END_INCLUDE(cloudhub:start-application) -->

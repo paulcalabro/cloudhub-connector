@@ -187,11 +187,6 @@ public class CloudHubConnectorTest {
         protected synchronized CloudhubConnection getConnection() {
             return connection;
         }
-
-        @Override
-        protected synchronized CloudhubConnection createConnection() {
-            return connection;
-        }
     }
 
     private static class NotificationMatcher implements Matcher<Notification> {
