@@ -30,6 +30,7 @@ import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.ValidateConnection;
+import org.mule.api.annotations.TestConnectivity;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
@@ -76,7 +77,6 @@ public class CloudHubConnector {
 	 * CloudHub URL.
 	 */
 	@Configurable
-	@Optional
 	@Default(value = Connection.DEFAULT_URL)
 	private String url;
 
@@ -94,7 +94,6 @@ public class CloudHubConnector {
 	 * Maximum time allowed to deplpoy/undeploy.
 	 */
 	@Configurable
-	@Optional
 	@Default(value = "0")
 	@FriendlyName("Maximum time allowed to deplpoy/undeploy.")
 	private Long maxWaitTime;
@@ -137,9 +136,9 @@ public class CloudHubConnector {
 	 */
 	@Processor
 	public void deployApplication(
-			@Optional @Default("#[payload]") InputStream file, String domain,
-			@Optional @Default("3.4.1") String muleVersion,
-			@Optional @Default("1") int workerCount,
+			@Default("#[payload]") InputStream file, String domain,
+			@Default("3.4.1") String muleVersion,
+			@Default("1") int workerCount,
 			@Optional Map<String, String> environmentVariables) {
 
 		final DomainConnection domainConnection = getConnection().on(domain);
@@ -168,9 +167,9 @@ public class CloudHubConnector {
 	 */
 	@Processor
 	public void createAndDeployApplication(
-			@Optional @Default("#[payload]") InputStream file, String domain,
-			@Optional @Default("3.4.1") String muleVersion,
-			@Optional @Default("1") int workerCount,
+			@Default("#[payload]") InputStream file, String domain,
+			@Default("3.4.1") String muleVersion,
+			@Default("1") int workerCount,
 			@Optional Map<String, String> environmentVariables) {
 
 		final DomainConnection domainConnection = getConnection().on(domain);
@@ -226,7 +225,7 @@ public class CloudHubConnector {
 	 */
 	@Processor
 	public void updateApplication(
-			@Optional @Default("#[payload]") Application application) {
+			@Default("#[payload]") Application application) {
 		ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(
 				application);
 		getConnection().on(application.getDomain()).update(appUdateInfo);
@@ -436,7 +435,7 @@ public class CloudHubConnector {
 	 */
 	@Processor
 	public TenantResults listTenants(String domain,
-			@Optional @Default("25") Integer limit, @Optional Integer offset,
+			@Default("25") Integer limit, @Optional Integer offset,
 			@Optional String query) {
 
 		return this.getConnection().listTenants(domain, limit, offset, query);
@@ -459,7 +458,7 @@ public class CloudHubConnector {
 	 *         carrying the state of the newly created tenant
 	 */
 	@Processor
-	public Tenant createTenant(@Optional @Default("#[payload]") Tenant tenant,
+	public Tenant createTenant(@Default("#[payload]") Tenant tenant,
 			String domain) {
 		return this.getConnection().create(tenant, domain);
 	}
@@ -500,7 +499,7 @@ public class CloudHubConnector {
 	 *         carrying the tenant's updated state
 	 */
 	@Processor
-	public Tenant updateTenant(@Optional @Default("#[payload]") Tenant tenant,
+	public Tenant updateTenant(@Default("#[payload]") Tenant tenant,
 			String domain) {
 		return this.getConnection().update(tenant, domain);
 	}
@@ -595,6 +594,7 @@ public class CloudHubConnector {
 	 *             If a connection cannot be made
 	 */
 	@Connect
+	@TestConnectivity(active=false)
 	public void connect(@ConnectionKey String userName, String password)
 			throws ConnectionException {
 		this.username = userName;

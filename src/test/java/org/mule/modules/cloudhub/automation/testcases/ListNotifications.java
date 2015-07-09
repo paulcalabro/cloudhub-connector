@@ -29,16 +29,13 @@ import com.mulesoft.cloudhub.client.NotificationResults;
 
 public class ListNotifications extends FunctionalTestCase {
 	
+	@SuppressWarnings("unused")
 	private ApplicationContext data_objects;
 	
 	@Override
 	protected String getConfigResources() {
 		return "automation/automation-test-flows.xml";
 	}
-	
-    private MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
 	
     @Before
     public void setUp() {

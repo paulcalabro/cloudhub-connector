@@ -30,17 +30,15 @@ import com.mulesoft.cloudhub.client.Application;
 
 public class ListApplications extends FunctionalTestCase {
 	
+	@SuppressWarnings("unused")
 	private ApplicationContext data_objects;
+	@SuppressWarnings("unused")
 	private Map<String,Object> operation_sandbox;
 	
 	@Override
 	protected String getConfigResources() {
 		return "automation/automation-test-flows.xml";
 	}
-	
-    private MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
 	
     @Before
     public void setUp() {
@@ -70,6 +68,7 @@ public class ListApplications extends FunctionalTestCase {
 			MuleEvent response = sandboxFlow.process(getTestEvent(null));
 			//
 			
+			@SuppressWarnings("unchecked")
 			List<Application> applications = (List<Application>) response.getMessage().getPayload();
 			assertTrue("Size must be > than 0",applications.size()>0);
 			assertTrue("Objects should be Applications", applications.get(0) instanceof Application);

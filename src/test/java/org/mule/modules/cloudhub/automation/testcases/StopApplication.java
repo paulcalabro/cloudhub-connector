@@ -32,16 +32,13 @@ import com.mulesoft.cloudhub.client.Application;
 public class StopApplication extends FunctionalTestCase {
 	
 	private ApplicationContext data_objects;
+	@SuppressWarnings("unused")
 	private Map<String,Object> operation_sandbox;
 	
 	@Override
 	protected String getConfigResources() {
 		return "automation/automation-test-flows.xml";
 	}
-	
-    private MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
 	
     @Before
     public void setUp() {
@@ -61,6 +58,7 @@ public class StopApplication extends FunctionalTestCase {
 			Application sandbox_application = (Application) data_objects.getBean("applicationA");
 			
 			MessageProcessor start_sandboxFlow = lookupFlowConstruct("stop-application");
+			@SuppressWarnings("unused")
 			MuleEvent start_response = start_sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
 			//
 			Thread.sleep(Sandbox.sleep_time);

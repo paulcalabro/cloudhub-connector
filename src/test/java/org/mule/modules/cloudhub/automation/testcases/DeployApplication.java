@@ -33,16 +33,13 @@ import com.mulesoft.cloudhub.client.Application;
 public class DeployApplication extends FunctionalTestCase {
 	
 	private ApplicationContext data_objects;
+	@SuppressWarnings("unused")
 	private Map<String,Object> operation_sandbox;
 	
 	@Override
 	protected String getConfigResources() {
 		return "automation/automation-test-flows.xml";
 	}
-	
-    private MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
 	
     @Before
     public void setUp() {

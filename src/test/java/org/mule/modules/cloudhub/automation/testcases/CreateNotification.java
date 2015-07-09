@@ -41,10 +41,6 @@ public class CreateNotification extends FunctionalTestCase {
 		return "automation/automation-test-flows.xml";
 	}
 	
-    private MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
-	
     @Before
     public void setUp() {
     	applications = new ClassPathXmlApplicationContext("automation/Applications.xml");
