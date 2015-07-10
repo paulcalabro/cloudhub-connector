@@ -10,11 +10,11 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
+import com.mulesoft.cloudhub.client.Tenant;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.mulesoft.cloudhub.client.Tenant;
 
 /**
  * 
@@ -41,8 +41,8 @@ public class AbstractTenantTestCase extends AbstractAutomationTest {
 	
 	protected Tenant makeTenant() {
 		Tenant tenant = new Tenant();
-        tenant.setName("Acme");
-        tenant.setEmail("mariano.gonzalez@mulesoft.com");
+        tenant.setCompanyName("Acme");
+        tenant.setContactEmail("mariano.gonzalez@mulesoft.com");
 		tenant.setCreated(new Date());
 		tenant.setEnabled(true);
 		tenant.setHref("acme");
