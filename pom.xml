@@ -1,93 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.mule.modules</groupId>
-	<artifactId>mule-module-cloudhub</artifactId>
-	<version>1.4.3-SNAPSHOT</version>
-	<packaging>mule-module</packaging>
-	<name>Mule CloudHub Connector</name>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.mule.modules</groupId>
+    <artifactId>mule-module-cloudhub</artifactId>
+    <version>1.4.3-SNAPSHOT</version>
+    <packaging>mule-module</packaging>
+    <name>Mule CloudHub Connector</name>
 
-	<parent>
-		<groupId>org.mule.tools.devkit</groupId>
-		<artifactId>mule-devkit-parent</artifactId>
-		<version>3.6.2</version>
-	</parent>
+    <parent>
+        <groupId>org.mule.tools.devkit</groupId>
+        <artifactId>mule-devkit-parent</artifactId>
+        <version>3.7.0</version>
+    </parent>
 
-	<properties>
-		<mule.version>3.6.0</mule.version>
-		<mule.devkit.version>3.6.0</mule.devkit.version>
-		<junit.version>4.9</junit.version>
-		<mockito.version>1.8.2</mockito.version>
-		<jdk.version>1.7</jdk.version>
-		<category>Community</category>
-		<licensePath>LICENSE.md</licensePath>
-		<devkit.studio.package.skip>false</devkit.studio.package.skip>
-	</properties>
+    <properties>
+        <jdk.version>1.7</jdk.version>
+        <category>Community</category>
+        <licensePath>LICENSE.md</licensePath>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.mulesoft.cloudhub</groupId>
-			<artifactId>cloudhub-client-api</artifactId>
-			<version>1.6-SNAPSHOT</version>
-		</dependency>
-		<!-- test dependencies -->
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-scripting</artifactId>
-			<version>${mule.version}</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.mulesoft.cloudhub</groupId>
+            <artifactId>cloudhub-client-api</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-scripting</artifactId>
+            <version>${mule.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<repositories>
-		<repository>
-			<id>mulesoft-releases</id>
-			<name>MuleSoft Releases Repository</name>
-			<url>http://repository.mulesoft.org/releases/</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>mulesoft-snapshots</id>
-			<name>MuleSoft Snapshots Repository</name>
-			<url>http://repository.mulesoft.org/snapshots/</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>ee-customer</id>
-			<url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>mule-ci-releases</id>
-			<url>https://repository.mulesoft.org/nexus/content/repositories/ci-releases/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>mule-ci-snapshots</id>
-			<url>https://repository.mulesoft.org/nexus/content/repositories/ci-snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
-
-	<scm>
-		<connection>scm:git:git://github.com:mulesoft/cloudhub-connector.git</connection>
-		<developerConnection>scm:git:git@github.com:mulesoft/cloudhub-connector.git</developerConnection>
-		<url>http://github.com/mulesoft/cloudhub-connector</url>
-	</scm>
+    <scm>
+        <connection>scm:git:git://github.com:mulesoft/cloudhub-connector.git</connection>
+        <developerConnection>scm:git:git@github.com:mulesoft/cloudhub-connector.git</developerConnection>
+        <url>http://github.com/mulesoft/cloudhub-connector</url>
+    </scm>
 </project>
