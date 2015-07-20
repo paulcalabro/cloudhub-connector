@@ -71,8 +71,8 @@ import java.util.Map;
      */
     @Processor
     public void deployApplication(@Default("#[payload]") InputStream file, String domain) {
-
-        client().connectWithDomain(domain).deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+        client().connectWithDomain(domain)
+                .deployApplication(file, getConnectionStrategy().getMaxWaitTime());
     }
 
     /**
@@ -91,19 +91,17 @@ import java.util.Map;
      */
     @Processor
     public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
-            @Optional Map<String, String> environmentVariables) {
+                                           @Optional Map<String, String> environmentVariables) {
 
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
 
-        if (connection.isDomainAvailable(domain)) {
-
-            Application app = new Application();
-            app.setDomain(domain);
-            app.setHasFile(false);
-            app.setWorkers(workerCount);
-            app.setProperties(environmentVariables);
-            client().createApplication(app);
-        }
+        Application app = new Application();
+        app.setDomain(domain);
+        app.setMuleVersion(muleVersion);
+        app.setHasFile(false);
+        app.setWorkers(workerCount);
+        app.setProperties(environmentVariables);
+        client().createApplication(app);
 
         connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
     }
@@ -145,37 +143,19 @@ import java.util.Map;
      */
     @Processor
     public void updateApplication(@RefOnly @Default("#[payload]") Application application) {
-        ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(application);
-        client().connectWithDomain(application.getDomain()).updateApplication(appUdateInfo);
+        ApplicationUpdateInfo appUpdateInfo = new ApplicationUpdateInfo(application);
+        client().connectWithDomain(application.getDomain()).updateApplication(appUpdateInfo);
     }
 
     /**
-     * Start an application.
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:start-application}
+     * Change Application Status
      *
-     * @param domain The application domain.
+     * @param domain The application domain
+     * @param newDesiredStatus New application desired status (Start/Stop)
      */
     @Processor
-    public void startApplication(String domain) {
-        ApplicationStatusChange statusChange = new ApplicationStatusChange(ApplicationStatusChange.DesiredApplicationStatus.START);
-
-        client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConnectionStrategy().getMaxWaitTime());
-    }
-
-    /**
-     * Stop an application.
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:stop-application}
-     *
-     * @param domain The application domain.
-     */
-    @Processor
-    public void stopApplication(String domain) {
-        ApplicationStatusChange statusChange = new ApplicationStatusChange(ApplicationStatusChange.DesiredApplicationStatus.STOP);
-
+    public void changeApplicationStatus(String domain, ApplicationStatusChange.DesiredApplicationStatus newDesiredStatus) {
+        ApplicationStatusChange statusChange = new ApplicationStatusChange(newDesiredStatus);
         client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConnectionStrategy().getMaxWaitTime());
     }
 
