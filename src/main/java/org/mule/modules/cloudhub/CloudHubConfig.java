@@ -15,6 +15,7 @@ import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.Optional;
 
 /**
  * Connection Management Strategy
@@ -39,7 +40,7 @@ public class CloudHubConfig {
      */
     @Configurable
     @Default(value = "0")
-    @FriendlyName("Maximum time allowed to deplpoy/undeploy.")
+    @FriendlyName("Maximum time allowed to deploy or undeploy.")
     private Long maxWaitTime;
 
     /**
@@ -47,13 +48,15 @@ public class CloudHubConfig {
      *
      * @param username A username
      * @param password A password
+     * @param url CloudHub URL
+     * @param sandbox SandBox name
      * @throws ConnectionException
      */
     @Connect
     @TestConnectivity
-    public void connect(@ConnectionKey String username, @Password String password, @Default("https://cloudhub.io/") String url) throws ConnectionException {
+    public void connect(@ConnectionKey String username, @Password String password, @Default("https://anypoint.mulesoft.com/cloudhub/") String url, @Optional String sandbox) throws ConnectionException {
         try {
-            cloudHubClient = new CloudHubConnectionImpl(url, username, password, null, false);
+            cloudHubClient = new CloudHubConnectionImpl(url, username, password, sandbox, false);
             cloudHubClient.isCsAuthentication();
         } catch (CloudHubException e) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, e.getMessage(), e.getMessage());
@@ -78,7 +81,7 @@ public class CloudHubConfig {
         if (cloudHubClient == null) {
             return false;
         } else {
-            return true;
+            return cloudHubClient.isCsAuthentication();
         }
     }
 
@@ -87,7 +90,7 @@ public class CloudHubConfig {
      */
     @ConnectionIdentifier
     public String connectionId() {
-        return "001";
+        return cloudHubClient.getUsername();
     }
 
     public CloudHubConnectionImpl getClient() {
