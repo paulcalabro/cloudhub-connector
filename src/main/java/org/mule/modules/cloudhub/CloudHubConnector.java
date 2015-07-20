@@ -1,8 +1,8 @@
 /**
  * Mule CloudHub Connector
- *
+ * <p/>
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
- *
+ * <p/>
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
@@ -10,627 +10,439 @@
 
 package org.mule.modules.cloudhub;
 
+import com.mulesoft.ch.rest.model.*;
+import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
+import com.mulesoft.cloudhub.client.CloudHubDomainConnectionI;
+import org.mule.api.ExceptionPayload;
+import org.mule.api.MuleEvent;
+import org.mule.api.annotations.ConnectionStrategy;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.RefOnly;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
-
-import org.mule.api.ConnectionException;
-import org.mule.api.ExceptionPayload;
-import org.mule.api.MuleEvent;
-import org.mule.api.annotations.Configurable;
-import org.mule.api.annotations.Connect;
-import org.mule.api.annotations.ConnectionIdentifier;
-import org.mule.api.annotations.Connector;
-import org.mule.api.annotations.Disconnect;
-import org.mule.api.annotations.Processor;
-import org.mule.api.annotations.ValidateConnection;
-import org.mule.api.annotations.display.FriendlyName;
-import org.mule.api.annotations.param.ConnectionKey;
-import org.mule.api.annotations.param.Default;
-import org.mule.api.annotations.param.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.mulesoft.cloudhub.client.Application;
-import com.mulesoft.cloudhub.client.ApplicationUpdateInfo;
-import com.mulesoft.cloudhub.client.CloudhubConnection;
-import com.mulesoft.cloudhub.client.Connection;
-import com.mulesoft.cloudhub.client.DomainConnection;
-import com.mulesoft.cloudhub.client.Notification;
-import com.mulesoft.cloudhub.client.Notification.Priority;
-import com.mulesoft.cloudhub.client.NotificationResults;
-import com.mulesoft.cloudhub.client.Tenant;
-import com.mulesoft.cloudhub.client.TenantResults;
 
 /**
  * Provides the ability to interact with Mule CloudHub from within a Mule
  * application. There are operations to deploy, start, stop, and update
  * applications as well as send notifications from your application to CloudHub.
- * <p>
+ * <p/>
  * When running this connector in an application inside CloudHub, it will use
  * token based authentication to access the API. This will allow access and
  * usage of the CloudHub APIs without the need to specify your username and
  * password.
- * <p>
- * 
- * 
+ * <p/>
+ *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cloudhub", schemaVersion = "1.0", friendlyName = "Cloudhub")
-public class CloudHubConnector {
+@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub") public class CloudHubConnector {
 
-	public static final String TENANT_ID_PROPERTY = "tenantId";
-	public static final String EXCEPTION_MESSAGE_CUSTOM_PROPERTY = "exception.message";
-	public static final String EXCEPTION_STACKTRACE_CUSTOM_PROPERTY = "exception.stacktrace";
-	public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
+    public static final String TENANT_ID_PROPERTY = "tenantId";
+    public static final String EXCEPTION_MESSAGE_CUSTOM_PROPERTY = "exception.message";
+    public static final String EXCEPTION_STACKTRACE_CUSTOM_PROPERTY = "exception.stacktrace";
+    public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
 
-	private Logger logger = LoggerFactory.getLogger(Connection.class);
+    private Logger logger = LoggerFactory.getLogger(CloudHubConnector.class);
 
-	/**
-	 * CloudHub URL.
-	 */
-	@Configurable
-	@Optional
-	@Default(value = Connection.DEFAULT_URL)
-	private String url;
+    //
+    @ConnectionStrategy
+    private CloudHubConfig connectionStrategy;
 
-	/**
-	 * CloudHub username.
-	 */
-	private String username;
+    /**
+     * Deploy specified application.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:deploy-application}
+     *
+     * @param file   mule application to deploy, Input Object type:
+     *               java.io.InputStream
+     * @param domain The application domain.
+     */
+    @Processor
+    public void deployApplication(@Default("#[payload]") InputStream file, String domain) {
 
-	/**
-	 * CloudHub password.
-	 */
-	private String password;
+        client().connectWithDomain(domain).deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+    }
 
-	/**
-	 * Maximum time allowed to deplpoy/undeploy.
-	 */
-	@Configurable
-	@Optional
-	@Default(value = "0")
-	@FriendlyName("Maximum time allowed to deplpoy/undeploy.")
-	private Long maxWaitTime;
+    /**
+     * Tries creating the specified application (if it doesn't exist already)
+     * and deploying afterwards.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:create-and-deploy-application}
+     *
+     * @param file                 mule application to deploy, Input Object type:
+     *                             java.io.InputStream
+     * @param domain               The application domain.
+     * @param muleVersion          The version of Mule, e.g. 3.4.1.
+     * @param workerCount          The number of workers to deploy.
+     * @param environmentVariables Environment variables for you application.
+     */
+    @Processor
+    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
+            @Optional Map<String, String> environmentVariables) {
 
-	private CloudhubConnection connection;
+        CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
 
-	public void setUrl(final String url) {
-		this.url = url;
-	}
+        if (connection.isDomainAvailable(domain)) {
 
-	public void setUsername(final String username) {
-		this.username = username;
-	}
+            Application app = new Application();
+            app.setDomain(domain);
+            app.setHasFile(false);
+            app.setWorkers(workerCount);
+            app.setProperties(environmentVariables);
+            client().createApplication(app);
+        }
 
-	public void setPassword(final String password) {
-		this.password = password;
-	}
+        connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+    }
 
-	public void setMaxWaitTime(final Long maxWaitTime) {
-		this.maxWaitTime = maxWaitTime;
-	}
+    /**
+     * List applications.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:list-applications}
+     *
+     * @return A list of applications.
+     */
+    @Processor
+    public Collection<Application> listApplications() {
+        return client().retrieveApplications();
+    }
 
-	/**
-	 * Deploy specified application.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:deploy-application}
-	 * 
-	 * @param file
-	 *            mule application to deploy, Input Object type:
-	 *            java.io.InputStream
-	 * @param domain
-	 *            The application domain.
-	 * @param muleVersion
-	 *            The version of Mule, e.g. 3.4.1.
-	 * @param workerCount
-	 *            The number of workers to deploy.
-	 * @param environmentVariables
-	 *            Environment variables for you application.
-	 */
-	@Processor
-	public void deployApplication(
-			@Optional @Default("#[payload]") InputStream file, String domain,
-			@Optional @Default("3.4.1") String muleVersion,
-			@Optional @Default("1") int workerCount,
-			@Optional Map<String, String> environmentVariables) {
+    /**
+     * Get an application.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:get-application}
+     *
+     * @param domain The application domain.
+     * @return An application.
+     */
+    @Processor
+    public Application getApplication(String domain) {
+        return client().connectWithDomain(domain).retrieveApplication();
+    }
 
-		final DomainConnection domainConnection = getConnection().on(domain);
-		domainConnection.deploy(file, muleVersion, workerCount,
-				this.maxWaitTime, environmentVariables);
-	}
+    /**
+     * Update an application.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:update-application}
+     *
+     * @param application The application to update.
+     */
+    @Processor
+    public void updateApplication(@RefOnly @Default("#[payload]") Application application) {
+        ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(application);
+        client().connectWithDomain(application.getDomain()).updateApplication(appUdateInfo);
+    }
 
-	/**
-	 * Tries creating the specified application (if it doesn't exist already)
-	 * and deploying afterwards.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:create-and-deploy-application}
-	 * 
-	 * @param file
-	 *            mule application to deploy, Input Object type:
-	 *            java.io.InputStream
-	 * @param domain
-	 *            The application domain.
-	 * @param muleVersion
-	 *            The version of Mule, e.g. 3.4.1.
-	 * @param workerCount
-	 *            The number of workers to deploy.
-	 * @param environmentVariables
-	 *            Environment variables for you application.
-	 */
-	@Processor
-	public void createAndDeployApplication(
-			@Optional @Default("#[payload]") InputStream file, String domain,
-			@Optional @Default("3.4.1") String muleVersion,
-			@Optional @Default("1") int workerCount,
-			@Optional Map<String, String> environmentVariables) {
+    /**
+     * Start an application.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:start-application}
+     *
+     * @param domain The application domain.
+     */
+    @Processor
+    public void startApplication(String domain) {
+        ApplicationStatusChange statusChange = new ApplicationStatusChange(ApplicationStatusChange.DesiredApplicationStatus.START);
 
-		final DomainConnection domainConnection = getConnection().on(domain);
+        client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConnectionStrategy().getMaxWaitTime());
+    }
 
-		if (domainConnection.available()) {
-			Application app = new Application();
-			app.setDomain(domain);
-			app.setHasFile(false);
-			app.setWorkers(1);
-			domainConnection.createApplication(app);
-		}
+    /**
+     * Stop an application.
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:stop-application}
+     *
+     * @param domain The application domain.
+     */
+    @Processor
+    public void stopApplication(String domain) {
+        ApplicationStatusChange statusChange = new ApplicationStatusChange(ApplicationStatusChange.DesiredApplicationStatus.STOP);
 
-		domainConnection.deploy(file, muleVersion, workerCount,
-				this.maxWaitTime, environmentVariables);
-	}
+        client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConnectionStrategy().getMaxWaitTime());
+    }
 
-	/**
-	 * List applications.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:list-applications}
-	 * 
-	 * @return A list of applications.
-	 */
-	@Processor
-	public List<Application> listApplications() {
-		return getConnection().listApplications();
-	}
+    /**
+     * <p>
+     * Delete an application.
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:delete-application}
+     *
+     * @param domain <p>
+     *               The application domain.
+     *               </p>
+     */
+    @Processor
+    public void deleteApplication(String domain) {
+        client().connectWithDomain(domain).deleteApplication();
+    }
 
-	/**
-	 * Get an application.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:get-application}
-	 * 
-	 * @param domain
-	 *            The application domain.
-	 * @return An application.
-	 */
-	@Processor
-	public Application getApplication(String domain) {
-		return getConnection().on(domain).get();
-	}
+    /**
+     * <p>
+     * List a user's notifications.
+     * </p>
+     * <p/>
+     * <p>
+     * In the case of a multitenant application it searches for the
+     * notifications registered for the current tenant.
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:list-notifications}
+     *
+     * @param maxResults <p>
+     *                   The maximum number of results to retrieve.
+     *                   </p>
+     * @param offset     <p>
+     *                   The offset to start listing alerts from.
+     *                   </p>
+     * @param muleEvent  <p>
+     *                   Processed mule event
+     *                   </p>
+     * @return A List of notifications.
+     * @throws <p> Cloudhub exception in case there was a problem with cloudhub
+     *             communication
+     *             </p>
+     */
+    @Processor
+    public NotificationResults retrieveNotifications(@Optional Integer maxResults, @Optional Integer offset,Notification.NotificationStatus status, MuleEvent muleEvent, String message, String domain) {
+        return client().retrieveNotifications(domain,getTenantIdFrom(muleEvent),maxResults,offset,status,message);
+    }
 
-	/**
-	 * Update an application.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:update-application}
-	 * 
-	 * @param application
-	 *            The application to update.
-	 */
-	@Processor
-	public void updateApplication(
-			@Optional @Default("#[payload]") Application application) {
-		ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(
-				application);
-		getConnection().on(application.getDomain()).update(appUdateInfo);
-	}
+    /**
+     * <p>
+     * Create a notification inside CloudHub.
+     * </p>
+     * <p/>
+     * <p>
+     * If the notification is sent after an exception, it attaches the
+     * exception.message and exception.stacktrace as as custom properties of the
+     * notification.
+     * <p/>
+     * Those custom properties can be accessed from Cloudhub console with the
+     * names 'exception.message' and 'exception.stacktrace'
+     * </p>
+     * <p/>
+     * <p>
+     * In the case of multitenant applications the connector will create a
+     * notification for a particular tenant. (the one that is executing the
+     * flow)
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:create-notification}
+     *
+     * @param message          <p>
+     *                         The contents of the notification.
+     *                         </p>
+     * @param priority         <p>
+     *                         The notification priority.
+     *                         </p>
+     * @param customProperties <p>
+     *                         a map to represent custom placeholders on the notification
+     *                         template
+     *                         </p>
+     * @param muleEvent        <p>
+     *                         Processed mule event
+     *                         </p>
+     * @throws <p> A CloudhubException in case the notification could not be created
+     *             </p>
+     * @since 1.4
+     */
+    @Processor
+    public void createNotification(String message, Notification.NotificationLevelDO priority, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
 
-	/**
-	 * Start an application.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:start-application}
-	 * 
-	 * @param domain
-	 *            The application domain.
-	 */
-	@Processor
-	public void startApplication(String domain) {
-		final DomainConnection domainConnection = getConnection().on(domain);
-		domainConnection.start(this.maxWaitTime);
-	}
+        Notification notification = new Notification();
+        notification.setPriority(priority);
+        notification.setMessage(message);
+        notification.setDomain(getDomain());
+        notification.setTenantId(getTenantIdFrom(muleEvent));
+        notification.setTransactionId(getTransactionIdFrom(muleEvent));
 
-	/**
-	 * Stop an application.
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:stop-application}
-	 * 
-	 * @param domain
-	 *            The application domain.
-	 */
-	@Processor
-	public void stopApplication(String domain) {
-		final DomainConnection domainConnection = getConnection().on(domain);
-		domainConnection.stop();
-	}
+        if (getDomain() != null) {
+            client().createNotification(notification);
+        } else {
+            logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
+        }
+    }
 
-	/**
-	 * <p>
-	 * Delete an application.
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:delete-application}
-	 * 
-	 * @param domain
-	 *            <p>
-	 *            The application domain.
-	 *            </p>
-	 * 
-	 */
-	@Processor
-	public void deleteApplication(String domain) {
-		final DomainConnection domainConnection = getConnection().on(domain);
-		domainConnection.delete();
-	}
+    /**
+     * List all available tenants for the current domain
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:list-tenants}
+     *
+     * @param domain the domain owning the tenants
+     * @param limit  The maximum number of results to return by default. Maximum of
+     *               100.
+     * @param offset The offset to start searching at
+     * @param query  The company name, contact name, and email of the tenant to
+     *               search form. Performs a case insensitive match to any part of
+     *               the tenant name.
+     * @return an instance of {@link com.mulesoft.ch.rest.model.TenantResults}
+     */
+    @Processor
+    public TenantResults listTenants(String domain, @Default("25") Integer limit, Integer offset, String query, Boolean enabled) {
+        return client().connectWithDomain(domain).retrieveTenants(limit, offset, query, enabled);
+    }
 
-	/**
-	 * <p>
-	 * List a user's notifications.
-	 * </p>
-	 * 
-	 * <p>
-	 * In the case of a multitenant application it searches for the
-	 * notifications registered for the current tenant.
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:list-notifications}
-	 * 
-	 * @param maxResults
-	 *            <p>
-	 *            The maximum number of results to retrieve.
-	 *            </p>
-	 * 
-	 * @param offset
-	 *            <p>
-	 *            The offset to start listing alerts from.
-	 *            </p>
-	 * 
-	 * @param muleEvent
-	 *            <p>
-	 *            Processed mule event
-	 *            </p>
-	 * @throws <p>
-	 *         Cloudhub exception in case there was a problem with cloudhub
-	 *         communication
-	 *         </p>
-	 * @return A List of notifications.
-	 */
-	@Processor
-	@Inject
-	public NotificationResults listNotifications(@Optional Integer maxResults,
-			@Optional Integer offset, MuleEvent muleEvent) {
-		return getConnection().listNotifications(maxResults, offset,
-				getTenantIdFrom(muleEvent));
-	}
+    /**
+     * <p>
+     * Creates a tenant
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:create-tenant}
+     *
+     * @param tenant an instance of {@link com.mulesoft.ch.rest.model.Tenant}
+     *               representing the tenant
+     * @param domain the domain that will own the tenant
+     * @return an instance of {@link com.mulesoft.ch.rest.model.Tenant}
+     * carrying the state of the newly created tenant
+     */
+    @Processor
+    public Tenant createTenant(@RefOnly @Default("#[payload]") Tenant tenant, String domain) {
+        return client().connectWithDomain(domain).createTenant(tenant);
+    }
 
-	/**
-	 * <p>
-	 * Dismiss an individual notification.
-	 * </p>
-	 * 
-	 * <p>
-	 * This operation does not depend on the tenant environment.
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:dismiss-notification}
-	 * 
-	 * 
-	 * @param href
-	 *            <p>
-	 *            The href property of the Notification object.
-	 *            </p>
-	 */
-	@Processor
-	public void dismissNotification(String href) {
-		getConnection().dismissNotification(href);
-	}
+    /**
+     * <p>
+     * Returns an specific tenant
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:get-tenant}
+     *
+     * @param domain   the domain owning the tenants
+     * @param tenantId the id of the tenant you want
+     * @return an instance of {@link com.mulesoft.ch.rest.model.Tenant}
+     */
+    @Processor
+    public Tenant getTenant(String domain, String tenantId) {
+        return client().connectWithDomain(domain).retrieveTenant(tenantId);
+    }
 
-	/**
-	 * <p>
-	 * Create a notification inside CloudHub.
-	 * </p>
-	 * 
-	 * <p>
-	 * If the notification is sent after an exception, it attaches the
-	 * exception.message and exception.stacktrace as as custom properties of the
-	 * notification.
-	 * 
-	 * Those custom properties can be accessed from Cloudhub console with the
-	 * names 'exception.message' and 'exception.stacktrace'
-	 * </p>
-	 * 
-	 * <p>
-	 * In the case of multitenant applications the connector will create a
-	 * notification for a particular tenant. (the one that is executing the
-	 * flow)
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:create-notification}
-	 * 
-	 * 
-	 * @param message
-	 *            <p>
-	 *            The contents of the notification.
-	 *            </p>
-	 * @param priority
-	 *            <p>
-	 *            The notification priority.
-	 *            </p>
-	 * @param customProperties
-	 *            <p>
-	 *            a map to represent custom placeholders on the notification
-	 *            template
-	 *            </p>
-	 * 
-	 * @param muleEvent
-	 *            <p>
-	 *            Processed mule event
-	 *            </p>
-	 * @throws <p>
-	 *         A CloudhubException in case the notification could not be created
-	 *         </p>
-	 * @since 1.4
-	 */
-	@Processor
-	@Inject
-	public void createNotification(String message, Priority priority,
-			@Optional Map<String, String> customProperties, MuleEvent muleEvent) {
-		customProperties = merge(customProperties, handleException(muleEvent));
+    /**
+     * <p>
+     * Updates a tenant
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:update-tenant}
+     *
+     * @param tenant an instance of {@link com.mulesoft.ch.rest.model.Tenant}
+     *               with the tenant's new state
+     * @param domain the domain that will own the tenant
+     * @return an instance of {@link com.mulesoft.ch.rest.model.Tenant}
+     * carrying the tenant's updated state
+     */
+    @Processor
+    public Tenant updateTenant(@RefOnly @Default("#[payload]") Tenant tenant, String domain) {
+        return client().connectWithDomain(domain).updateTenant(tenant);
+    }
 
-		String domain = getDomain();
+    /**
+     * <p>
+     * Deletes a given tenant
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:delete-tenant}
+     *
+     * @param tenantId the id of the tenant to be deleted
+     * @param domain   the domain that owns the tenant to be deleted
+     */
+    @Processor
+    public void deleteTenant(String domain, String tenantId) {
+        client().connectWithDomain(domain).deleteTenant(tenantId);
+    }
 
-		Notification notification = new Notification();
-		notification.setMessage(message);
-		notification.setPriority(priority);
-		notification.setDomain(domain);
-		notification.setCustomProperties(customProperties);
-		notification.setTenantId(getTenantIdFrom(muleEvent));
-		notification.setTransactionId(getTransactionIdFrom(muleEvent));
-		if (domain != null) {
-			getConnection().create(notification);
-		} else {
-			logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
-		}
-	}
+    /**
+     * <p>
+     * Deletes all tenants for a given domain
+     * </p>
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:delete-tenants}
+     *
+     * @param domain    the domain you want to clear of tenants
+     * @param tenantIds a list with tenant ids to be deleted
+     */
+    @Processor
+    public void deleteTenants(String domain, List<String> tenantIds) {
+        client().connectWithDomain(domain).deleteTenants(tenantIds);
+    }
 
-	/**
-	 * List all available tenants for the current domain
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:list-tenants}
-	 * 
-	 * @param domain
-	 *            the domain owning the tenants
-	 * @param limit
-	 *            The maximum number of results to return by default. Maximum of
-	 *            100.
-	 * @param offset
-	 *            The offset to start searching at
-	 * @param query
-	 *            The company name, contact name, and email of the tenant to
-	 *            search form. Performs a case insensitive match to any part of
-	 *            the tenant name.
-	 * @return an instance of {@link com.mulesoft.cloudhub.client.TenantResults}
-	 */
-	@Processor
-	public TenantResults listTenants(String domain,
-			@Optional @Default("25") Integer limit, @Optional Integer offset,
-			@Optional String query) {
+    private Map<String, String> merge(Map<String, String> customProperties, Map<String, String> exceptionProperties) {
+        if (!exceptionProperties.isEmpty()) {
+            if (customProperties == null) {
+                customProperties = new HashMap<String, String>();
+            }
 
-		return this.getConnection().listTenants(domain, limit, offset, query);
-	}
+            customProperties.putAll(exceptionProperties);
+        }
+        return customProperties;
+    }
 
-	/**
-	 * <p>
-	 * Creates a tenant
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:create-tenant}
-	 * 
-	 * @param tenant
-	 *            an instance of {@link com.mulesoft.cloudhub.client.Tenant}
-	 *            representing the tenant
-	 * @param domain
-	 *            the domain that will own the tenant
-	 * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
-	 *         carrying the state of the newly created tenant
-	 */
-	@Processor
-	public Tenant createTenant(@Optional @Default("#[payload]") Tenant tenant,
-			String domain) {
-		return this.getConnection().create(tenant, domain);
-	}
+    private Map<String, String> handleException(MuleEvent muleEvent) {
+        ExceptionPayload exceptionPayload = muleEvent.getMessage().getExceptionPayload();
+        Map<String, String> customProperties = new HashMap<String, String>();
+        if (exceptionPayload != null) {
+            customProperties.put(EXCEPTION_MESSAGE_CUSTOM_PROPERTY, exceptionPayload.getMessage());
+            customProperties.put(EXCEPTION_STACKTRACE_CUSTOM_PROPERTY, getStackTrace(exceptionPayload.getException()));
+        }
 
-	/**
-	 * <p>
-	 * Returns an specific tenant
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:get-tenant}
-	 * 
-	 * @param domain
-	 *            the domain owning the tenants
-	 * @param tenantId
-	 *            the id of the tenant you want
-	 * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
-	 */
-	@Processor
-	public Tenant getTenant(String domain, String tenantId) {
-		return this.getConnection().getTenant(domain, tenantId);
-	}
+        return customProperties;
+    }
 
-	/**
-	 * <p>
-	 * Updates a tenant
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:update-tenant}
-	 * 
-	 * @param tenant
-	 *            an instance of {@link com.mulesoft.cloudhub.client.Tenant}
-	 *            with the tenant's new state
-	 * @param domain
-	 *            the domain that will own the tenant
-	 * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
-	 *         carrying the tenant's updated state
-	 */
-	@Processor
-	public Tenant updateTenant(@Optional @Default("#[payload]") Tenant tenant,
-			String domain) {
-		return this.getConnection().update(tenant, domain);
-	}
+    private static String getTransactionIdFrom(MuleEvent muleEvent) {
+        return muleEvent.getMessage().getMessageRootId();
+    }
 
-	/**
-	 * <p>
-	 * Deletes a given tenant
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:delete-tenant}
-	 * 
-	 * @param tenantId
-	 *            the id of the tenant to be deleted
-	 * @param domain
-	 *            the domain that owns the tenant to be deleted
-	 */
-	@Processor
-	public void deleteTenant(String domain, String tenantId) {
-		this.getConnection().delete(tenantId, domain);
-	}
+    private static String getTenantIdFrom(MuleEvent muleEvent) {
+        return muleEvent.getMessage().getInboundProperty(TENANT_ID_PROPERTY);
+    }
 
-	/**
-	 * <p>
-	 * Deletes all tenants for a given domain
-	 * </p>
-	 * 
-	 * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-	 * cloudhub:delete-tenants}
-	 * 
-	 * @param domain
-	 *            the domain you want to clear of tenants
-	 * @param tenantIds
-	 *            a list with tenant ids to be deleted
-	 */
-	@Processor
-	public void deleteTenants(String domain, List<String> tenantIds) {
-		this.getConnection().deleteTenants(domain, tenantIds);
-	}
+    public static String getStackTrace(Throwable aThrowable) {
+        final Writer result = new StringWriter();
+        final PrintWriter printWriter = new PrintWriter(result);
+        aThrowable.printStackTrace(printWriter);
+        return result.toString();
+    }
 
-	private Map<String, String> merge(Map<String, String> customProperties,
-			Map<String, String> exceptionProperties) {
-		if (!exceptionProperties.isEmpty()) {
-			if (customProperties == null) {
-				customProperties = new HashMap<String, String>();
-			}
+    private String getDomain() {
+        return System.getProperty(DOMAIN_SYSTEM_PROPERTY);
+    }
 
-			customProperties.putAll(exceptionProperties);
-		}
-		return customProperties;
-	}
+    public CloudHubConfig getConnectionStrategy() {
+        return connectionStrategy;
+    }
 
-	private Map<String, String> handleException(MuleEvent muleEvent) {
-		ExceptionPayload exceptionPayload = muleEvent.getMessage()
-				.getExceptionPayload();
-		Map<String, String> customProperties = new HashMap<String, String>();
-		if (exceptionPayload != null) {
-			customProperties.put(EXCEPTION_MESSAGE_CUSTOM_PROPERTY,
-					exceptionPayload.getMessage());
-			customProperties.put(EXCEPTION_STACKTRACE_CUSTOM_PROPERTY,
-					getStackTrace(exceptionPayload.getException()));
-		}
+    public void setConnectionStrategy(CloudHubConfig connectionStrategy) {
+        this.connectionStrategy = connectionStrategy;
+    }
 
-		return customProperties;
-	}
-
-	private static String getTransactionIdFrom(MuleEvent muleEvent) {
-		return muleEvent.getMessage().getMessageRootId();
-	}
-
-	private static String getTenantIdFrom(MuleEvent muleEvent) {
-		return muleEvent.getMessage().getInboundProperty(TENANT_ID_PROPERTY);
-	}
-
-	public static String getStackTrace(Throwable aThrowable) {
-		final Writer result = new StringWriter();
-		final PrintWriter printWriter = new PrintWriter(result);
-		aThrowable.printStackTrace(printWriter);
-		return result.toString();
-	}
-
-	private String getDomain() {
-		return System.getProperty(DOMAIN_SYSTEM_PROPERTY);
-	}
-
-	/**
-	 * @param userName
-	 *            The CloudHub user name
-	 * @param password
-	 *            The CloudHub password
-	 * @throws ConnectionException
-	 *             If a connection cannot be made
-	 */
-	@Connect
-	public void connect(@ConnectionKey String userName, String password)
-			throws ConnectionException {
-		this.username = userName;
-		this.connection = new Connection(this.url, userName, password, false);
-
-	}
-
-	@Disconnect
-	public void disconnect() {
-		connection = null;
-	}
-
-	@ValidateConnection
-	public boolean isConnected() {
-		return connection != null && connection.test();
-	}
-
-	protected CloudhubConnection getConnection() {
-		return this.connection;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	@ConnectionIdentifier
-	public String getUsername() {
-		return username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public Long getMaxWaitTime() {
-		return maxWaitTime;
-	}
+    private CloudHubConnectionImpl client() {
+        return connectionStrategy.getClient();
+    }
 
 }

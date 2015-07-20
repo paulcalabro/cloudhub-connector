@@ -12,4 +12,5 @@ target/
 .idea
 target/
 console-web/mvn
+dependency-reduced-pom.xml
 ion-platform-api/bin
