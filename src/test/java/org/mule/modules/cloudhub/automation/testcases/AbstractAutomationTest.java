@@ -10,7 +10,6 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import org.mule.api.processor.MessageProcessor;
 import org.mule.tck.junit4.FunctionalTestCase;
 
 /**
@@ -25,7 +24,7 @@ public abstract class AbstractAutomationTest extends FunctionalTestCase {
 		return "automation/automation-test-flows.xml";
 	}
 	
-	protected MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
+//	protected MessageProcessor lookupFlowConstruct(String name) {
+//        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
+//    }
 }

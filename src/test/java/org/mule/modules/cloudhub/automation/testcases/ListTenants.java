@@ -10,15 +10,6 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-
-import com.mulesoft.cloudhub.client.TenantResults;
-
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
@@ -26,16 +17,16 @@ import com.mulesoft.cloudhub.client.TenantResults;
  */
 public class ListTenants extends AbstractTenantTestCase {
 
-	@Test
-	public void list() throws Exception {
-		Map<String, Object> payload = this.makePayload(null);
-		MessageProcessor sandboxFlow = lookupFlowConstruct("list-tenant");
-		
-		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
-		
-		TenantResults result = (TenantResults) response.getMessage().getPayload();
-		
-		Assert.assertNotNull(result);
-		Assert.assertFalse(result.getData().isEmpty());
-	}
+//	@Test
+//	public void list() throws Exception {
+//		Map<String, Object> payload = this.makePayload(null);
+//		MessageProcessor sandboxFlow = lookupFlowConstruct("list-tenant");
+//
+//		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
+//
+//		TenantResults result = (TenantResults) response.getMessage().getPayload();
+//
+//		Assert.assertNotNull(result);
+//		Assert.assertFalse(result.getData().isEmpty());
+//	}
 }

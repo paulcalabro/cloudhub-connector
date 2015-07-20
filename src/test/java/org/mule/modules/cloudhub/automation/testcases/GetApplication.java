@@ -10,73 +10,56 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.mule.api.MuleEvent;
-import org.mule.api.MuleException;
-import org.mule.api.processor.MessageProcessor;
 import org.mule.tck.junit4.FunctionalTestCase;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.mulesoft.cloudhub.client.Application;
 
 public class GetApplication extends FunctionalTestCase {
 	
-	private ApplicationContext data_objects;
-	private Map<String,Object> operation_sandbox;
-	
-	@Override
-	protected String getConfigResources() {
-		return "automation/automation-test-flows.xml";
-	}
-	
-    private MessageProcessor lookupFlowConstruct(String name) {
-        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
-    }
-	
-    @Before
-    public void setUp() {
-    	data_objects = new ClassPathXmlApplicationContext("automation/Applications.xml");
-    	operation_sandbox = new HashMap<String, Object>();
-    }
-
-    @After
-    public void tearDown() {
-    	
-    }
-    
-	@Test
-	public void getApp() {
-		
-		try {
-			Application sandbox_application = (Application) data_objects.getBean("applicationA");
-			
-			MessageProcessor sandboxFlow = lookupFlowConstruct("get-application");
-			MuleEvent response = sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
-			//
-			
-			Application flow_response = (Application) response.getMessage().getPayload();
-			
-			assertTrue("Objects should be an Application", flow_response instanceof Application);
-			assertEquals("Domains dont match",flow_response.getDomain(),sandbox_application.getDomain());
-			assertEquals("mule version dont match",flow_response.getMuleVersion(),sandbox_application.getMuleVersion());
-		} catch (MuleException e) {
-			e.printStackTrace();
-			fail();
-		}catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	        	
-	}
+//	private ApplicationContext data_objects;
+//	private Map<String,Object> operation_sandbox;
+//
+//	@Override
+//	protected String getConfigResources() {
+//		return "automation/automation-test-flows.xml";
+//	}
+//
+//    private MessageProcessor lookupFlowConstruct(String name) {
+//        return (MessageProcessor) muleContext.getRegistry().lookupFlowConstruct(name);
+//    }
+//
+//    @Before
+//    public void setUp() {
+//    	data_objects = new ClassPathXmlApplicationContext("automation/Applications.xml");
+//    	operation_sandbox = new HashMap<String, Object>();
+//    }
+//
+//    @After
+//    public void tearDown() {
+//
+//    }
+//
+//	@Test
+//	public void getApp() {
+//
+//		try {
+//			Application sandbox_application = (Application) data_objects.getBean("applicationA");
+//
+//			MessageProcessor sandboxFlow = lookupFlowConstruct("get-application");
+//			MuleEvent response = sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
+//			//
+//
+//			Application flow_response = (Application) response.getMessage().getPayload();
+//
+//			assertTrue("Objects should be an Application", flow_response instanceof Application);
+//			assertEquals("Domains dont match",flow_response.getDomain(),sandbox_application.getDomain());
+//			assertEquals("mule version dont match",flow_response.getMuleVersion(),sandbox_application.getMuleVersion());
+//		} catch (MuleException e) {
+//			e.printStackTrace();
+//			fail();
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//			fail();
+//		}
+//
+//	}
 	
 }

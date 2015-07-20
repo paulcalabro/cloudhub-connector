@@ -10,13 +10,6 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import java.util.Map;
-
-import org.junit.Test;
-import org.mule.api.processor.MessageProcessor;
-
-import com.mulesoft.cloudhub.client.Tenant;
-
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
@@ -24,13 +17,13 @@ import com.mulesoft.cloudhub.client.Tenant;
  */
 public class DeleteTenant extends AbstractTenantTestCase {
 
-	@Test
-	public void delete() throws Exception {
-		Tenant tenant = this.makeTenant();
-		
-		Map<String, Object> payload = this.makePayload(tenant);
-		MessageProcessor sandboxFlow = lookupFlowConstruct("delete-tenant");
-		
-		sandboxFlow.process(getTestEvent(payload));
-	}
+//	@Test
+//	public void delete() throws Exception {
+//		Tenant tenant = this.makeTenant();
+//
+//		Map<String, Object> payload = this.makePayload(tenant);
+//		MessageProcessor sandboxFlow = lookupFlowConstruct("delete-tenant");
+//
+//		sandboxFlow.process(getTestEvent(payload));
+//	}
 }

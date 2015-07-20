@@ -10,16 +10,6 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Map;
-
-import org.junit.Test;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-
-import com.mulesoft.cloudhub.client.Tenant;
-
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
@@ -27,19 +17,19 @@ import com.mulesoft.cloudhub.client.Tenant;
  */
 public class CreateTenant extends AbstractTenantTestCase {
 
-	@Test
-	public void createTenant() throws Exception {
-		Tenant tenant = this.makeTenant();
-		
-		Map<String, Object> payload = this.makePayload(tenant);
-		
-		MessageProcessor sandboxFlow = lookupFlowConstruct("create-tenant");
-		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
-		
-		Tenant responsTenant = (Tenant) response.getMessage().getPayload();
-		
-		assertEquals("ids should be the same", tenant.getId(), responsTenant.getId());
-	}
+//	@Test
+//	public void createTenant() throws Exception {
+//		Tenant tenant = this.makeTenant();
+//
+//		Map<String, Object> payload = this.makePayload(tenant);
+//
+//		MessageProcessor sandboxFlow = lookupFlowConstruct("create-tenant");
+//		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
+//
+//		Tenant responsTenant = (Tenant) response.getMessage().getPayload();
+//
+//		assertEquals("ids should be the same", tenant.getId(), responsTenant.getId());
+//	}
 	
 
 }

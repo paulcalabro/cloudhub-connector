@@ -10,12 +10,6 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.mulesoft.cloudhub.client.Tenant;
-
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
@@ -23,35 +17,35 @@ import com.mulesoft.cloudhub.client.Tenant;
  */
 public class AbstractTenantTestCase extends AbstractAutomationTest {
 
-	
-	protected Map<String, Object> makePayload(Tenant tenant) {
-		final String tenantId = "Smartguy";
-		final String domain = "fact-generator";
-		
-		Map<String, Object> payload = new HashMap<String, Object>();
-		payload.put("domain", domain);
-		payload.put("tenantId", tenantId);
-		
-		if (tenant != null) {
-			payload.put("tenant", tenant);
-		}
-		
-		return payload;
-	}
-	
-	protected Tenant makeTenant() {
-		Tenant tenant = new Tenant();
-        tenant.setName("Acme");
-        tenant.setEmail("mariano.gonzalez@mulesoft.com");
-		tenant.setCreated(new Date());
-		tenant.setEnabled(true);
-		tenant.setHref("acme");
-		tenant.setId("acme");
-		
-		Map<String, String> config = new HashMap<String, String>();
-		config.put("hello", "world");
-		tenant.setConfiguration(config);
-		
-		return tenant;
-	}
+//
+//	protected Map<String, Object> makePayload(Tenant tenant) {
+//		final String tenantId = "Smartguy";
+//		final String domain = "fact-generator";
+//
+//		Map<String, Object> payload = new HashMap<String, Object>();
+//		payload.put("domain", domain);
+//		payload.put("tenantId", tenantId);
+//
+//		if (tenant != null) {
+//			payload.put("tenant", tenant);
+//		}
+//
+//		return payload;
+//	}
+//
+//	protected Tenant makeTenant() {
+//		Tenant tenant = new Tenant();
+//        tenant.setName("Acme");
+//        tenant.setEmail("mariano.gonzalez@mulesoft.com");
+//		tenant.setCreated(new Date());
+//		tenant.setEnabled(true);
+//		tenant.setHref("acme");
+//		tenant.setId("acme");
+//
+//		Map<String, String> config = new HashMap<String, String>();
+//		config.put("hello", "world");
+//		tenant.setConfiguration(config);
+//
+//		return tenant;
+//	}
 }

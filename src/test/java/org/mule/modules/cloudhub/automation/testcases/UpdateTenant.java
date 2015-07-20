@@ -10,37 +10,27 @@
 
 package org.mule.modules.cloudhub.automation.testcases;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Map;
-
-import org.junit.Test;
-import org.mule.api.MuleEvent;
-import org.mule.api.processor.MessageProcessor;
-
-import com.mulesoft.cloudhub.client.Tenant;
-
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
 public class UpdateTenant extends AbstractTenantTestCase {
-	
-	@Test
-	public void updateTenant() throws Exception {
-		Tenant tenant = this.makeTenant();
-		tenant.setEnabled(false);
-		
-		Map<String, Object> payload = this.makePayload(tenant);
-		MessageProcessor sandboxFlow = lookupFlowConstruct("update-tenant");
-		
-		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
-		
-		Tenant responseTenant = (Tenant) response.getMessage().getPayload();
-		
-		assertEquals("alertsEnabled should be the same", tenant.isEnabled(), responseTenant.isEnabled());
-	}
+//
+//	@Test
+//	public void updateTenant() throws Exception {
+//		Tenant tenant = this.makeTenant();
+//		tenant.setEnabled(false);
+//
+//		Map<String, Object> payload = this.makePayload(tenant);
+//		MessageProcessor sandboxFlow = lookupFlowConstruct("update-tenant");
+//
+//		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
+//
+//		Tenant responseTenant = (Tenant) response.getMessage().getPayload();
+//
+//		assertEquals("alertsEnabled should be the same", tenant.isEnabled(), responseTenant.isEnabled());
+//	}
 
 
 }

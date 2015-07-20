@@ -10,27 +10,24 @@
 
 package org.mule.modules.cloudhub.automation;
 
-import com.mulesoft.cloudhub.client.Notification;
-
-
 public class Sandbox {
 	
-	public static int sleep_time = 3000;
-	public static Notification notification;
-	
-	public static int getSleep_time() {
-		return sleep_time;
-	}
-	public static void setSleep_time(int sleep_time) {
-		Sandbox.sleep_time = sleep_time;
-	}
-	public static Notification getNotification() {
-		return notification;
-	}
-	public static void setNotification(Notification notification) {
-		Sandbox.notification = notification;
-	}
-	
+//	public static int sleep_time = 3000;
+//	public static Notification notification;
+//
+//	public static int getSleep_time() {
+//		return sleep_time;
+//	}
+//	public static void setSleep_time(int sleep_time) {
+//		Sandbox.sleep_time = sleep_time;
+//	}
+//	public static Notification getNotification() {
+//		return notification;
+//	}
+//	public static void setNotification(Notification notification) {
+//		Sandbox.notification = notification;
+//	}
+//
 	
 	
 }
