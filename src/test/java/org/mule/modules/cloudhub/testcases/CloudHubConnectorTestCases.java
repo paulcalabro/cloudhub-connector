@@ -9,20 +9,67 @@ package org.mule.modules.cloudhub.testcases;
 * Created by estebanwasinger on 20/7/15.
 */
 
+import com.mulesoft.ch.rest.model.Application;
+import com.mulesoft.ch.rest.model.ApplicationStatus;
 import junit.framework.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.cloudhub.RegressionSuite;
 import org.mule.modules.cloudhub.TestParent;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedHashMap;
+
 
 public class CloudHubConnectorTestCases extends TestParent {
 
-    //TODO - Remove DUMMY Test case
+    public static final String DOMAIN_NAME = "ch-connector-tests-delete-me-"+new Date().getTime();
+    static Boolean isSetUp = Boolean.FALSE;
+    static Boolean isDeployed = Boolean.FALSE;
+
+    @Before
+    public void setUpCloudHubApps() throws FileNotFoundException, InterruptedException, URISyntaxException {
+        if(!isSetUp){
+            URL resourceUrl = getClass().getResource("/dummy-app.zip");
+            Path resourcePath = Paths.get(resourceUrl.toURI());
+            InputStream is = new FileInputStream(resourcePath.toString());
+            getConnector().createAndDeployApplication(is, DOMAIN_NAME,"3.7.0",1,null);
+            while(!isDeployed){
+                Thread.sleep(2000);
+                if(getConnector().getApplication(DOMAIN_NAME).getStatus() == ApplicationStatus.STARTED){
+                    isDeployed = Boolean.TRUE;
+                    isSetUp = Boolean.TRUE;
+                }
+            }
+            Thread.sleep(10000);
+        }
+    }
+
     @Category({ RegressionSuite.class })
     @Test
-    public void testDeployApplication(){
-        Assert.assertEquals(true , getConnector().listApplications().size() > 1);
+    public void testRetrieveApp(){
+        Application application = getConnector().getApplication(DOMAIN_NAME);
+        Assert.assertEquals(DOMAIN_NAME,application.getDomain());
+    }
+
+    // TODO IMPROVE -- CH RETURNS A HASHMAP INSTEAD OF A APPLICATION
+    @Category({ RegressionSuite.class })
+    @Test
+    public void testUndeployApp(){
+        getConnector().deleteApplication(DOMAIN_NAME);
+        Object list = getConnector().listApplications();
+        for (LinkedHashMap application : (Collection<LinkedHashMap>) list) {
+            Assert.assertEquals(false,application.get("domain").equals(DOMAIN_NAME));
+        }
     }
 
 
