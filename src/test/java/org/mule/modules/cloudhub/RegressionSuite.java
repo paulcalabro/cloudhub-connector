@@ -10,8 +10,12 @@ import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.mule.modules.cloudhub.testcases.CloudHubConnectorTestCases;
+import org.mule.tools.devkit.ctf.mockup.ConnectorDispatcher;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 import org.mule.tools.devkit.ctf.platform.PlatformManager;
+
+import java.util.Collection;
+import java.util.LinkedHashMap;
 
 /**
 * Created by estebanwasinger on 4/6/15.
@@ -35,6 +39,17 @@ public class RegressionSuite {
         ConnectorTestContext<CloudHubConnector> context = ConnectorTestContext.getInstance(CloudHubConnector.class);
 
         PlatformManager platform =  context.getPlatformManager();
+
+        ConnectorDispatcher<CloudHubConnector> dispatcher = context.getConnectorDispatcher();
+
+        CloudHubConnector connector = dispatcher.createMockup();
+
+        Object list = connector.listApplications();
+        for (LinkedHashMap application : (Collection<LinkedHashMap>) list) {
+            if(((String)application.get("domain")).contains("ch-connector-test-delete-me")){
+                connector.deleteApplication(((String)application.get("domain")));
+            }
+        }
 
         platform.shutdown();
     }
