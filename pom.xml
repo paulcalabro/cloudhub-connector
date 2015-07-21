@@ -21,6 +21,7 @@
 		<jdk.version>1.7</jdk.version>
 		<category>Community</category>
 		<licensePath>LICENSE.md</licensePath>
+        <devkit.studio.package.skip>false</devkit.studio.package.skip>
 	</properties>
 
     <!--<build>-->
@@ -39,7 +40,7 @@
             <!--</plugin>-->
         <!--</plugins>-->
     <!--</build>-->
-<build>
+    <build>
     <testResources>
         <testResource>
             <filtering>false</filtering>

@@ -11,6 +11,7 @@ package org.mule.modules.cloudhub.testcases;
 
 import com.mulesoft.ch.rest.model.Application;
 import com.mulesoft.ch.rest.model.ApplicationStatus;
+import com.mulesoft.ch.rest.model.ApplicationStatusChange;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,13 +33,14 @@ import java.util.LinkedHashMap;
 
 public class CloudHubConnectorTestCases extends TestParent {
 
-    public static final String DOMAIN_NAME = "ch-connector-tests-delete-me-"+new Date().getTime();
+    public static String DOMAIN_NAME;
     static Boolean isSetUp = Boolean.FALSE;
     static Boolean isDeployed = Boolean.FALSE;
 
     @Before
     public void setUpCloudHubApps() throws FileNotFoundException, InterruptedException, URISyntaxException {
         if(!isSetUp){
+            DOMAIN_NAME = "ch-connector-tests-delete-me-"+new Date().getTime();
             URL resourceUrl = getClass().getResource("/dummy-app.zip");
             Path resourcePath = Paths.get(resourceUrl.toURI());
             InputStream is = new FileInputStream(resourcePath.toString());
@@ -57,6 +59,7 @@ public class CloudHubConnectorTestCases extends TestParent {
     @Category({ RegressionSuite.class })
     @Test
     public void testRetrieveApp(){
+        printMethodName(new Object(){}.getClass().getEnclosingMethod().getName());
         Application application = getConnector().getApplication(DOMAIN_NAME);
         Assert.assertEquals(DOMAIN_NAME,application.getDomain());
     }
@@ -65,11 +68,39 @@ public class CloudHubConnectorTestCases extends TestParent {
     @Category({ RegressionSuite.class })
     @Test
     public void testUndeployApp(){
+        printMethodName(new Object(){}.getClass().getEnclosingMethod().getName());
         getConnector().deleteApplication(DOMAIN_NAME);
         Object list = getConnector().listApplications();
         for (LinkedHashMap application : (Collection<LinkedHashMap>) list) {
             Assert.assertEquals(false,application.get("domain").equals(DOMAIN_NAME));
         }
+        isSetUp = Boolean.FALSE;
+        isDeployed = Boolean.FALSE;
+    }
+
+    @Category({ RegressionSuite.class })
+    @Test
+    public void changeAppStatus() throws InterruptedException {
+        printMethodName(new Object(){}.getClass().getEnclosingMethod().getName());
+        getConnector().changeApplicationStatus(DOMAIN_NAME, ApplicationStatusChange.DesiredApplicationStatus.STOP);
+        Thread.sleep(1000);
+        ApplicationStatus appStatus = getConnector().getApplication(DOMAIN_NAME).getStatus();
+        Boolean status = appStatus.equals(ApplicationStatus.UNDEPLOYED) || appStatus.equals(ApplicationStatus.UNDEPLOYING);
+        Assert.assertEquals(Boolean.TRUE,status);
+
+        getConnector().changeApplicationStatus(DOMAIN_NAME, ApplicationStatusChange.DesiredApplicationStatus.START);
+        Thread.sleep(1000);
+        appStatus = getConnector().getApplication(DOMAIN_NAME).getStatus();
+        status = appStatus.equals(ApplicationStatus.STARTED) || appStatus.equals(ApplicationStatus.DEPLOYING);
+        Assert.assertEquals(Boolean.TRUE,status);
+    }
+    
+
+
+    private void printMethodName(String name){
+        System.out.println("==============================================");
+        System.out.println("=  "+name);
+        System.out.println("==============================================");
     }
 
 
