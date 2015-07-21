@@ -83,18 +83,18 @@ public class CloudHubConnectorTestCases extends TestParent {
     public void changeAppStatus() throws InterruptedException {
         printMethodName(new Object(){}.getClass().getEnclosingMethod().getName());
         getConnector().changeApplicationStatus(DOMAIN_NAME, ApplicationStatusChange.DesiredApplicationStatus.STOP);
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         ApplicationStatus appStatus = getConnector().getApplication(DOMAIN_NAME).getStatus();
         Boolean status = appStatus.equals(ApplicationStatus.UNDEPLOYED) || appStatus.equals(ApplicationStatus.UNDEPLOYING);
         Assert.assertEquals(Boolean.TRUE,status);
 
         getConnector().changeApplicationStatus(DOMAIN_NAME, ApplicationStatusChange.DesiredApplicationStatus.START);
-        Thread.sleep(1000);
+        Thread.sleep(5000);
         appStatus = getConnector().getApplication(DOMAIN_NAME).getStatus();
         status = appStatus.equals(ApplicationStatus.STARTED) || appStatus.equals(ApplicationStatus.DEPLOYING);
         Assert.assertEquals(Boolean.TRUE,status);
     }
-    
+
 
 
     private void printMethodName(String name){
