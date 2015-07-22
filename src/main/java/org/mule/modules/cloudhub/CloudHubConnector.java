@@ -21,6 +21,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
+import org.mule.modules.cloudhub.configs.CloudHubConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,19 +92,34 @@ import java.util.Map;
      */
     @Processor
     public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
-                                           @Optional Map<String, String> environmentVariables) {
+                                           @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted) {
 
+        createApplication(domain,muleVersion,environmentVariables,workerCount,persistentQueues,multitenanted);
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
-
-        Application app = new Application();
-        app.setDomain(domain);
-        app.setMuleVersion(muleVersion);
-        app.setHasFile(false);
-        app.setWorkers(workerCount);
-        app.setProperties(environmentVariables);
-        client().createApplication(app);
-
         connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+    }
+
+    /**
+     *
+     * @param domain
+     * @param muleVersion
+     * @param environmentVariables
+     * @param workersCount
+     * @param persistentQueues
+     * @param multitenanted
+     * @return
+     */
+    @Processor
+    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, Map<String,String> environmentVariables, @Default("1") Integer workersCount, @Optional Boolean persistentQueues, @Optional Boolean multitenanted ){
+        Application app = new Application();
+        app.setMuleVersion(muleVersion);
+        app.setProperties(environmentVariables);
+        app.setWorkers(workersCount);
+        app.setPersistentQueues(persistentQueues);
+        app.setDomain(domain);
+        app.setMultitenanted(multitenanted);
+        client().createApplication(app);
+        return app;
     }
 
     /**

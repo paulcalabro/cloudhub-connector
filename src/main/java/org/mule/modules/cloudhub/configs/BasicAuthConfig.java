@@ -3,7 +3,7 @@
  * a copy of which has been included with this distribution in the LICENSE.md file.
  */
 
-package org.mule.modules.cloudhub;
+package org.mule.modules.cloudhub.configs;
 
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 import com.mulesoft.cloudhub.client.CloudHubException;
@@ -22,8 +22,8 @@ import org.mule.api.annotations.param.Optional;
  *
  * @author MuleSoft, Inc.
  */
-@ConnectionManagement(friendlyName = "Configuration")
-public class CloudHubConfig {
+@ConnectionManagement(friendlyName = "Basic Auth Authentication")
+public class BasicAuthConfig implements CloudHubConfig{
 
     private CloudHubConnectionImpl cloudHubClient;
 

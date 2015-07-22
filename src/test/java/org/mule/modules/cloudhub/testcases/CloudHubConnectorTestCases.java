@@ -5,10 +5,6 @@
 
 package org.mule.modules.cloudhub.testcases;
 
-/**
-* Created by estebanwasinger on 20/7/15.
-*/
-
 import com.mulesoft.ch.rest.model.Application;
 import com.mulesoft.ch.rest.model.ApplicationStatus;
 import com.mulesoft.ch.rest.model.ApplicationStatusChange;
@@ -44,7 +40,7 @@ public class CloudHubConnectorTestCases extends TestParent {
             URL resourceUrl = getClass().getResource("/dummy-app.zip");
             Path resourcePath = Paths.get(resourceUrl.toURI());
             InputStream is = new FileInputStream(resourcePath.toString());
-            getConnector().createAndDeployApplication(is, DOMAIN_NAME,"3.7.0",1,null);
+            getConnector().createAndDeployApplication(is, DOMAIN_NAME,"3.7.0",1,null,null,null);
             while(!isDeployed){
                 Thread.sleep(2000);
                 if(getConnector().getApplication(DOMAIN_NAME).getStatus() == ApplicationStatus.STARTED){
