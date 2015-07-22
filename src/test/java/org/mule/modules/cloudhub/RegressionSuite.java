@@ -27,6 +27,9 @@ import java.util.LinkedHashMap;
 })
 public class RegressionSuite {
 
+    public static final String DOMAIN = "domain";
+    public static final String CH_APP_NAME = "ch-connector-tests-delete-me";
+
     @BeforeClass
     public static void initialiseSuite(){
 
@@ -46,8 +49,8 @@ public class RegressionSuite {
 
         Object list = connector.listApplications();
         for (LinkedHashMap application : (Collection<LinkedHashMap>) list) {
-            if(((String)application.get("domain")).contains("ch-connector-test-delete-me")){
-                connector.deleteApplication(((String)application.get("domain")));
+            if(((String)application.get(DOMAIN)).contains(CH_APP_NAME)){
+                connector.deleteApplication(((String) application.get(DOMAIN)));
             }
         }
 

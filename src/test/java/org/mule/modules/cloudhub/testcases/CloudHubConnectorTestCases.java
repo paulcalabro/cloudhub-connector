@@ -61,7 +61,7 @@ public class CloudHubConnectorTestCases extends TestParent {
     public void testRetrieveApp(){
         printMethodName(new Object(){}.getClass().getEnclosingMethod().getName());
         Application application = getConnector().getApplication(DOMAIN_NAME);
-        Assert.assertEquals(DOMAIN_NAME,application.getDomain());
+        Assert.assertEquals(DOMAIN_NAME, application.getDomain());
     }
 
     // TODO IMPROVE -- CH RETURNS A HASHMAP INSTEAD OF A APPLICATION
@@ -94,7 +94,6 @@ public class CloudHubConnectorTestCases extends TestParent {
         status = appStatus.equals(ApplicationStatus.STARTED) || appStatus.equals(ApplicationStatus.DEPLOYING);
         Assert.assertEquals(Boolean.TRUE,status);
     }
-
 
 
     private void printMethodName(String name){
