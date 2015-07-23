@@ -94,7 +94,7 @@ import java.util.Map;
     public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
                                            @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted) {
 
-        createApplication(domain,muleVersion,environmentVariables,workerCount,persistentQueues,multitenanted);
+        createApplication(domain,muleVersion,environmentVariables,workerCount,falseInNull(persistentQueues),falseInNull(multitenanted));
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
         connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
     }
@@ -115,9 +115,9 @@ import java.util.Map;
         app.setMuleVersion(muleVersion);
         app.setProperties(environmentVariables);
         app.setWorkers(workersCount);
-        app.setPersistentQueues(persistentQueues);
+        app.setPersistentQueues(falseInNull(multitenanted));
         app.setDomain(domain);
-        app.setMultitenanted(multitenanted);
+        app.setMultitenanted(falseInNull(multitenanted));
         client().createApplication(app);
         return app;
     }
@@ -431,6 +431,14 @@ import java.util.Map;
 
     public CloudHubConfig getConnectionStrategy() {
         return connectionStrategy;
+    }
+
+    private Boolean falseInNull(Boolean bool) {
+        if (bool == null) {
+            return Boolean.FALSE;
+        } else {
+            return Boolean.TRUE;
+        }
     }
 
     public void setConnectionStrategy(CloudHubConfig connectionStrategy) {

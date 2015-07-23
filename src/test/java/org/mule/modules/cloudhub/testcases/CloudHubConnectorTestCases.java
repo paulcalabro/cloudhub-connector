@@ -40,7 +40,7 @@ public class CloudHubConnectorTestCases extends TestParent {
             URL resourceUrl = getClass().getResource("/dummy-app.zip");
             Path resourcePath = Paths.get(resourceUrl.toURI());
             InputStream is = new FileInputStream(resourcePath.toString());
-            getConnector().createAndDeployApplication(is, DOMAIN_NAME,"3.7.0",1,null,null,null);
+            getConnector().createAndDeployApplication(is, DOMAIN_NAME,"3.7.0",1,null,false,false);
             while(!isDeployed){
                 Thread.sleep(2000);
                 if(getConnector().getApplication(DOMAIN_NAME).getStatus() == ApplicationStatus.STARTED){
