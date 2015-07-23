@@ -22,6 +22,7 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
 import org.mule.modules.cloudhub.configs.CloudHubConfig;
+import org.mule.modules.cloudhub.utils.LogPriority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Provides the ability to interact with Mule CloudHub from within a Mule
@@ -148,6 +151,37 @@ import java.util.Map;
     public Application getApplication(String domain) {
         return client().connectWithDomain(domain).retrieveApplication();
     }
+
+    /**
+     * Get application log
+     *
+     * @param domain
+     * @param endDate
+     * @param startDate
+     * @param limit
+     * @param offset
+     * @param priority
+     * @param search
+     * @param tail
+     * @param worker
+     * @return LogResults, POJO that contains the requested logs
+     */
+    @Processor
+    public LogResults retrieveApplicationLogs(String domain, @Optional String endDate, @Optional String startDate, @Default("100") Integer limit, @Optional Integer offset, @Optional LogPriority priority, @Optional String search, @Optional Boolean tail, @Optional String worker) {
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+        addToMapIfNotNull("endDate", endDate, queryParams);
+        addToMapIfNotNull("startDate", startDate, queryParams);
+        addToMapIfNotNull("limit", limit, queryParams);
+        addToMapIfNotNull("offset", offset, queryParams);
+        addToMapIfNotNull("priority", priority, queryParams);
+        addToMapIfNotNull("search", search, queryParams);
+        addToMapIfNotNull("tail", tail, queryParams);
+        addToMapIfNotNull("worker", worker, queryParams);
+
+        return client().connectWithDomain(domain).retrieveApplicationLog(queryParams);
+    }
+
 
     /**
      * Update an application.
@@ -438,6 +472,16 @@ import java.util.Map;
             return Boolean.FALSE;
         } else {
             return Boolean.TRUE;
+        }
+    }
+
+
+    private void addToMapIfNotNull(String queryParamKey, Object queryParamValue, Map<String, String> queryParamsMap) {
+        if(queryParamValue != null){
+            if(!isBlank(queryParamValue.toString())){
+                System.out.println(queryParamKey + "Value:"+queryParamValue.toString());
+                queryParamsMap.put(queryParamKey, queryParamValue.toString());
+            }
         }
     }
 
