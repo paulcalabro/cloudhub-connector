@@ -8,14 +8,14 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public class AbstractTenantTestCase extends AbstractAutomationTest {
+public class AbstractTenantTestCase extends AbstractAutomationTests {
 
 //
 //	protected Map<String, Object> makePayload(Tenant tenant) {

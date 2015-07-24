@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub;
+package org.mule.modules.cloudhub.automation.unit;
 
 /**
  * <p>

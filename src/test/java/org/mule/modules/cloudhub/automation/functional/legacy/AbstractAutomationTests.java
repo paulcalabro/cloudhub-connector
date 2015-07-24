@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.mule.tck.junit4.FunctionalTestCase;
 
@@ -17,7 +17,7 @@ import org.mule.tck.junit4.FunctionalTestCase;
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public abstract class AbstractAutomationTest extends FunctionalTestCase {
+public abstract class AbstractAutomationTests extends FunctionalTestCase {
 
 	@Override
 	protected String getConfigResources() {

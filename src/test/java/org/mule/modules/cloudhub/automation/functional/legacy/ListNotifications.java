@@ -8,11 +8,11 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.mule.tck.junit4.FunctionalTestCase;
 
-public class DismissNotification extends FunctionalTestCase {
+public class ListNotifications extends FunctionalTestCase {
 	
 //	private ApplicationContext data_objects;
 //
@@ -27,6 +27,7 @@ public class DismissNotification extends FunctionalTestCase {
 //
 //    @Before
 //    public void setUp() {
+//    	data_objects = new ClassPathXmlApplicationContext("automation/Notifications.xml");
 //    }
 //
 //    @After
@@ -35,17 +36,19 @@ public class DismissNotification extends FunctionalTestCase {
 //    }
 //
 //	@Test
-//	public void dismissNotif() {
+//	public void listNotif() {
 //
 //		try {
 //
 //
-//			MessageProcessor sandboxFlow = lookupFlowConstruct("dismiss-notification");
-//			MuleEvent response = sandboxFlow.process(getTestEvent(Sandbox.getNotification().getHref()));
+//			MessageProcessor sandboxFlow = lookupFlowConstruct("list-notifications");
+//			MuleEvent response = sandboxFlow.process(getTestEvent(null));
 //			//
-//			String flow_response = (String) response.getMessage().getPayload();
 //
-//			assertEquals("Href mismatch",Sandbox.getNotification().getHref(),flow_response);
+//			NotificationResults flow_response = (NotificationResults) response.getMessage().getPayload();
+//
+//			assertTrue("Objects should be an NotificationResults", flow_response instanceof NotificationResults);
+//			assertEquals("Href must be the same",Sandbox.getNotification().getHref(), flow_response.getData().get(0).getHref());
 //
 //		} catch (MuleException e) {
 //			e.printStackTrace();

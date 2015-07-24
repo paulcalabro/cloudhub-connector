@@ -8,29 +8,24 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 /**
  * 
  * @author mariano.gonzalez@mulesoft.com
  *
  */
-public class UpdateTenant extends AbstractTenantTestCase {
-//
+public class GetTenant extends AbstractTenantTestCase {
+
 //	@Test
-//	public void updateTenant() throws Exception {
-//		Tenant tenant = this.makeTenant();
-//		tenant.setEnabled(false);
-//
-//		Map<String, Object> payload = this.makePayload(tenant);
-//		MessageProcessor sandboxFlow = lookupFlowConstruct("update-tenant");
-//
+//	public void getTenant() throws Exception {
+//		Map<String, Object> payload = this.makePayload(null);
+//		MessageProcessor sandboxFlow = lookupFlowConstruct("get-tenant");
 //		MuleEvent response = sandboxFlow.process(getTestEvent(payload));
+//		//
 //
 //		Tenant responseTenant = (Tenant) response.getMessage().getPayload();
-//
-//		assertEquals("alertsEnabled should be the same", tenant.isEnabled(), responseTenant.isEnabled());
+//		Assert.assertNotNull("got null response", responseTenant);
+//		assertEquals("ids should be the same", payload.get("tenantId"), responseTenant.getId());
 //	}
-
-
 }

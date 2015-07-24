@@ -8,12 +8,12 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.mule.tck.junit4.FunctionalTestCase;
 
-public class StartApplication extends FunctionalTestCase {
-	
+public class StopApplication extends FunctionalTestCase {
+//
 //	private ApplicationContext data_objects;
 //	private Map<String,Object> operation_sandbox;
 //
@@ -38,12 +38,12 @@ public class StartApplication extends FunctionalTestCase {
 //    }
 //
 //	@Test
-//	public void startApp() {
+//	public void stopApp() {
 //
 //		try {
 //			Application sandbox_application = (Application) data_objects.getBean("applicationA");
 //
-//			MessageProcessor start_sandboxFlow = lookupFlowConstruct("start-application");
+//			MessageProcessor start_sandboxFlow = lookupFlowConstruct("stop-application");
 //			MuleEvent start_response = start_sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
 //			//
 //			Thread.sleep(Sandbox.sleep_time);
@@ -53,7 +53,11 @@ public class StartApplication extends FunctionalTestCase {
 //			Application flow_response = (Application) response.getMessage().getPayload();
 //
 //			assertTrue("Objects should be an Application", flow_response instanceof Application);
-//			assertEquals("Domains dont match",flow_response.getStatus(), com.mulesoft.cloudhub.client.Application.Status.DEPLOYING);
+//
+//			if (flow_response.getStatus() == com.mulesoft.cloudhub.client.Application.Status.UNDEPLOYING || flow_response.getStatus() == com.mulesoft.cloudhub.client.Application.Status.UNDEPLOYED){
+//				assertTrue(true);
+//			}
+////			assertEquals("Status dont match",com.mulesoft.cloudhub.client.Application.Status.UNDEPLOYING, flow_response.getStatus());
 //
 //		} catch (MuleException e) {
 //			e.printStackTrace();

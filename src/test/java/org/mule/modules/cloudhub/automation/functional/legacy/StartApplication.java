@@ -8,11 +8,11 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.mule.tck.junit4.FunctionalTestCase;
 
-public class ListApplications extends FunctionalTestCase {
+public class StartApplication extends FunctionalTestCase {
 	
 //	private ApplicationContext data_objects;
 //	private Map<String,Object> operation_sandbox;
@@ -28,39 +28,36 @@ public class ListApplications extends FunctionalTestCase {
 //
 //    @Before
 //    public void setUp() {
-////    	data_objects = new ClassPathXmlApplicationContext("automation/QBOAccounts.xml");
+//    	data_objects = new ClassPathXmlApplicationContext("automation/Applications.xml");
 //    	operation_sandbox = new HashMap<String, Object>();
 //    }
 //
 //    @After
 //    public void tearDown() {
 //
-////    	try {
-////
-//////
-////    	} catch (MuleException e) {
-////    		assertFalse(true);
-////		} catch (Exception e) {
-////			e.printStackTrace();
-////		}
-//
 //    }
 //
 //	@Test
-//	public void listApps() {
+//	public void startApp() {
 //
 //		try {
-//			MessageProcessor sandboxFlow = lookupFlowConstruct("list-applications");
-//			MuleEvent response = sandboxFlow.process(getTestEvent(null));
-//			//
+//			Application sandbox_application = (Application) data_objects.getBean("applicationA");
 //
-//			List<Application> applications = (List<Application>) response.getMessage().getPayload();
-//			assertTrue("Size must be > than 0",applications.size()>0);
-//			assertTrue("Objects should be Applications", applications.get(0) instanceof Application);
+//			MessageProcessor start_sandboxFlow = lookupFlowConstruct("start-application");
+//			MuleEvent start_response = start_sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
+//			//
+//			Thread.sleep(Sandbox.sleep_time);
+//			MessageProcessor sandboxFlow = lookupFlowConstruct("get-application");
+//			MuleEvent response = sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
+//
+//			Application flow_response = (Application) response.getMessage().getPayload();
+//
+//			assertTrue("Objects should be an Application", flow_response instanceof Application);
+//			assertEquals("Domains dont match",flow_response.getStatus(), com.mulesoft.cloudhub.client.Application.Status.DEPLOYING);
+//
 //		} catch (MuleException e) {
 //			e.printStackTrace();
 //			fail();
-////    		Assert.assertTrue("The exception should be a TransformerException", e.getCause() instanceof TransformerException);
 //		}catch (Exception e) {
 //			e.printStackTrace();
 //			fail();

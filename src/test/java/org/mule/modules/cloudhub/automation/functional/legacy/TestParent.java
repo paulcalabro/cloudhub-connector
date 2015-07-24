@@ -7,9 +7,10 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.modules.cloudhub;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.junit.Before;
+import org.mule.modules.cloudhub.CloudHubConnector;
 import org.mule.tools.devkit.ctf.mockup.ConnectorDispatcher;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
 

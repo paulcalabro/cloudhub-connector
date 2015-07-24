@@ -8,11 +8,11 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.mule.tck.junit4.FunctionalTestCase;
 
-public class GetApplication extends FunctionalTestCase {
+public class ListApplications extends FunctionalTestCase {
 	
 //	private ApplicationContext data_objects;
 //	private Map<String,Object> operation_sandbox;
@@ -28,33 +28,39 @@ public class GetApplication extends FunctionalTestCase {
 //
 //    @Before
 //    public void setUp() {
-//    	data_objects = new ClassPathXmlApplicationContext("automation/Applications.xml");
+////    	data_objects = new ClassPathXmlApplicationContext("automation/QBOAccounts.xml");
 //    	operation_sandbox = new HashMap<String, Object>();
 //    }
 //
 //    @After
 //    public void tearDown() {
 //
+////    	try {
+////
+//////
+////    	} catch (MuleException e) {
+////    		assertFalse(true);
+////		} catch (Exception e) {
+////			e.printStackTrace();
+////		}
+//
 //    }
 //
 //	@Test
-//	public void getApp() {
+//	public void listApps() {
 //
 //		try {
-//			Application sandbox_application = (Application) data_objects.getBean("applicationA");
-//
-//			MessageProcessor sandboxFlow = lookupFlowConstruct("get-application");
-//			MuleEvent response = sandboxFlow.process(getTestEvent(sandbox_application.getDomain()));
+//			MessageProcessor sandboxFlow = lookupFlowConstruct("list-applications");
+//			MuleEvent response = sandboxFlow.process(getTestEvent(null));
 //			//
 //
-//			Application flow_response = (Application) response.getMessage().getPayload();
-//
-//			assertTrue("Objects should be an Application", flow_response instanceof Application);
-//			assertEquals("Domains dont match",flow_response.getDomain(),sandbox_application.getDomain());
-//			assertEquals("mule version dont match",flow_response.getMuleVersion(),sandbox_application.getMuleVersion());
+//			List<Application> applications = (List<Application>) response.getMessage().getPayload();
+//			assertTrue("Size must be > than 0",applications.size()>0);
+//			assertTrue("Objects should be Applications", applications.get(0) instanceof Application);
 //		} catch (MuleException e) {
 //			e.printStackTrace();
 //			fail();
+////    		Assert.assertTrue("The exception should be a TransformerException", e.getCause() instanceof TransformerException);
 //		}catch (Exception e) {
 //			e.printStackTrace();
 //			fail();

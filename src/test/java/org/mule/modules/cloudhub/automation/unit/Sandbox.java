@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation;
+package org.mule.modules.cloudhub.automation.unit;
 
 public class Sandbox {
 	

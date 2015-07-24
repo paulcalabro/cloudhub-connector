@@ -46,7 +46,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.6.0") public class CloudHubConnector {
+@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.6.0")
+public class CloudHubConnector {
 
     public static final String TENANT_ID_PROPERTY = "tenantId";
     public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
