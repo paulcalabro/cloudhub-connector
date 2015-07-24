@@ -19,7 +19,7 @@ import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
-import org.mule.modules.cloudhub.configs.CloudHubConfig;
+import org.mule.modules.cloudhub.config.Config;
 import org.mule.modules.cloudhub.utils.LogPriority;
 import org.mule.modules.cloudhub.utils.WorkerType;
 import org.slf4j.Logger;
@@ -55,7 +55,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
     //
     @ConnectionStrategy
-    private CloudHubConfig connectionStrategy;
+    private Config config;
 
     /**
      * Deploy specified application.
@@ -69,7 +69,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      */
     @Processor
     public void deployApplication(@Default("#[payload]") InputStream file, String domain) {
-        client().connectWithDomain(domain).deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+        client().connectWithDomain(domain).deployApplication(file, getConfig().getMaxWaitTime());
     }
 
     /**
@@ -94,7 +94,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
         createApplication(domain, muleVersion, environmentVariables, workerCount, workerSize, falseInNull(persistentQueues), falseInNull(multitenanted), falseInNull(vpnEnabled),
                 falseInNull(autoRestartMonitoring));
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
-        connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+        connection.deployApplication(file, getConfig().getMaxWaitTime());
     }
 
     /**
@@ -209,7 +209,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
     @Processor
     public void changeApplicationStatus(String domain, ApplicationStatusChange.DesiredApplicationStatus newDesiredStatus) {
         ApplicationStatusChange statusChange = new ApplicationStatusChange(newDesiredStatus);
-        client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConnectionStrategy().getMaxWaitTime());
+        client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConfig().getMaxWaitTime());
     }
 
     /**
@@ -249,9 +249,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      *                   The offset to start listing alerts from.
      *                   </p>
      * @return A List of notifications.
-     * @throws <p> Cloudhub exception in case there was a problem with cloudhub
-     *             communication
-     *             </p>
+     * @throws Cloudhub exception in case there was a problem with cloudhub communication
+     *
      */
     //TODO -- The status filter is not working properly
     @Processor
@@ -298,8 +297,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @param muleEvent        <p>
      *                         Processed mule event
      *                         </p>
-     * @throws <p> A CloudhubException in case the notification could not be created
-     *             </p>
+     *
      * @since 1.4
      */
     @Processor
@@ -446,8 +444,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
         return System.getProperty(DOMAIN_SYSTEM_PROPERTY);
     }
 
-    public CloudHubConfig getConnectionStrategy() {
-        return connectionStrategy;
+    public Config getConfig() {
+        return config;
     }
 
     private Boolean falseInNull(Boolean bool) {
@@ -467,12 +465,12 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
         }
     }
 
-    public void setConnectionStrategy(CloudHubConfig connectionStrategy) {
-        this.connectionStrategy = connectionStrategy;
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
     private CloudHubConnectionImpl client() {
-        return connectionStrategy.getClient();
+        return config.getClient();
     }
 
 }

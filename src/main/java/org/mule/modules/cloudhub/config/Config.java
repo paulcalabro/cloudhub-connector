@@ -7,14 +7,14 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.modules.cloudhub.configs;
+package org.mule.modules.cloudhub.config;
 
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 
-public interface CloudHubConfig {
+public interface Config {
 
-    public CloudHubConnectionImpl getClient();
+    CloudHubConnectionImpl getClient();
 
-    public Long getMaxWaitTime();
+    Long getMaxWaitTime();
 
 }

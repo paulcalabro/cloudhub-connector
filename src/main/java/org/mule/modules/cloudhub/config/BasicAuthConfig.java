@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.configs;
+package org.mule.modules.cloudhub.config;
 
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 import com.mulesoft.cloudhub.client.CloudHubException;
@@ -28,7 +28,7 @@ import org.mule.api.annotations.param.Optional;
  * @author MuleSoft, Inc.
  */
 @ConnectionManagement(friendlyName = "Basic Auth Authentication")
-public class BasicAuthConfig implements CloudHubConfig{
+public class BasicAuthConfig implements Config {
 
     private CloudHubConnectionImpl cloudHubClient;
 

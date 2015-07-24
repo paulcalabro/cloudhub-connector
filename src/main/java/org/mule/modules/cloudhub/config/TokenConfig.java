@@ -7,7 +7,7 @@
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-package org.mule.modules.cloudhub.configs;
+package org.mule.modules.cloudhub.config;
 
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 import org.mule.api.annotations.Configurable;
@@ -19,7 +19,7 @@ import org.mule.api.annotations.param.Default;
  * This configuration only runs inside of CloudHub instances. Retrieves the API Token from the CloudHub instance where the connector is been runned.
  */
 @Configuration( configElementName = "token-config", friendlyName = "Inhered Token Authentication")
-public class TokenConfig implements CloudHubConfig{
+public class TokenConfig implements Config {
 
     private CloudHubConnectionImpl cloudHubClient;
 
