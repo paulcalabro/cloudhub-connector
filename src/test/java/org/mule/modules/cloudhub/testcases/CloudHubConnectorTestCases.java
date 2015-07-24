@@ -5,9 +5,7 @@
 
 package org.mule.modules.cloudhub.testcases;
 
-import com.mulesoft.ch.rest.model.Application;
-import com.mulesoft.ch.rest.model.ApplicationStatus;
-import com.mulesoft.ch.rest.model.ApplicationStatusChange;
+import com.mulesoft.ch.rest.model.*;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -91,6 +89,21 @@ public class CloudHubConnectorTestCases extends TestParent {
         Assert.assertEquals(Boolean.TRUE,status);
     }
 
+    @Category({RegressionSuite.class})
+    @Test
+    public void sendNotifications(){
+        printMethodName(new Object(){}.getClass().getEnclosingMethod().getName());
+        Boolean founded = Boolean.FALSE;
+        String notificationMessage = "This is a notification test "+new Date().getTime();
+        getConnector().createNotification(notificationMessage, Notification.NotificationLevelDO.INFO,DOMAIN_NAME,null,null);
+        NotificationResults notificationResults = getConnector().retrieveNotifications(DOMAIN_NAME, 25, null, Notification.NotificationStatus.Status.READ);
+        for (Notification notification : notificationResults.getData()) {
+            if(notification.getMessage().equals(notificationMessage)){
+                founded = Boolean.TRUE;
+            }
+        }
+        Assert.assertEquals(Boolean.TRUE,founded);
+    }
 
     private void printMethodName(String name){
         System.out.println("==============================================");

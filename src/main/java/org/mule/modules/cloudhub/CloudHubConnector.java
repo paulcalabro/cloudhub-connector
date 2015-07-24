@@ -253,9 +253,13 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      *             communication
      *             </p>
      */
+    //TODO -- The status filter is not working properly
     @Processor
-    public NotificationResults retrieveNotifications(@Optional Integer maxResults, @Optional Integer offset,Notification.NotificationStatus status, MuleEvent muleEvent, String message, String domain) {
-        return client().retrieveNotifications(domain,getTenantIdFrom(muleEvent),maxResults,offset,status,message);
+    public NotificationResults retrieveNotifications(String domain, @Default("25") Integer maxResults, @Optional Integer offset, Notification.NotificationStatus.Status status) {
+
+        Notification.NotificationStatus statusPojo = new Notification.NotificationStatus(status);
+
+        return client().retrieveNotifications(domain,"",maxResults,offset,statusPojo,"");
     }
 
     /**
@@ -299,20 +303,16 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @since 1.4
      */
     @Processor
-    public void createNotification(String message, Notification.NotificationLevelDO priority, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
+    public void createNotification(String message, Notification.NotificationLevelDO priority,@Default("#[message.inboundProperties['domain']]") String domain, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
 
         Notification notification = new Notification();
         notification.setPriority(priority);
         notification.setMessage(message);
-        notification.setDomain(getDomain());
+        notification.setDomain(domain == null ? getDomain() : domain);
         notification.setTenantId(getTenantIdFrom(muleEvent));
         notification.setTransactionId(getTransactionIdFrom(muleEvent));
 
-        if (getDomain() != null) {
-            client().createNotification(notification);
-        } else {
-            logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
-        }
+        client().createNotification(notification);
     }
 
     /**
@@ -331,7 +331,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @return an instance of {@link com.mulesoft.ch.rest.model.TenantResults}
      */
     @Processor
-    public TenantResults listTenants(String domain, @Default("25") Integer limit, Integer offset, String query, Boolean enabled) {
+    public TenantResults listTenants(String domain, @Default("25") Integer limit, Integer offset, String query, @Optional Boolean enabled) {
         return client().connectWithDomain(domain).retrieveTenants(limit, offset, query, enabled);
     }
 
