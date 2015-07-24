@@ -43,7 +43,7 @@ public class TokenConfig implements Config {
     }
 
     public Long getMaxWaitTime() {
-        return getMaxWaitTime();
+        return maxWaitTime;
     }
 
     public String getUrl() {

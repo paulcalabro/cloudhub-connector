@@ -64,7 +64,7 @@ public class BasicAuthConfig implements Config {
             cloudHubClient = new CloudHubConnectionImpl(url, username, password, sandbox, false);
             cloudHubClient.isCsAuthentication();
         } catch (CloudHubException e) {
-            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, e.getMessage(), e.getMessage());
+            throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, e.getMessage(), e.getMessage(),e);
         }
     }
 
