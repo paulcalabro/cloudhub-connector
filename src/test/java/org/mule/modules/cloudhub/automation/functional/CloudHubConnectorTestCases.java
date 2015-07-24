@@ -147,8 +147,6 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
                 connector.deleteApplication(((String) application.get(DOMAIN)));
             }
         }
-
-        platform.shutdown();
     }
 
 }
