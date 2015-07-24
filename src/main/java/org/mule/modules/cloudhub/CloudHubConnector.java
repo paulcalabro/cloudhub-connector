@@ -46,7 +46,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.5.0") public class CloudHubConnector {
+@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.6.0") public class CloudHubConnector {
 
     public static final String TENANT_ID_PROPERTY = "tenantId";
     public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
@@ -69,8 +69,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      */
     @Processor
     public void deployApplication(@Default("#[payload]") InputStream file, String domain) {
-        client().connectWithDomain(domain)
-                .deployApplication(file, getConnectionStrategy().getMaxWaitTime());
+        client().connectWithDomain(domain).deployApplication(file, getConnectionStrategy().getMaxWaitTime());
     }
 
     /**
@@ -88,10 +87,12 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount, WorkerType workerSize,
-                                           @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted, @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
+    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
+            WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+            @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
 
-        createApplication(domain,muleVersion,environmentVariables,workerCount,workerSize,falseInNull(persistentQueues),falseInNull(multitenanted),falseInNull(vpnEnabled),falseInNull(autoRestartMonitoring));
+        createApplication(domain, muleVersion, environmentVariables, workerCount, workerSize, falseInNull(persistentQueues), falseInNull(multitenanted), falseInNull(vpnEnabled),
+                falseInNull(autoRestartMonitoring));
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
         connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
     }
@@ -99,19 +100,20 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
     /**
      * Creates an application with out deploying a Mule App
      *
-     * @param domain The application domain
-     * @param muleVersion The version of Mule to use. e.g. 3.7.0
-     * @param environmentVariables Environment variables for your Mule Application
-     * @param workersCount Number of workers to deploy
-     * @param workerSize Size of each worker (Micro/Small/Medium/Large/xLarge)
-     * @param persistentQueues Support for presistent queues
-     * @param multitenanted Support for multi tenancy
-     * @param vpnEnabled Support for VPN
+     * @param domain                The application domain
+     * @param muleVersion           The version of Mule to use. e.g. 3.7.0
+     * @param environmentVariables  Environment variables for your Mule Application
+     * @param workersCount          Number of workers to deploy
+     * @param workerSize            Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param persistentQueues      Support for presistent queues
+     * @param multitenanted         Support for multi tenancy
+     * @param vpnEnabled            Support for VPN
      * @param autoRestartMonitoring Support for auto restart monitoring
      * @return The created application
      */
     @Processor
-    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, Map<String,String> environmentVariables, @Default("1") Integer workersCount, WorkerType workerSize, @Optional Boolean persistentQueues, @Optional Boolean multitenanted, @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring){
+    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, Map<String, String> environmentVariables, @Default("1") Integer workersCount,
+            WorkerType workerSize, @Optional Boolean persistentQueues, @Optional Boolean multitenanted, @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
         Application app = new Application();
         app.setMuleVersion(muleVersion);
         app.setProperties(environmentVariables);
@@ -168,7 +170,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @return LogResults, POJO that contains the requested logs
      */
     @Processor
-    public LogResults retrieveApplicationLogs(String domain, @Optional String endDate, @Optional String startDate, @Default("100") Integer limit, @Optional Integer offset, @Optional LogPriority priority, @Optional String search, @Optional Boolean tail, @Optional String worker) {
+    public LogResults retrieveApplicationLogs(String domain, @Optional String endDate, @Optional String startDate, @Default("100") Integer limit, @Optional Integer offset,
+            @Optional LogPriority priority, @Optional String search, @Optional Boolean tail, @Optional String worker) {
 
         Map<String, String> queryParams = new HashMap<String, String>();
         addToMapIfNotNull("endDate", endDate, queryParams);
@@ -182,7 +185,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
         return client().connectWithDomain(domain).retrieveApplicationLog(queryParams);
     }
-
 
     /**
      * Update an application.
@@ -201,7 +203,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
     /**
      * Change Application Status
      *
-     * @param domain The application domain
+     * @param domain           The application domain
      * @param newDesiredStatus New application desired status (Start/Stop)
      */
     @Processor
@@ -257,7 +259,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
         Notification.NotificationStatus statusPojo = new Notification.NotificationStatus(status);
 
-        return client().retrieveNotifications(domain,"",maxResults,offset,statusPojo,"");
+        return client().retrieveNotifications(domain, "", maxResults, offset, statusPojo, "");
     }
 
     /**
@@ -301,7 +303,8 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @since 1.4
      */
     @Processor
-    public void createNotification(String message, Notification.NotificationLevelDO priority, @Default("#[message.inboundProperties['domain']]") String domain, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
+    public void createNotification(String message, Notification.NotificationLevelDO priority, @Default("#[message.inboundProperties['domain']]") String domain,
+            @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
 
         Notification notification = new Notification();
         notification.setPriority(priority);
@@ -431,7 +434,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
         return customProperties;
     }
 
-
     private static String getTransactionIdFrom(MuleEvent muleEvent) {
         return muleEvent.getMessage().getMessageRootId();
     }
@@ -456,11 +458,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
         }
     }
 
-
     private void addToMapIfNotNull(String queryParamKey, Object queryParamValue, Map<String, String> queryParamsMap) {
-        if(queryParamValue != null){
-            if(!isBlank(queryParamValue.toString())){
-                System.out.println(queryParamKey + "Value:"+queryParamValue.toString());
+        if (queryParamValue != null) {
+            if (!isBlank(queryParamValue.toString())) {
+                System.out.println(queryParamKey + "Value:" + queryParamValue.toString());
                 queryParamsMap.put(queryParamKey, queryParamValue.toString());
             }
         }
