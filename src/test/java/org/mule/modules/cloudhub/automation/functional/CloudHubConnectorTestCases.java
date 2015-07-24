@@ -19,7 +19,6 @@ import org.mule.modules.cloudhub.utils.WorkerType;
 import org.mule.tools.devkit.ctf.junit.AbstractTestCase;
 import org.mule.tools.devkit.ctf.mockup.ConnectorDispatcher;
 import org.mule.tools.devkit.ctf.mockup.ConnectorTestContext;
-import org.mule.tools.devkit.ctf.platform.PlatformManager;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,6 +31,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+/*
+* @TODO: This must be split into several classes to be compliant with the certification !!!!. 
+ */
 public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnector> {
 
     public static String DOMAIN_NAME;
