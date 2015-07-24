@@ -83,15 +83,15 @@ public class CloudHubConnector {
      *                             java.io.InputStream
      * @param domain               The application domain.
      * @param muleVersion          The version of Mule, e.g. 3.7.0.
-     * @param workerCount          The number of workers to deploy.
+     * @param workersCount          The number of workers to deploy.
      * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
-            WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+            @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
             @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
 
-        createApplication(domain, muleVersion, environmentVariables, workerCount, workerSize, falseInNull(persistentQueues), falseInNull(multitenanted), falseInNull(vpnEnabled),
+        createApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, falseInNull(persistentQueues), falseInNull(multitenanted), falseInNull(vpnEnabled),
                 falseInNull(autoRestartMonitoring));
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
         connection.deployApplication(file, getConfig().getMaxWaitTime());
@@ -112,20 +112,37 @@ public class CloudHubConnector {
      * @return The created application
      */
     @Processor
-    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, Map<String, String> environmentVariables, @Default("1") Integer workersCount,
-            WorkerType workerSize, @Optional Boolean persistentQueues, @Optional Boolean multitenanted, @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
-        Application app = new Application();
-        app.setMuleVersion(muleVersion);
-        app.setProperties(environmentVariables);
-        app.setWorkers(workersCount);
-        app.setVpnEnabled(falseInNull(vpnEnabled));
-        app.setMonitoringAutoRestart(falseInNull(autoRestartMonitoring));
-        app.setWorkerType(workerSize.toString());
-        app.setPersistentQueues(falseInNull(persistentQueues));
-        app.setDomain(domain);
-        app.setMultitenanted(falseInNull(multitenanted));
-        client().createApplication(app);
-        return app;
+    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+                                         @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+                                         @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
+        Application app = buildApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, persistentQueues, multitenanted, vpnEnabled, autoRestartMonitoring);
+        return client().createApplication(app);
+    }
+
+    /**
+     * Updates an application.
+     *
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:update-application}
+     *  @param domain
+     * @param muleVersion
+     * @param workersCount
+     * @param workerSize
+     * @param environmentVariables
+     * @param persistentQueues
+     * @param multitenanted
+     * @param vpnEnabled
+     * @param autoRestartMonitoring
+     */
+    @Processor
+    public Application updateApplication(String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+                                         @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+                                         @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
+        Application app = buildApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, persistentQueues, multitenanted, vpnEnabled, autoRestartMonitoring);
+
+        ApplicationUpdateInfo appUpdateInfo = new ApplicationUpdateInfo(app);
+        return client().connectWithDomain(app.getDomain()).updateApplication(appUpdateInfo);
     }
 
     /**
@@ -171,7 +188,7 @@ public class CloudHubConnector {
      */
     @Processor
     public LogResults retrieveApplicationLogs(String domain, @Optional String endDate, @Optional String startDate, @Default("100") Integer limit, @Optional Integer offset,
-            @Optional LogPriority priority, @Optional String search, @Optional Boolean tail, @Optional String worker) {
+                                              @Optional LogPriority priority, @Optional String search, @Optional Boolean tail, @Optional String worker) {
 
         Map<String, String> queryParams = new HashMap<String, String>();
         addToMapIfNotNull("endDate", endDate, queryParams);
@@ -184,20 +201,6 @@ public class CloudHubConnector {
         addToMapIfNotNull("worker", worker, queryParams);
 
         return client().connectWithDomain(domain).retrieveApplicationLog(queryParams);
-    }
-
-    /**
-     * Update an application.
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:update-application}
-     *
-     * @param application The application to update.
-     */
-    @Processor
-    public void updateApplication(@RefOnly @Default("#[payload]") Application application) {
-        ApplicationUpdateInfo appUpdateInfo = new ApplicationUpdateInfo(application);
-        client().connectWithDomain(application.getDomain()).updateApplication(appUpdateInfo);
     }
 
     /**
@@ -352,7 +355,7 @@ public class CloudHubConnector {
      */
     @Processor
     public TenantResults listTenants(String domain, @Default("25") Integer limit, Integer offset, String query, @Optional Boolean enabled) {
-        return client().connectWithDomain(domain).retrieveTenants(limit, offset, query, enabled);
+        return client().connectWithDomain(domain).retrieveTenants(limit, offset, query, falseInNull(enabled));
     }
 
     /**
@@ -491,6 +494,20 @@ public class CloudHubConnector {
 
     private CloudHubConnectionImpl client() {
         return config.getClient();
+    }
+
+    private Application buildApplication(String domain, String muleVersion,Integer workersCount, WorkerType workerSize, Map<String, String> environmentVariables, Boolean persistentQueues, Boolean multitenanted, Boolean vpnEnabled, Boolean autoRestartMonitoring) {
+        Application app = new Application();
+        app.setMuleVersion(muleVersion);
+        app.setProperties(environmentVariables);
+        app.setWorkers(workersCount);
+        app.setVpnEnabled(falseInNull(vpnEnabled));
+        app.setMonitoringAutoRestart(falseInNull(autoRestartMonitoring));
+        app.setWorkerType(workerSize != null ? workerSize.toString() : null);
+        app.setPersistentQueues(falseInNull(persistentQueues));
+        app.setDomain(domain);
+        app.setMultitenanted(falseInNull(multitenanted));
+        return app;
     }
 
 }
