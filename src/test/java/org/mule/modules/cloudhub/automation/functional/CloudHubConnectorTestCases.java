@@ -135,8 +135,6 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
 
         ConnectorTestContext<CloudHubConnector> context = ConnectorTestContext.getInstance(CloudHubConnector.class);
 
-        PlatformManager platform = context.getPlatformManager();
-
         ConnectorDispatcher<CloudHubConnector> dispatcher = context.getConnectorDispatcher();
 
         CloudHubConnector connector = dispatcher.createMockup();

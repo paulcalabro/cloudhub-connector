@@ -52,7 +52,7 @@ public class CloudHubConnector {
     public static final String TENANT_ID_PROPERTY = "tenantId";
     public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
 
-    private static Logger logger = LoggerFactory.getLogger(CloudHubConnector.class);
+    private static final Logger  logger = LoggerFactory.getLogger(CloudHubConnector.class);
 
     @org.mule.api.annotations.Config
     private Config config;
