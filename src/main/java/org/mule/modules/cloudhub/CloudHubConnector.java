@@ -480,7 +480,6 @@ public class CloudHubConnector {
     private void addToMapIfNotNull(String queryParamKey, Object queryParamValue, Map<String, String> queryParamsMap) {
         if (queryParamValue != null) {
             if (!isBlank(queryParamValue.toString())) {
-                System.out.println(queryParamKey + "Value:" + queryParamValue.toString());
                 queryParamsMap.put(queryParamKey, queryParamValue.toString());
             }
         }
