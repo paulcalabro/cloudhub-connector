@@ -121,7 +121,7 @@ public class CloudHubConnector {
         app.setVpnEnabled(falseInNull(vpnEnabled));
         app.setMonitoringAutoRestart(falseInNull(autoRestartMonitoring));
         app.setWorkerType(workerSize.toString());
-        app.setPersistentQueues(falseInNull(multitenanted));
+        app.setPersistentQueues(falseInNull(persistentQueues));
         app.setDomain(domain);
         app.setMultitenanted(falseInNull(multitenanted));
         client().createApplication(app);
