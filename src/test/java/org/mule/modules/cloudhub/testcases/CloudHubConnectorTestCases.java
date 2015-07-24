@@ -1,6 +1,11 @@
 /**
- * (c) 2003-2015 MuleSoft, Inc. The software in this package is published under the terms of the CPAL v1.0 license,
- * a copy of which has been included with this distribution in the LICENSE.md file.
+ * Mule CloudHub Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
  */
 
 package org.mule.modules.cloudhub.testcases;
@@ -12,6 +17,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mule.modules.cloudhub.RegressionSuite;
 import org.mule.modules.cloudhub.TestParent;
+import org.mule.modules.cloudhub.utils.WorkerType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,7 +44,7 @@ public class CloudHubConnectorTestCases extends TestParent {
             URL resourceUrl = getClass().getResource("/dummy-app.zip");
             Path resourcePath = Paths.get(resourceUrl.toURI());
             InputStream is = new FileInputStream(resourcePath.toString());
-            getConnector().createAndDeployApplication(is, DOMAIN_NAME,"3.7.0",1,null,false,false);
+            getConnector().createAndDeployApplication(is, DOMAIN_NAME, "3.7.0", 1, WorkerType.Medium, null, false, false, false, false);
             while(!isDeployed){
                 Thread.sleep(2000);
                 if(getConnector().getApplication(DOMAIN_NAME).getStatus() == ApplicationStatus.STARTED){

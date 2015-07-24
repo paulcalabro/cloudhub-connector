@@ -1,19 +1,17 @@
 /**
  * Mule CloudHub Connector
- * <p/>
+ *
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
- * <p/>
+ *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
  */
-
 package org.mule.modules.cloudhub;
 
 import com.mulesoft.ch.rest.model.*;
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 import com.mulesoft.cloudhub.client.CloudHubDomainConnectionI;
-import org.mule.api.ExceptionPayload;
 import org.mule.api.MuleEvent;
 import org.mule.api.annotations.ConnectionStrategy;
 import org.mule.api.annotations.Connector;
@@ -23,13 +21,11 @@ import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
 import org.mule.modules.cloudhub.configs.CloudHubConfig;
 import org.mule.modules.cloudhub.utils.LogPriority;
+import org.mule.modules.cloudhub.utils.WorkerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -50,11 +46,9 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub") public class CloudHubConnector {
+@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.5.0") public class CloudHubConnector {
 
     public static final String TENANT_ID_PROPERTY = "tenantId";
-    public static final String EXCEPTION_MESSAGE_CUSTOM_PROPERTY = "exception.message";
-    public static final String EXCEPTION_STACKTRACE_CUSTOM_PROPERTY = "exception.stacktrace";
     public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
 
     private Logger logger = LoggerFactory.getLogger(CloudHubConnector.class);
@@ -89,35 +83,42 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @param file                 mule application to deploy, Input Object type:
      *                             java.io.InputStream
      * @param domain               The application domain.
-     * @param muleVersion          The version of Mule, e.g. 3.4.1.
+     * @param muleVersion          The version of Mule, e.g. 3.7.0.
      * @param workerCount          The number of workers to deploy.
      * @param environmentVariables Environment variables for you application.
      */
     @Processor
-    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount,
-                                           @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted) {
+    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") int workerCount, WorkerType workerSize,
+                                           @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted, @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
 
-        createApplication(domain,muleVersion,environmentVariables,workerCount,falseInNull(persistentQueues),falseInNull(multitenanted));
+        createApplication(domain,muleVersion,environmentVariables,workerCount,workerSize,falseInNull(persistentQueues),falseInNull(multitenanted),falseInNull(vpnEnabled),falseInNull(autoRestartMonitoring));
         CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
         connection.deployApplication(file, getConnectionStrategy().getMaxWaitTime());
     }
 
     /**
+     * Creates an application with out deploying a Mule App
      *
-     * @param domain
-     * @param muleVersion
-     * @param environmentVariables
-     * @param workersCount
-     * @param persistentQueues
-     * @param multitenanted
-     * @return
+     * @param domain The application domain
+     * @param muleVersion The version of Mule to use. e.g. 3.7.0
+     * @param environmentVariables Environment variables for your Mule Application
+     * @param workersCount Number of workers to deploy
+     * @param workerSize Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param persistentQueues Support for presistent queues
+     * @param multitenanted Support for multi tenancy
+     * @param vpnEnabled Support for VPN
+     * @param autoRestartMonitoring Support for auto restart monitoring
+     * @return The created application
      */
     @Processor
-    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, Map<String,String> environmentVariables, @Default("1") Integer workersCount, @Optional Boolean persistentQueues, @Optional Boolean multitenanted ){
+    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, Map<String,String> environmentVariables, @Default("1") Integer workersCount, WorkerType workerSize, @Optional Boolean persistentQueues, @Optional Boolean multitenanted, @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring){
         Application app = new Application();
         app.setMuleVersion(muleVersion);
         app.setProperties(environmentVariables);
         app.setWorkers(workersCount);
+        app.setVpnEnabled(falseInNull(vpnEnabled));
+        app.setMonitoringAutoRestart(falseInNull(autoRestartMonitoring));
+        app.setWorkerType(workerSize.toString());
         app.setPersistentQueues(falseInNull(multitenanted));
         app.setDomain(domain);
         app.setMultitenanted(falseInNull(multitenanted));
@@ -245,9 +246,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @param offset     <p>
      *                   The offset to start listing alerts from.
      *                   </p>
-     * @param muleEvent  <p>
-     *                   Processed mule event
-     *                   </p>
      * @return A List of notifications.
      * @throws <p> Cloudhub exception in case there was a problem with cloudhub
      *             communication
@@ -303,7 +301,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
      * @since 1.4
      */
     @Processor
-    public void createNotification(String message, Notification.NotificationLevelDO priority,@Default("#[message.inboundProperties['domain']]") String domain, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
+    public void createNotification(String message, Notification.NotificationLevelDO priority, @Default("#[message.inboundProperties['domain']]") String domain, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
 
         Notification notification = new Notification();
         notification.setPriority(priority);
@@ -433,16 +431,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
         return customProperties;
     }
 
-    private Map<String, String> handleException(MuleEvent muleEvent) {
-        ExceptionPayload exceptionPayload = muleEvent.getMessage().getExceptionPayload();
-        Map<String, String> customProperties = new HashMap<String, String>();
-        if (exceptionPayload != null) {
-            customProperties.put(EXCEPTION_MESSAGE_CUSTOM_PROPERTY, exceptionPayload.getMessage());
-            customProperties.put(EXCEPTION_STACKTRACE_CUSTOM_PROPERTY, getStackTrace(exceptionPayload.getException()));
-        }
-
-        return customProperties;
-    }
 
     private static String getTransactionIdFrom(MuleEvent muleEvent) {
         return muleEvent.getMessage().getMessageRootId();
@@ -450,13 +438,6 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
     private static String getTenantIdFrom(MuleEvent muleEvent) {
         return muleEvent.getMessage().getInboundProperty(TENANT_ID_PROPERTY);
-    }
-
-    public static String getStackTrace(Throwable aThrowable) {
-        final Writer result = new StringWriter();
-        final PrintWriter printWriter = new PrintWriter(result);
-        aThrowable.printStackTrace(printWriter);
-        return result.toString();
     }
 
     private String getDomain() {

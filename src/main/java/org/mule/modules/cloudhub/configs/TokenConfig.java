@@ -1,3 +1,12 @@
+/**
+ * Mule CloudHub Connector
+ *
+ * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.txt file.
+ */
 package org.mule.modules.cloudhub.configs;
 
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
@@ -9,7 +18,7 @@ import org.mule.api.annotations.param.Default;
 /**
  * This configuration only runs inside of CloudHub instances. Retrieves the API Token from the CloudHub instance where the connector is been runned.
  */
-@Configuration( configElementName = "token-config", friendlyName = "Token Authentication")
+@Configuration( configElementName = "token-config", friendlyName = "Inhered Token Authentication")
 public class TokenConfig implements CloudHubConfig{
 
     private CloudHubConnectionImpl cloudHubClient;
