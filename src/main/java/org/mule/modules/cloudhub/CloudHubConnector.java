@@ -13,9 +13,9 @@ import com.mulesoft.ch.rest.model.*;
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 import com.mulesoft.cloudhub.client.CloudHubDomainConnectionI;
 import org.mule.api.MuleEvent;
-import org.mule.api.annotations.ConnectionStrategy;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
@@ -249,15 +249,13 @@ public class CloudHubConnector {
      *                   The offset to start listing alerts from.
      *                   </p>
      * @return A List of notifications.
-     * @throws Cloudhub exception in case there was a problem with cloudhub communication
      *
      */
     //TODO -- The status filter is not working properly
     @Processor
-    public NotificationResults retrieveNotifications(String domain, @Default("25") Integer maxResults, @Optional Integer offset, Notification.NotificationStatus.Status status) {
+    public NotificationResults listNotifications(String domain, @Default("25") Integer maxResults, @Optional Integer offset, Notification.NotificationStatus.Status status) {
 
         Notification.NotificationStatus statusPojo = new Notification.NotificationStatus(status);
-
         return client().retrieveNotifications(domain, "", maxResults, offset, statusPojo, "");
     }
 
@@ -301,17 +299,40 @@ public class CloudHubConnector {
      * @since 1.4
      */
     @Processor
-    public void createNotification(String message, Notification.NotificationLevelDO priority, @Default("#[message.inboundProperties['domain']]") String domain,
+    public void createNotification(String message, Notification.NotificationLevelDO priority, String domain,
             @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
 
         Notification notification = new Notification();
         notification.setPriority(priority);
         notification.setMessage(message);
-        notification.setDomain(domain == null ? getDomain() : domain);
+        notification.setDomain(domain);
         notification.setTenantId(getTenantIdFrom(muleEvent));
         notification.setTransactionId(getTransactionIdFrom(muleEvent));
 
         client().createNotification(notification);
+    }
+
+    /**
+     * Change the notification status (READ or UNREAD)
+     *
+     * @param notificationId ID of the notification
+     * @param status New desired status
+     */
+    @Processor
+    public void changeNotificationStatus(@FriendlyName("Notification ID") String notificationId, Notification.NotificationStatus.Status status) {
+        Notification.NotificationStatus notificationStatus = new Notification.NotificationStatus(status);
+        client().updateNotificationStatus(notificationId, notificationStatus);
+    }
+
+    /**
+     * Retrieves a notification by their ID
+     *
+     * @param notificationId ID of the notification
+     * @return A notification
+     */
+    @Processor
+    public Notification getNotification(@FriendlyName("Notification ID") String notificationId) {
+        return client().retrieveNotification(notificationId);
     }
 
     /**

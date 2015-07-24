@@ -39,6 +39,8 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
     public static String DOMAIN_NAME;
     static Boolean isSetUp = Boolean.FALSE;
     static Boolean isDeployed = Boolean.FALSE;
+    public static final String DOMAIN = "domain";
+    public static final String CH_APP_NAME = "ch-connector-tests-delete-me";
 
     public CloudHubConnectorTestCases() {
         this.setConnectorClass(CloudHubConnector.class);
@@ -113,7 +115,7 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
         Boolean founded = Boolean.FALSE;
         String notificationMessage = "This is a notification test " + new Date().getTime();
         getConnector().createNotification(notificationMessage, Notification.NotificationLevelDO.INFO, DOMAIN_NAME, null, null);
-        NotificationResults notificationResults = getConnector().retrieveNotifications(DOMAIN_NAME, 25, null, Notification.NotificationStatus.Status.READ);
+        NotificationResults notificationResults = getConnector().listNotifications(DOMAIN_NAME, 25, null, Notification.NotificationStatus.Status.READ);
         for (Notification notification : notificationResults.getData()) {
             if (notification.getMessage().equals(notificationMessage)) {
                 founded = Boolean.TRUE;
@@ -122,15 +124,20 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
         Assert.assertEquals(Boolean.TRUE, founded);
     }
 
+    @Test
+    public void retrieveNotifications(){
+        printMethodName(new Object() {
+
+        }.getClass().getEnclosingMethod().getName());
+        LogResults logResults = getConnector().retrieveApplicationLogs(DOMAIN_NAME, null, null, 1, null, null, null, Boolean.TRUE, null);
+        Assert.assertEquals("Your application is started.",logResults.getData().get(0).getMessage());
+    }
+
     private void printMethodName(String name) {
         System.out.println("==============================================");
         System.out.println("=  " + name);
         System.out.println("==============================================");
     }
-
-    public static final String DOMAIN = "domain";
-    public static final String CH_APP_NAME = "ch-connector-tests-delete-me";
-
 
     @AfterClass
     public static void shutdownSuite() throws Exception {
