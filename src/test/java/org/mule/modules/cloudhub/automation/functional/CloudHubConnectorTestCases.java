@@ -124,15 +124,29 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
         Assert.assertEquals(Boolean.TRUE, founded);
     }
 
-    //TODO Flacky test
-//    @Test
-//    public void retrieveNotifications(){
-//        printMethodName(new Object() {
-//
-//        }.getClass().getEnclosingMethod().getName());
-//        LogResults logResults = getConnector().retrieveApplicationLogs(DOMAIN_NAME, null, null, 1, null, null, null, Boolean.TRUE, null);
-//        Assert.assertEquals("Your application is started.",logResults.getData().get(0).getMessage());
-//    }
+    @Test
+    public void retrieveLogs() throws InterruptedException {
+        printMethodName(new Object() {
+
+        }.getClass().getEnclosingMethod().getName());
+
+        LogResults logResults;
+        Boolean founded = false;
+        Integer timesToTry = 0;
+
+        while(!founded && timesToTry < 20){
+            logResults = getConnector().retrieveApplicationLogs(DOMAIN_NAME, null, null, 1, null, null, null, Boolean.TRUE, null);
+            System.out.println(logResults.getData().get(0).getMessage());
+            if(logResults.getData().get(0).getMessage().contains("Your application is started.")){
+                founded = true;
+            }
+            Thread.sleep(5000);
+            timesToTry++;
+        }
+
+
+        Assert.assertEquals(Boolean.TRUE, founded);
+    }
 
     private void printMethodName(String name) {
         System.out.println("==============================================");
