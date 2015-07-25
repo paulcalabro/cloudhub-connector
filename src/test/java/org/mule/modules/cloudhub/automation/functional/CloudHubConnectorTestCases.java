@@ -36,11 +36,16 @@ import java.util.LinkedHashMap;
  */
 public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnector> {
 
+    public static final String STRING_TO_FIND_IN_LOGS = "Your application is started.";
     public static String DOMAIN_NAME;
     static Boolean isSetUp = Boolean.FALSE;
     static Boolean isDeployed = Boolean.FALSE;
     public static final String DOMAIN = "domain";
     public static final String CH_APP_NAME = "ch-connector-tests-delete-me";
+    public static String MULE_VERSION = "3.7.0";
+    public static Integer WORKERS_COUNT = 1;
+    public static WorkerType WORKER_TYPE = WorkerType.Medium;
+
 
     public CloudHubConnectorTestCases() {
         this.setConnectorClass(CloudHubConnector.class);
@@ -53,7 +58,7 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
             URL resourceUrl = getClass().getResource("/dummy-app.zip");
             Path resourcePath = Paths.get(resourceUrl.toURI());
             InputStream is = new FileInputStream(resourcePath.toString());
-            getConnector().createAndDeployApplication(is, DOMAIN_NAME, "3.7.0", 1, WorkerType.Medium, null, false, false, false, false);
+            getConnector().createAndDeployApplication(is, DOMAIN_NAME, MULE_VERSION, 1, WORKER_TYPE, null, false, false, false, false);
             while (!isDeployed) {
                 Thread.sleep(2000);
                 if (getConnector().getApplication(DOMAIN_NAME).getStatus() == ApplicationStatus.STARTED) {
@@ -71,6 +76,9 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
 
         }.getClass().getEnclosingMethod().getName());
         Application application = getConnector().getApplication(DOMAIN_NAME);
+        Assert.assertEquals(MULE_VERSION, application.getMuleVersion());
+        Assert.assertEquals(WORKER_TYPE.toString(), application.getWorkerType());
+        Assert.assertEquals(WORKERS_COUNT, application.getWorkers());
         Assert.assertEquals(DOMAIN_NAME, application.getDomain());
     }
 
@@ -136,10 +144,7 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
 
         while(!founded && timesToTry < 20){
             logResults = getConnector().retrieveApplicationLogs(DOMAIN_NAME, null, null, 1, null, null, null, Boolean.TRUE, null);
-            System.out.println(logResults.getData().get(0).getMessage());
-            if(logResults.getData().get(0).getMessage().contains("Your application is started.")){
-                founded = true;
-            }
+            founded = logResults.getData().get(0).getMessage().contains(STRING_TO_FIND_IN_LOGS);
             Thread.sleep(5000);
             timesToTry++;
         }
