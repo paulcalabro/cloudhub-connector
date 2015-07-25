@@ -476,7 +476,7 @@ public class CloudHubConnector {
         if (bool == null) {
             return Boolean.FALSE;
         } else {
-            return Boolean.TRUE;
+            return bool;
         }
     }
 
