@@ -8,7 +8,7 @@
  * LICENSE.txt file.
  */
 
-package org.mule.modules.cloudhub.automation.testcases;
+package org.mule.modules.cloudhub.automation.functional.legacy;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

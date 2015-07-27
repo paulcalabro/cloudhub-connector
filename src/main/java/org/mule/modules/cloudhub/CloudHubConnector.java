@@ -9,26 +9,28 @@
  */
 package org.mule.modules.cloudhub;
 
-import com.mulesoft.cloudhub.client.*;
-import com.mulesoft.cloudhub.client.Notification.Priority;
-import org.mule.api.ConnectionException;
-import org.mule.api.ExceptionPayload;
+import com.mulesoft.ch.rest.model.*;
+import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
+import com.mulesoft.cloudhub.client.CloudHubDomainConnectionI;
 import org.mule.api.MuleEvent;
-import org.mule.api.annotations.*;
+import org.mule.api.annotations.Connector;
+import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Source;
 import org.mule.api.annotations.display.FriendlyName;
-import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.RefOnly;
+import org.mule.api.callback.SourceCallback;
+import org.mule.modules.cloudhub.config.Config;
+import org.mule.modules.cloudhub.utils.LogPriority;
+import org.mule.modules.cloudhub.utils.WorkerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
  * Provides the ability to interact with Mule CloudHub from within a Mule
@@ -43,56 +45,16 @@ import java.util.Map;
  *
  * @author MuleSoft, Inc.
  */
-@Connector(name = "cloudhub", schemaVersion = "1.0", friendlyName = "Cloudhub", minMuleVersion = "3.6.0") public class CloudHubConnector {
+@Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.6.0")
+public class CloudHubConnector {
 
     public static final String TENANT_ID_PROPERTY = "tenantId";
-    public static final String EXCEPTION_MESSAGE_CUSTOM_PROPERTY = "exception.message";
-    public static final String EXCEPTION_STACKTRACE_CUSTOM_PROPERTY = "exception.stacktrace";
     public static final String DOMAIN_SYSTEM_PROPERTY = "domain";
 
-    private Logger logger = LoggerFactory.getLogger(Connection.class);
+    private static final Logger  logger = LoggerFactory.getLogger(CloudHubConnector.class);
 
-    /**
-     * CloudHub URL.
-     */
-    @Configurable
-    @Default(value = Connection.DEFAULT_URL)
-    private String url;
-
-    /**
-     * CloudHub username.
-     */
-    private String username;
-
-    /**
-     * CloudHub password.
-     */
-    private String password;
-
-    /**
-     * Maximum time allowed to deplpoy/undeploy.
-     */
-    @Configurable
-    @Default(value = "0")
-    @FriendlyName("Maximum time allowed to deplpoy/undeploy.")
-    private Long maxWaitTime;
-
-    private CloudhubConnection connection;
-
-    private static String getTransactionIdFrom(MuleEvent muleEvent) {
-        return muleEvent.getMessage().getMessageRootId();
-    }
-
-    private static String getTenantIdFrom(MuleEvent muleEvent) {
-        return muleEvent.getMessage().getInboundProperty(TENANT_ID_PROPERTY);
-    }
-
-    public static String getStackTrace(Throwable aThrowable) {
-        final Writer result = new StringWriter();
-        final PrintWriter printWriter = new PrintWriter(result);
-        aThrowable.printStackTrace(printWriter);
-        return result.toString();
-    }
+    @org.mule.api.annotations.Config
+    private Config config;
 
     /**
      * Deploy specified application.
@@ -100,19 +62,13 @@ import java.util.Map;
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:deploy-application}
      *
-     * @param file                 mule application to deploy, Input Object type:
-     *                             java.io.InputStream
-     * @param domain               The application domain.
-     * @param muleVersion          The version of Mule, e.g. 3.4.1.
-     * @param workerCount          The number of workers to deploy.
-     * @param environmentVariables Environment variables for you application.
+     * @param file   mule application to deploy, Input Object type:
+     *               java.io.InputStream
+     * @param domain The application domain.
      */
     @Processor
-    public void deployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.4.1") String muleVersion, @Default("1") int workerCount,
-            @Optional Map<String, String> environmentVariables) {
-
-        final DomainConnection domainConnection = getConnection().on(domain);
-        domainConnection.deploy(file, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
+    public void deployApplication(@Default("#[payload]") InputStream file, String domain) {
+        client().connectWithDomain(domain).deployApplication(file, getConfig().getMaxWaitTime());
     }
 
     /**
@@ -122,28 +78,76 @@ import java.util.Map;
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:create-and-deploy-application}
      *
-     * @param file                 mule application to deploy, Input Object type:
-     *                             java.io.InputStream
-     * @param domain               The application domain.
-     * @param muleVersion          The version of Mule, e.g. 3.4.1.
-     * @param workerCount          The number of workers to deploy.
-     * @param environmentVariables Environment variables for you application.
+     * @param file                  mule application to deploy, Input Object type:
+     *                              java.io.InputStream
+     * @param domain                The application domain.
+     * @param muleVersion           The version of Mule, e.g. 3.7.0.
+     * @param workersCount          The number of workers to deploy.
+     * @param environmentVariables  Environment variables for you application.
+     * @param workerSize            Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param persistentQueues      Defines if the Application will have PersistentQueues Enabled or not
+     * @param multitenanted         Defines if the application will have multi-tenancy enabled or not
+     * @param vpnEnabled            If Enabled, the application will be hosted in a worker with VPN support
+     * @param autoRestartMonitoring If enabled, Monitoring Autorestart will be enabled
      */
     @Processor
-    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.4.1") String muleVersion, @Default("1") int workerCount,
-            @Optional Map<String, String> environmentVariables) {
+    public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+            @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+            @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
 
-        final DomainConnection domainConnection = getConnection().on(domain);
+        createApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, falseInNull(persistentQueues), falseInNull(multitenanted), falseInNull(vpnEnabled),
+                falseInNull(autoRestartMonitoring));
+        CloudHubDomainConnectionI connection = client().connectWithDomain(domain);
+        connection.deployApplication(file, getConfig().getMaxWaitTime());
+    }
 
-        if (domainConnection.available()) {
-            Application app = new Application();
-            app.setDomain(domain);
-            app.setHasFile(false);
-            app.setWorkers(1);
-            domainConnection.createApplication(app);
-        }
+    /**
+     * Creates an application with out deploying a Mule App
+     *
+     * @param domain                The application domain
+     * @param muleVersion           The version of Mule to use. e.g. 3.7.0
+     * @param environmentVariables  Environment variables for your Mule Application
+     * @param workersCount          Number of workers to deploy
+     * @param workerSize            Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param persistentQueues      Support for presistent queues
+     * @param multitenanted         Support for multi tenancy
+     * @param vpnEnabled            Support for VPN
+     * @param autoRestartMonitoring Support for auto restart monitoring
+     * @return The created application
+     */
+    @Processor
+    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+                                         @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+                                         @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
+        Application app = buildApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, persistentQueues, multitenanted, vpnEnabled, autoRestartMonitoring);
+        return client().createApplication(app);
+    }
 
-        domainConnection.deploy(file, muleVersion, workerCount, this.maxWaitTime, environmentVariables);
+    /**
+     * Updates an application.
+     *
+     * <p/>
+     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
+     * cloudhub:update-application}
+     * @param domain                The application Domain
+     * @param muleVersion           The version of Mule to use. e.g. 3.7.0
+     * @param workersCount          Number of workers to deploy
+     * @param workerSize            Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param environmentVariables  Environment variables for your application
+     * @param persistentQueues      Defines if the Application will have PersistentQueues Enabled or not
+     * @param multitenanted         Defines if the application will have multi-tenancy enabled or not
+     * @param vpnEnabled            If Enabled, the application will be hosted in a worker with VPN support
+     * @param autoRestartMonitoring If enabled, Monitoring Autorestart will be enabled
+     * @return The result of the update operation
+     */
+    @Processor
+    public Application updateApplication(String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+                                         @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
+                                         @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
+        Application app = buildApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, persistentQueues, multitenanted, vpnEnabled, autoRestartMonitoring);
+
+        ApplicationUpdateInfo appUpdateInfo = new ApplicationUpdateInfo(app);
+        return client().connectWithDomain(app.getDomain()).updateApplication(appUpdateInfo);
     }
 
     /**
@@ -155,8 +159,8 @@ import java.util.Map;
      * @return A list of applications.
      */
     @Processor
-    public List<Application> listApplications() {
-        return getConnection().listApplications();
+    public Collection<Application> listApplications() {
+        return client().retrieveApplications();
     }
 
     /**
@@ -170,49 +174,50 @@ import java.util.Map;
      */
     @Processor
     public Application getApplication(String domain) {
-        return getConnection().on(domain).get();
+        return client().connectWithDomain(domain).retrieveApplication();
     }
 
     /**
-     * Update an application.
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:update-application}
+     * Get application log
      *
-     * @param application The application to update.
+     * @param domain        The Application Domain
+     * @param endDate       Enddate of the logs to retrieve
+     * @param startDate     Startdate of the logs to retrieve
+     * @param limit         Amount of log items to retrieve (Defaults to 100)
+     * @param offset        For paging, start at
+     * @param priority      Specifies log items of a specific priority (INFO, ERROR)
+     * @param search        Specific string to search for
+     * @param tail          If enabled the limit works as a tail -xxxx lines
+     * @param worker        Worker name
+     * @return LogResults, POJO that contains the requested logs
      */
     @Processor
-    public void updateApplication(@Default("#[payload]") Application application) {
-        ApplicationUpdateInfo appUdateInfo = new ApplicationUpdateInfo(application);
-        getConnection().on(application.getDomain()).update(appUdateInfo);
+    public LogResults retrieveApplicationLogs(String domain, @Optional String endDate, @Optional String startDate, @Default("100") Integer limit, @Optional Integer offset,
+                                              @Optional LogPriority priority, @Optional String search, @Optional Boolean tail, @Optional String worker) {
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+        addToMapIfNotNull("endDate", endDate, queryParams);
+        addToMapIfNotNull("startDate", startDate, queryParams);
+        addToMapIfNotNull("limit", limit, queryParams);
+        addToMapIfNotNull("offset", offset, queryParams);
+        addToMapIfNotNull("priority", priority, queryParams);
+        addToMapIfNotNull("search", search, queryParams);
+        addToMapIfNotNull("tail", tail, queryParams);
+        addToMapIfNotNull("worker", worker, queryParams);
+
+        return client().connectWithDomain(domain).retrieveApplicationLog(queryParams);
     }
 
     /**
-     * Start an application.
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:start-application}
+     * Change Application Status
      *
-     * @param domain The application domain.
+     * @param domain           The application domain
+     * @param newDesiredStatus New application desired status (Start/Stop)
      */
     @Processor
-    public void startApplication(String domain) {
-        final DomainConnection domainConnection = getConnection().on(domain);
-        domainConnection.start(this.maxWaitTime);
-    }
-
-    /**
-     * Stop an application.
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:stop-application}
-     *
-     * @param domain The application domain.
-     */
-    @Processor
-    public void stopApplication(String domain) {
-        final DomainConnection domainConnection = getConnection().on(domain);
-        domainConnection.stop();
+    public void changeApplicationStatus(String domain, ApplicationStatusChange.DesiredApplicationStatus newDesiredStatus) {
+        ApplicationStatusChange statusChange = new ApplicationStatusChange(newDesiredStatus);
+        client().connectWithDomain(domain).updateApplicationStatus(statusChange, getConfig().getMaxWaitTime());
     }
 
     /**
@@ -229,8 +234,7 @@ import java.util.Map;
      */
     @Processor
     public void deleteApplication(String domain) {
-        final DomainConnection domainConnection = getConnection().on(domain);
-        domainConnection.delete();
+        client().connectWithDomain(domain).deleteApplication();
     }
 
     /**
@@ -246,41 +250,20 @@ import java.util.Map;
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:list-notifications}
      *
-     * @param maxResults <p>
-     *                   The maximum number of results to retrieve.
-     *                   </p>
-     * @param offset     <p>
-     *                   The offset to start listing alerts from.
-     *                   </p>
-     * @param muleEvent  <p>
-     *                   Processed mule event
-     *                   </p>
-     * @return A List of notifications.
-     */
-    @Processor
-    public NotificationResults listNotifications(@Optional Integer maxResults, @Optional Integer offset, MuleEvent muleEvent) {
-        return getConnection().listNotifications(maxResults, offset, getTenantIdFrom(muleEvent));
-    }
-
-    /**
-     * <p>
-     * Dismiss an individual notification.
-     * </p>
-     * <p/>
-     * <p>
-     * This operation does not depend on the tenant environment.
-     * </p>
-     * <p/>
-     * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
-     * cloudhub:dismiss-notification}
+     * @param domain        The application Domain
+     * @param maxResults    The maximum number of results to retrieve.     
+     * @param offset        The offset to start listing alerts from.
+     * @param status        The status which the notifications are in (by Default lists READ)
      *
-     * @param href <p>
-     *             The href property of the Notification object.
-     *             </p>
+     * @return A List of notifications.
+     *
      */
+    //TODO -- The status filter is not working properly
     @Processor
-    public void dismissNotification(String href) {
-        getConnection().dismissNotification(href);
+    public NotificationResults listNotifications(@Optional String domain, @Default("25") Integer maxResults, @Optional Integer offset, @Default("READ")Notification.NotificationStatus.Status status) {
+
+        Notification.NotificationStatus statusPojo = new Notification.NotificationStatus(status);
+        return client().retrieveNotifications(domain, "", maxResults, offset, statusPojo, "");
     }
 
     /**
@@ -312,31 +295,84 @@ import java.util.Map;
      * @param priority         <p>
      *                         The notification priority.
      *                         </p>
-     * @param customProperties <p>
+     *
+     * @param domain            The application domain.
+     @param customProperties <p>
      *                         a map to represent custom placeholders on the notification
      *                         template
      *                         </p>
      * @param muleEvent        <p>
      *                         Processed mule event
      *                         </p>
+     *
+     * @since 1.4
      */
     @Processor
-    public void createNotification(String message, Priority priority, @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
-        customProperties = merge(customProperties, handleException(muleEvent));
-
-        String domain = getDomain();
+    public void createNotification(String message, Notification.NotificationLevelDO priority, String domain,
+            @Optional Map<String, String> customProperties, MuleEvent muleEvent) {
 
         Notification notification = new Notification();
-        notification.setMessage(message);
         notification.setPriority(priority);
+        notification.setMessage(message);
         notification.setDomain(domain);
-        notification.setCustomProperties(customProperties);
         notification.setTenantId(getTenantIdFrom(muleEvent));
         notification.setTransactionId(getTransactionIdFrom(muleEvent));
-        if (domain != null) {
-            getConnection().create(notification);
-        } else {
-            logger.info("Cloudhub connector is running in a stand alone application, so it won't create a notification");
+
+        client().createNotification(notification);
+    }
+
+    /**
+     * Change the notification status (READ or UNREAD)
+     *
+     * @param notificationId ID of the notification
+     * @param status New desired status
+     */
+    @Processor
+    public void changeNotificationStatus(@FriendlyName("Notification ID") String notificationId, Notification.NotificationStatus.Status status) {
+        Notification.NotificationStatus notificationStatus = new Notification.NotificationStatus(status);
+        client().updateNotificationStatus(notificationId, notificationStatus);
+    }
+
+    /**
+     * Retrieves a notification by their ID
+     *
+     * @param notificationId ID of the notification
+     * @return A notification
+     */
+    @Processor
+    public Notification getNotification(@FriendlyName("Notification ID") String notificationId) {
+        return client().retrieveNotification(notificationId);
+    }
+
+    /**
+     * Pool notifications
+     *
+     * @param source           SourceCallback
+     * @param poolingFrequency Pooling frequency
+     * @param amountToRetrieve Amount to retrieve each time
+     * @param domain           Domain to filter notifications
+     * @param markAsRead       Boolean to mark as read after been processed
+     * @return The received notification
+     * @throws Exception       Exception that occurs when notifications cannot be received.
+     */
+    @Source
+    public Notification poolNotifications(SourceCallback source, @Optional String domain, @Default("5000") Integer poolingFrequency, @Default("50") Integer amountToRetrieve, @Optional Boolean markAsRead) throws Exception {
+        markAsRead = falseInNull(markAsRead);
+        Date date = new Date();
+        Date newDate = null;
+        while (true) {
+            NotificationResults notificationResults = this.listNotifications(domain, amountToRetrieve, null, Notification.NotificationStatus.Status.READ);
+            Notification newestNotification = notificationResults.getData().remove(0);
+            if (newestNotification.getCreatedAt().compareTo(date) == 1) {
+                processNotification(source, markAsRead, date, newestNotification);
+                newDate = newestNotification.getCreatedAt();
+
+                for (Notification notification : notificationResults.getData()) {
+                    processNotification(source, markAsRead, date, notification);
+                }
+                date = newDate;
+            }
+            Thread.sleep(poolingFrequency);
         }
     }
 
@@ -353,12 +389,13 @@ import java.util.Map;
      * @param query  The company name, contact name, and email of the tenant to
      *               search form. Performs a case insensitive match to any part of
      *               the tenant name.
-     * @return an instance of {@link com.mulesoft.cloudhub.client.TenantResults}
+     * @param enabled   Defines if multi-tenancy is enabled or not
+     *
+     * @return an instance of {@link com.mulesoft.ch.rest.model.TenantResults}
      */
     @Processor
-    public TenantResults listTenants(String domain, @Default("25") Integer limit, @Optional Integer offset, @Optional String query) {
-
-        return this.getConnection().listTenants(domain, limit, offset, query);
+    public TenantResults listTenants(String domain, @Default("25") Integer limit, Integer offset, String query, @Optional Boolean enabled) {
+        return client().connectWithDomain(domain).retrieveTenants(limit, offset, query, falseInNull(enabled));
     }
 
     /**
@@ -369,15 +406,15 @@ import java.util.Map;
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:create-tenant}
      *
-     * @param tenant an instance of {@link com.mulesoft.cloudhub.client.Tenant}
+     * @param tenant an instance of {@link com.mulesoft.ch.rest.model.Tenant}
      *               representing the tenant
      * @param domain the domain that will own the tenant
-     * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
+     * @return an instance of {@link com.mulesoft.ch.rest.model.Tenant}
      * carrying the state of the newly created tenant
      */
     @Processor
-    public Tenant createTenant(@Default("#[payload]") Tenant tenant, String domain) {
-        return this.getConnection().create(tenant, domain);
+    public Tenant createTenant(@RefOnly @Default("#[payload]") Tenant tenant, String domain) {
+        return client().connectWithDomain(domain).createTenant(tenant);
     }
 
     /**
@@ -390,11 +427,11 @@ import java.util.Map;
      *
      * @param domain   the domain owning the tenants
      * @param tenantId the id of the tenant you want
-     * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
+     * @return an instance of {@link com.mulesoft.ch.rest.model.Tenant}
      */
     @Processor
     public Tenant getTenant(String domain, String tenantId) {
-        return this.getConnection().getTenant(domain, tenantId);
+        return client().connectWithDomain(domain).retrieveTenant(tenantId);
     }
 
     /**
@@ -405,15 +442,15 @@ import java.util.Map;
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:update-tenant}
      *
-     * @param tenant an instance of {@link com.mulesoft.cloudhub.client.Tenant}
+     * @param tenant an instance of {@link com.mulesoft.ch.rest.model.Tenant}
      *               with the tenant's new state
      * @param domain the domain that will own the tenant
-     * @return an instance of {@link com.mulesoft.cloudhub.client.Tenant}
+     * @return an instance of {@link com.mulesoft.ch.rest.model.Tenant}
      * carrying the tenant's updated state
      */
     @Processor
-    public Tenant updateTenant(@Default("#[payload]") Tenant tenant, String domain) {
-        return this.getConnection().update(tenant, domain);
+    public Tenant updateTenant(@RefOnly @Default("#[payload]") Tenant tenant, String domain) {
+        return client().connectWithDomain(domain).updateTenant(tenant);
     }
 
     /**
@@ -429,7 +466,7 @@ import java.util.Map;
      */
     @Processor
     public void deleteTenant(String domain, String tenantId) {
-        this.getConnection().delete(tenantId, domain);
+        client().connectWithDomain(domain).deleteTenant(tenantId);
     }
 
     /**
@@ -445,7 +482,7 @@ import java.util.Map;
      */
     @Processor
     public void deleteTenants(String domain, List<String> tenantIds) {
-        this.getConnection().deleteTenants(domain, tenantIds);
+        client().connectWithDomain(domain).deleteTenants(tenantIds);
     }
 
     private Map<String, String> merge(Map<String, String> customProperties, Map<String, String> exceptionProperties) {
@@ -459,79 +496,67 @@ import java.util.Map;
         return customProperties;
     }
 
-    private Map<String, String> handleException(MuleEvent muleEvent) {
-        ExceptionPayload exceptionPayload = muleEvent.getMessage().getExceptionPayload();
-        Map<String, String> customProperties = new HashMap<String, String>();
-        if (exceptionPayload != null) {
-            customProperties.put(EXCEPTION_MESSAGE_CUSTOM_PROPERTY, exceptionPayload.getMessage());
-            customProperties.put(EXCEPTION_STACKTRACE_CUSTOM_PROPERTY, getStackTrace(exceptionPayload.getException()));
-        }
+    private static String getTransactionIdFrom(MuleEvent muleEvent) {
+        return muleEvent.getMessage().getMessageRootId();
+    }
 
-        return customProperties;
+    private static String getTenantIdFrom(MuleEvent muleEvent) {
+        return muleEvent.getMessage().getInboundProperty(TENANT_ID_PROPERTY);
     }
 
     private String getDomain() {
         return System.getProperty(DOMAIN_SYSTEM_PROPERTY);
     }
 
-    /**
-     * @param userName The CloudHub user name
-     * @param password The CloudHub password
-     * @throws ConnectionException If a connection cannot be made
-     */
-    @Connect
-    @TestConnectivity(active = false)
-    public void connect(@ConnectionKey String userName, String password) throws ConnectionException {
-        this.username = userName;
-        this.connection = new Connection(this.url, userName, password, false);
-
+    public Config getConfig() {
+        return config;
     }
 
-    @Disconnect
-    public void disconnect() {
-        connection = null;
+    private Boolean falseInNull(Boolean bool) {
+        if (bool == null) {
+            return Boolean.FALSE;
+        } else {
+            return bool;
+        }
     }
 
-    @ValidateConnection
-    public boolean isConnected() {
-        return connection != null && connection.test();
+    private void addToMapIfNotNull(String queryParamKey, Object queryParamValue, Map<String, String> queryParamsMap) {
+        if (queryParamValue != null) {
+            if (!isBlank(queryParamValue.toString())) {
+                queryParamsMap.put(queryParamKey, queryParamValue.toString());
+            }
+        }
     }
 
-    protected CloudhubConnection getConnection() {
-        return this.connection;
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
-    public String getUrl() {
-        return url;
+    private CloudHubConnectionImpl client() {
+        return config.getClient();
     }
 
-    public void setUrl(final String url) {
-        this.url = url;
+    private Application buildApplication(String domain, String muleVersion,Integer workersCount, WorkerType workerSize, Map<String, String> environmentVariables, Boolean persistentQueues, Boolean multitenanted, Boolean vpnEnabled, Boolean autoRestartMonitoring) {
+        Application app = new Application();
+        app.setMuleVersion(muleVersion);
+        app.setProperties(environmentVariables);
+        app.setWorkers(workersCount);
+        app.setVpnEnabled(falseInNull(vpnEnabled));
+        app.setMonitoringAutoRestart(falseInNull(autoRestartMonitoring));
+        app.setWorkerType(workerSize != null ? workerSize.toString() : null);
+        app.setPersistentQueues(falseInNull(persistentQueues));
+        app.setDomain(domain);
+        app.setMultitenanted(falseInNull(multitenanted));
+        return app;
     }
 
-    @ConnectionIdentifier
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(final String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
-    public Long getMaxWaitTime() {
-        return maxWaitTime;
-    }
-
-    public void setMaxWaitTime(final Long maxWaitTime) {
-        this.maxWaitTime = maxWaitTime;
+    private void processNotification(SourceCallback source, Boolean markAsRead, Date date, Notification notification) throws Exception {
+        if (notification.getCreatedAt().compareTo(date) == 1) {
+            source.process(notification);
+            if (markAsRead) {
+                changeNotificationStatus(notification.getId(), Notification.NotificationStatus.Status.READ);
+            }
+        }
     }
 
 }
