@@ -78,12 +78,17 @@ public class CloudHubConnector {
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:create-and-deploy-application}
      *
-     * @param file                 mule application to deploy, Input Object type:
-     *                             java.io.InputStream
-     * @param domain               The application domain.
-     * @param muleVersion          The version of Mule, e.g. 3.7.0.
+     * @param file                  mule application to deploy, Input Object type:
+     *                              java.io.InputStream
+     * @param domain                The application domain.
+     * @param muleVersion           The version of Mule, e.g. 3.7.0.
      * @param workersCount          The number of workers to deploy.
-     * @param environmentVariables Environment variables for you application.
+     * @param environmentVariables  Environment variables for you application.
+     * @param workerSize            Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param persistentQueues      Defines if the Application will have PersistentQueues Enabled or not
+     * @param multitenanted         Defines if the application will have multi-tenancy enabled or not
+     * @param vpnEnabled            If Enabled, the application will be hosted in a worker with VPN support
+     * @param autoRestartMonitoring If enabled, Monitoring Autorestart will be enabled
      */
     @Processor
     public void createAndDeployApplication(@Default("#[payload]") InputStream file, String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
@@ -124,15 +129,16 @@ public class CloudHubConnector {
      * <p/>
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:update-application}
-     *  @param domain
-     * @param muleVersion
-     * @param workersCount
-     * @param workerSize
-     * @param environmentVariables
-     * @param persistentQueues
-     * @param multitenanted
-     * @param vpnEnabled
-     * @param autoRestartMonitoring
+     * @param domain                The application Domain
+     * @param muleVersion           The version of Mule to use. e.g. 3.7.0
+     * @param workersCount          Number of workers to deploy
+     * @param workerSize            Size of each worker (Micro/Small/Medium/Large/xLarge)
+     * @param environmentVariables  Environment variables for your application
+     * @param persistentQueues      Defines if the Application will have PersistentQueues Enabled or not
+     * @param multitenanted         Defines if the application will have multi-tenancy enabled or not
+     * @param vpnEnabled            If Enabled, the application will be hosted in a worker with VPN support
+     * @param autoRestartMonitoring If enabled, Monitoring Autorestart will be enabled
+     * @return The result of the update operation
      */
     @Processor
     public Application updateApplication(String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
@@ -174,15 +180,15 @@ public class CloudHubConnector {
     /**
      * Get application log
      *
-     * @param domain
-     * @param endDate
-     * @param startDate
-     * @param limit
-     * @param offset
-     * @param priority
-     * @param search
-     * @param tail
-     * @param worker
+     * @param domain        The Application Domain
+     * @param endDate       Enddate of the logs to retrieve
+     * @param startDate     Startdate of the logs to retrieve
+     * @param limit         Amount of log items to retrieve (Defaults to 100)
+     * @param offset        For paging, start at
+     * @param priority      Specifies log items of a specific priority (INFO, ERROR)
+     * @param search        Specific string to search for
+     * @param tail          If enabled the limit works as a tail -xxxx lines
+     * @param worker        Worker name
      * @return LogResults, POJO that contains the requested logs
      */
     @Processor
@@ -244,12 +250,11 @@ public class CloudHubConnector {
      * {@sample.xml ../../../doc/CloudHub-connector.xml.sample
      * cloudhub:list-notifications}
      *
-     * @param maxResults <p>
-     *                   The maximum number of results to retrieve.
-     *                   </p>
-     * @param offset     <p>
-     *                   The offset to start listing alerts from.
-     *                   </p>
+     * @param domain        The application Domain
+     * @param maxResults    The maximum number of results to retrieve.     
+     * @param offset        The offset to start listing alerts from.
+     * @param status        The status which the notifications are in (by Default lists READ)
+     *
      * @return A List of notifications.
      *
      */
@@ -290,7 +295,9 @@ public class CloudHubConnector {
      * @param priority         <p>
      *                         The notification priority.
      *                         </p>
-     * @param customProperties <p>
+     *
+     * @param domain            The application domain.
+     @param customProperties <p>
      *                         a map to represent custom placeholders on the notification
      *                         template
      *                         </p>
@@ -345,7 +352,8 @@ public class CloudHubConnector {
      * @param amountToRetrieve Amount to retrieve each time
      * @param domain           Domain to filter notifications
      * @param markAsRead       Boolean to mark as read after been processed
-     * @throws Exception
+     * @return The received notification
+     * @throws Exception       Exception that occurs when notifications cannot be received.
      */
     @Source
     public Notification poolNotifications(SourceCallback source, @Optional String domain, @Default("5000") Integer poolingFrequency, @Default("50") Integer amountToRetrieve, @Optional Boolean markAsRead) throws Exception {
@@ -381,6 +389,8 @@ public class CloudHubConnector {
      * @param query  The company name, contact name, and email of the tenant to
      *               search form. Performs a case insensitive match to any part of
      *               the tenant name.
+     * @param enabled   Defines if multi-tenancy is enabled or not
+     *
      * @return an instance of {@link com.mulesoft.ch.rest.model.TenantResults}
      */
     @Processor
