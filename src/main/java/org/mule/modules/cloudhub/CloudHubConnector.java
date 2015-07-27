@@ -15,10 +15,12 @@ import com.mulesoft.cloudhub.client.CloudHubDomainConnectionI;
 import org.mule.api.MuleEvent;
 import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
+import org.mule.api.annotations.Source;
 import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
+import org.mule.api.callback.SourceCallback;
 import org.mule.modules.cloudhub.config.Config;
 import org.mule.modules.cloudhub.utils.LogPriority;
 import org.mule.modules.cloudhub.utils.WorkerType;
@@ -26,10 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -256,7 +255,7 @@ public class CloudHubConnector {
      */
     //TODO -- The status filter is not working properly
     @Processor
-    public NotificationResults listNotifications(String domain, @Default("25") Integer maxResults, @Optional Integer offset, Notification.NotificationStatus.Status status) {
+    public NotificationResults listNotifications(@Optional String domain, @Default("25") Integer maxResults, @Optional Integer offset, @Default("READ")Notification.NotificationStatus.Status status) {
 
         Notification.NotificationStatus statusPojo = new Notification.NotificationStatus(status);
         return client().retrieveNotifications(domain, "", maxResults, offset, statusPojo, "");
@@ -336,6 +335,37 @@ public class CloudHubConnector {
     @Processor
     public Notification getNotification(@FriendlyName("Notification ID") String notificationId) {
         return client().retrieveNotification(notificationId);
+    }
+
+    /**
+     * Pool notifications
+     *
+     * @param source           SourceCallback
+     * @param poolingFrequency Pooling frequency
+     * @param amountToRetrieve Amount to retrieve each time
+     * @param domain           Domain to filter notifications
+     * @param markAsRead       Boolean to mark as read after been processed
+     * @throws Exception
+     */
+    @Source
+    public Notification poolNotifications(SourceCallback source, @Optional String domain, @Default("5000") Integer poolingFrequency, @Default("50") Integer amountToRetrieve, @Optional Boolean markAsRead) throws Exception {
+        markAsRead = falseInNull(markAsRead);
+        Date date = new Date();
+        Date newDate = null;
+        while (true) {
+            NotificationResults notificationResults = this.listNotifications(domain, amountToRetrieve, null, Notification.NotificationStatus.Status.READ);
+            Notification newestNotification = notificationResults.getData().remove(0);
+            if (newestNotification.getCreatedAt().compareTo(date) == 1) {
+                processNotification(source, markAsRead, date, newestNotification);
+                newDate = newestNotification.getCreatedAt();
+
+                for (Notification notification : notificationResults.getData()) {
+                    processNotification(source, markAsRead, date, notification);
+                }
+                date = newDate;
+            }
+            Thread.sleep(poolingFrequency);
+        }
     }
 
     /**
@@ -508,6 +538,15 @@ public class CloudHubConnector {
         app.setDomain(domain);
         app.setMultitenanted(falseInNull(multitenanted));
         return app;
+    }
+
+    private void processNotification(SourceCallback source, Boolean markAsRead, Date date, Notification notification) throws Exception {
+        if (notification.getCreatedAt().compareTo(date) == 1) {
+            source.process(notification);
+            if (markAsRead) {
+                changeNotificationStatus(notification.getId(), Notification.NotificationStatus.Status.READ);
+            }
+        }
     }
 
 }
