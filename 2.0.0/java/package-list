@@ -1,0 +1,14 @@
+com.mulesoft.ch.rest.model.transformers
+org.mule.modules.cloudhub
+org.mule.modules.cloudhub.adapter
+org.mule.modules.cloudhub.adapters
+org.mule.modules.cloudhub.agents
+org.mule.modules.cloudhub.config
+org.mule.modules.cloudhub.connectivity
+org.mule.modules.cloudhub.devkit
+org.mule.modules.cloudhub.pooling
+org.mule.modules.cloudhub.processors
+org.mule.modules.cloudhub.sources
+org.mule.modules.cloudhub.utils
+org.mule.modules.cloudhub.utils.transformers
+
