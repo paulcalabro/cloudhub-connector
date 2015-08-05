@@ -345,7 +345,7 @@ public class CloudHubConnector {
     }
 
     /**
-     * Pool notifications
+     * Poll notifications
      *
      * @param source           SourceCallback
      * @param poolingFrequency Pooling frequency
@@ -356,23 +356,26 @@ public class CloudHubConnector {
      * @throws Exception       Exception that occurs when notifications cannot be received.
      */
     @Source
-    public Notification poolNotifications(SourceCallback source, @Optional String domain, @Default("5000") Integer poolingFrequency, @Default("50") Integer amountToRetrieve, @Optional Boolean markAsRead) throws Exception {
+    public Notification pollNotifications(SourceCallback source, @Optional String domain, @Default("5000") Integer poolingFrequency, @Default("50") Integer amountToRetrieve, @Optional Boolean markAsRead) throws Exception {
         markAsRead = falseInNull(markAsRead);
         Date date = new Date();
         Date newDate = null;
         while (true) {
             NotificationResults notificationResults = this.listNotifications(domain, amountToRetrieve, null, Notification.NotificationStatus.Status.READ);
-            Notification newestNotification = notificationResults.getData().remove(0);
-            if (newestNotification.getCreatedAt().compareTo(date) == 1) {
-                processNotification(source, markAsRead, date, newestNotification);
-                newDate = newestNotification.getCreatedAt();
+            if(!notificationResults.getData().isEmpty()) {
 
-                for (Notification notification : notificationResults.getData()) {
-                    processNotification(source, markAsRead, date, notification);
+                Notification newestNotification = notificationResults.getData().remove(0);
+                if (newestNotification.getCreatedAt().compareTo(date) == 1) {
+                    processNotification(source, markAsRead, date, newestNotification);
+                    newDate = newestNotification.getCreatedAt();
+
+                    for (Notification notification : notificationResults.getData()) {
+                        processNotification(source, markAsRead, date, notification);
+                    }
+                    date = newDate;
                 }
-                date = newDate;
+                Thread.sleep(poolingFrequency);
             }
-            Thread.sleep(poolingFrequency);
         }
     }
 
