@@ -13,6 +13,7 @@ import com.mulesoft.ch.rest.model.*;
 import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mule.modules.cloudhub.CloudHubConnector;
 import org.mule.modules.cloudhub.utils.WorkerType;
@@ -131,7 +132,8 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
         }
         Assert.assertEquals(Boolean.TRUE, founded);
     }
-
+    
+    @Ignore
     @Test
     public void retrieveLogs() throws InterruptedException {
         printMethodName(new Object() {
