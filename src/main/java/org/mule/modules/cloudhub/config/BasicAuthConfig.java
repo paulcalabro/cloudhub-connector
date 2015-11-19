@@ -62,7 +62,7 @@ public class BasicAuthConfig implements Config {
     public void connect(@ConnectionKey String username, @Password String password, @Default("https://anypoint.mulesoft.com/cloudhub/") String url, @Optional String sandbox) throws ConnectionException {
         try {
             cloudHubClient = new CloudHubConnectionImpl(url, username, password, sandbox, false);
-            cloudHubClient.isCsAuthentication();
+            cloudHubClient.getSupportedMuleVersions();
         } catch (CloudHubException e) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, e.getMessage(), e.getMessage(),e);
         }
