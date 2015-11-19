@@ -317,6 +317,7 @@ public class CloudHubConnector {
         notification.setDomain(domain);
         notification.setTenantId(getTenantIdFrom(muleEvent));
         notification.setTransactionId(getTransactionIdFrom(muleEvent));
+        notification.setProperties(customProperties);
 
         client().createNotification(notification);
     }
