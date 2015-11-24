@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Mule Development Kit
+    Copyright 2010-2011 (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:spring="http://www.springframework.org/schema/beans"
+      xmlns:cloudhub="http://www.mulesoft.org/schema/mule/cloudhub"
+      xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+      xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+        http://www.mulesoft.org/schema/mule/cloudhub http://www.mulesoft.org/schema/mule/cloudhub/1.0/mule-cloudhub.xsd">
+
+    <cloudhub:config username="${cloudhub.username}" password="${cloudhub.password}" url="https://qa.cloudhub.io" />
+
+    <flow name="listApplications">
+        <cloudhub:list-applications/>
+    </flow>
+    
+    <flow name="getApplication">
+        <cloudhub:get-application domain="${test.domain}"/>
+    </flow>
+    
+    <flow name="start">
+        <cloudhub:start-application domain="${test.domain}"/>
+    </flow>
+    
+    <flow name="stop">
+        <cloudhub:stop-application domain="${test.domain}"/>
+    </flow>
+
+    <flow name="createNotification">
+        <cloudhub:create-notification message="Hello World" priority="INFO"/>
+    </flow>
+    
+    <flow name="dismissNotification">
+        <cloudhub:create-notification message="Hello World" priority="INFO"/>
+        <cloudhub:dismiss-notification href="#[groovy:payload.href]"/>
+        <cloudhub:list-notifications/>
+    </flow>
+    
+    <flow name="createNotificationFromException">
+        <scripting:component>
+            <scripting:script engine="groovy">
+                throw new Exception("bad news bears")
+            </scripting:script>
+        </scripting:component>
+        <default-exception-strategy>
+            <cloudhub:create-notification message="Received an error." priority="ERROR"/>
+        </default-exception-strategy>
+    </flow>
+
+</mule>

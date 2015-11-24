@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<namespace xmlns="http://www.mulesoft.org/schema/mule/tooling.attributes" xmlns:mule="http://www.mulesoft.org/schema/mule/core" url="http://www.mulesoft.org/schema/mule/cloudhub" prefix="cloudhub">
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Cloudhub" description="" icon="" localId="parentConfig" image="" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric"></global-cloud-connector>
+  <nested caption="" description="" localId="connection-pooling-profile" abstract="true">
+    <radioBoolean name="defaultPoolingProfile" caption="Use default connection pool configuration" description="Use default connection pool configuration." fillLine="true"></radioBoolean>
+    <radioBoolean name="customPoolingProfile" caption="Define connection pool configuration" description="Define connection pool configuration." fillLine="true"></radioBoolean>
+    <integer defaultValue="5" min="-1" step="0" name="maxActive" caption="Max active" description="Controls the maximum number of connections that can be borrowed from the pool at one time. When set to a negative value, there is no limit to the number of connections that may be active at one time. When maxActive is exceeded, the pool is said to be exhausted." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="5" min="-1" step="0" name="maxIdle" caption="Max idle" description="Controls the maximum number of connections that can sit idle in the pool at any time. When set to a negative value, there is no limit to the number of connections that may be idle at one time." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <enum defaultValue="INITIALISE_ONE" name="initialisationPolicy" caption="Initialisation policy" description="Determines how connections in a pool should be initialized. The possible values are: INITIALISE_NONE (will not load any connection into the pool on startup), INITIALISE_ONE (will load one initial connection into the pool on startup), or INITIALISE_ALL (will load all connections in the pool on startup)" alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="INITIALISE_NONE"></option>
+      <option value="INITIALISE_ONE"></option>
+      <option value="INITIALISE_ALL"></option>
+    </enum>
+    <enum defaultValue="WHEN_EXHAUSTED_GROW" name="exhaustedAction" caption="Exhausted action" description="Specifies the behavior of the connection pool when the pool is exhausted. Possible values are: &quot;WHEN_EXHAUSTED_FAIL&quot;, which will throw a NoSuchElementException, &quot;WHEN_EXHAUSTED_WAIT&quot;, which will block by invoking Object.wait(long) until a new or idle object is available, or WHEN_EXHAUSTED_GROW, which will create a new connection and return it, essentially making maxActive meaningless. If a positive maxWait value is supplied, it will block for at most that many milliseconds, after which a NoSuchElementException will be thrown. If maxThreadWait is a negative value, it will block indefinitely." alwaysFill="true" controlled="customPoolingProfile" indented="true">
+      <option value="WHEN_EXHAUSTED_WAIT"></option>
+      <option value="WHEN_EXHAUSTED_FAIL"></option>
+      <option value="WHEN_EXHAUSTED_GROW"></option>
+    </enum>
+    <integer defaultValue="5" min="-1" step="0" name="maxWait" caption="Max wait" description="When exhausted action is Wait (or block) this is the amount of time in milliseconds that the pool will wait before failing. Setting a negative value will block indefinitely until an idle instance becomes available." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="1800000" min="-1" step="0" name="minEvictionMillis" caption="Min eviction (ms)" description="Determines the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction. When non-positive, no connections will be evicted from the pool due to idle time alone." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+    <integer defaultValue="-1" min="-1" step="0" name="evictionCheckIntervalMillis" caption="Eviction check interval (ms)" description="Specifies the number of milliseconds between runs of the connection evictor. When non-positive, no connection evictor is executed." controlled="customPoolingProfile" indented="true" fillLine="true"></integer>
+  </nested>
+  <nested caption="" description="" localId="reconnectionStrategyElement" abstract="true">
+    <label name="connectionLabel" caption="Define how mule should attempt to handle a connection failure" description=""></label>
+    <radioBoolean name="noReconnection" caption="Do not use a Reconnection strategy" description="Disable reconection strategy" fillLine="true"></radioBoolean>
+    <radioBoolean name="standardReconnection" caption="Standard Reconnection" description="A reconnection strategy that allows the user to configure how many times a reconnection should be attempted and how long to wait between attempts." fillLine="true"></radioBoolean>
+    <integer defaultValue="2000" min="1" max="2147483647" step="1" name="reconnectionFrequency" caption="Frequency (ms)" description="How often (in ms) to reconnect" controlled="standardReconnection" indented="true"></integer>
+    <integer defaultValue="2" min="1" max="2147483647" step="1" name="reconnectionAttemps" caption="Reconnection Attempts" description="How many reconnection attempts to make" controlled="standardReconnection,!reconnectForever" indented="true"></integer>
+    <boolean name="reconnectForever" caption="Reconnect Forever" description="A reconnection strategy that retries an infinite number of times at the specified frequency." supportsExpressions="false" controlled="standardReconnection" indented="true"></boolean>
+    <radioBoolean name="customReconnection" caption="Custom Reconnection" description="A user-defined reconnection strategy." fillLine="true"></radioBoolean>
+    <classname name="class" caption="Class" description="A class that implements the RetryPolicyTemplate interface." controlled="customReconnection" indented="true"></classname>
+    <childElement allowMultiple="true" name="http://www.springframework.org/schema/beans/property" caption="Properties" description="Property elements." controlled="customReconnection"></childElement>
+  </nested>
+  <cloud-connector-message-source supportsInbound="true" supportsOutbound="false" versions="[3.6.0,8.0.0]" caption="Cloudhub (Streaming)" description="Provides the ability to interact with Mule CloudHub from within a Mule
+application. There are operations to deploy, start, stop, and update
+applications as well as send notifications from your application to CloudHub.
+
+When running this connector in an application inside CloudHub, it will use
+token based authentication to access the API. This will allow access and
+usage of the CloudHub APIs without the need to specify your username and
+password.
+." icon="icons/small/cloudhub-endpoint-24x16.png" localId="endpoint" image="icons/large/cloudhub-endpoint-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="cloudhubConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Cloudhub operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" versions="[3.6.0,8.0.0]" connector-name="source"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/poll-notifications" modeLabel="Poll notifications"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector-message-source>
+  <cloud-connector-message-source supportsInbound="true" supportsOutbound="false" inboundLocalName="poll-notifications" caption="Poll Notifications" description="Poll notifications." icon="icons/small/cloudhub-endpoint-24x16.png" localId="poll-notifications" image="icons/large/cloudhub-endpoint-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="Domain to filter notifications." required="false" javaType="java.lang.String"></string>
+        <integer defaultValue="50" min="0" step="1" name="amountToRetrieve" caption="Amount To Retrieve" description="Amount to retrieve each time." required="false" javaType="java.lang.Integer"></integer>
+        <integer defaultValue="5000" min="0" step="1" name="poolingFrequency" caption="Pooling Frequency" description="Pooling frequency." required="false" javaType="java.lang.Integer"></integer>
+        <boolean name="markAsRead" caption="Mark As Read" description="Boolean to mark as read after been processed." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector-message-source>
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Cloudhub: Basic Auth Authentication" description="Global Basic Auth Authentication configuration information. Connection Management Strategy." icon="icons/small/cloudhub-connector-24x16.png" localId="config" image="icons/large/cloudhub-connector-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/cloudhub/parentConfig" connectivityTesting="on" connectivityTestingLabel="Test Connection..." metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Cloudhub configuration properties.">
+      <group id="cloudhubGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="connection" caption="Connection">
+        <string name="username" caption="Username" description="A username." required="true" javaType="java.lang.String"></string>
+        <password name="password" caption="Password" description="A password." required="true" javaType="java.lang.String"></password>
+        <string defaultValue="https://anypoint.mulesoft.com/cloudhub/" name="url" caption="Url" description="CloudHub URL." required="false" javaType="java.lang.String"></string>
+        <string name="sandbox" caption="Sandbox" description="SandBox name." required="false" javaType="java.lang.String"></string>
+      </group>
+      <group id="general" caption="General">
+        <integer defaultValue="0" min="0" step="1" name="maxWaitTime" caption="Maximum time allowed to deploy or undeploy." description="Maximum time allowed to deplpoy/undeploy." supportsExpressions="false" required="false" javaType="java.lang.Long"></integer>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Pooling Profile" description="Pooling profile options.">
+      <group id="poolingProfile" caption="Pooling Profile">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/cloudhub/connection-pooling-profile" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.PoolingProfileValuePersistence"></childElement>
+      </group>
+    </attribute-category>
+    <attribute-category caption="Reconnection" description="Reconnection options.">
+      <group id="reconnectionStrategies" caption="Strategies">
+        <childElement inplace="true" name="http://www.mulesoft.org/schema/mule/core/reconnectionStrategyElement" caption="" description="" valuePersistence="org.mule.tooling.ui.modules.core.widgets.meta.HTTPTransactionValuePersistence"></childElement>
+        <childElement allowSubTypes="true" allowedSubTypes="http://www.mulesoft.org/schema/mule/core/reconnect,http://www.mulesoft.org/schema/mule/core/reconnect-custom-strategy,http://www.mulesoft.org/schema/mule/core/reconnect-forever" name="http://www.mulesoft.org/schema/mule/core/abstractReconnectionStrategy" caption="" description="" visibleInDialog="false"></childElement>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <global-cloud-connector versions="[3.6.0,8.0.0]" caption="Cloudhub: Inhered Token Authentication" description="Global Inhered Token Authentication configuration information. This configuration only runs inside of CloudHub instances. Retrieves the API Token from the CloudHub instance where the connector is been run." icon="icons/small/cloudhub-connector-24x16.png" localId="token-config" image="icons/large/cloudhub-connector-48x32.png" abstract="false" extends="http://www.mulesoft.org/schema/mule/cloudhub/parentConfig" connectivityTesting="off" metaData="static" metaDataKeyDisplay="DISPLAY_NAME" supportsUserDefinedMetaData="false">
+    <attribute-category caption="General" description="Cloudhub configuration properties.">
+      <group id="cloudhubGenericProperties" caption="Basic Settings">
+        <name name="name" caption="Name" description="Give a name to this configuration so it can be later referenced by config-ref." required="true"></name>
+      </group>
+      <group id="general" caption="General">
+        <integer defaultValue="0" min="0" step="1" name="maxWaitTime" caption="Maximum time allowed to deploy or undeploy." description="Maximum time allowed to deploy/undeploy." supportsExpressions="false" required="false" javaType="java.lang.Long"></integer>
+        <string defaultValue="https://anypoint.mulesoft.com/cloudhub/" name="url" caption="Url" description="" supportsExpressions="false" required="false" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </global-cloud-connector>
+  <cloud-connector caption="Abstractcloudhubconnectorgeneric" description="Interact with Cloudhub." icon="icons/small/cloudhub-connector-24x16.png" localId="abstractCloudhubConnectorGeneric" image="icons/large/cloudhub-connector-48x32.png" abstract="true">
+    <attribute-category caption="General" description="General.">
+      <group id="abstractCloudhubConnectorGeneric" caption="Basic Settings">
+        <globalRef requiredType="$http://www.mulesoft.org/schema/mule/cloudhub/token-config,http://www.mulesoft.org/schema/mule/cloudhub/config" name="config-ref" caption="Connector Configuration" description="Specify which configuration to use for this invocation." required="true"></globalRef>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector versions="[3.6.0,8.0.0]" aliasId="org.mule.tooling.ui.modules.core.pattern.cloudhub" caption="Cloudhub" description="Provides the ability to interact with Mule CloudHub from within a Mule
+application. There are operations to deploy, start, stop, and update
+applications as well as send notifications from your application to CloudHub.
+
+When running this connector in an application inside CloudHub, it will use
+token based authentication to access the API. This will allow access and
+usage of the CloudHub APIs without the need to specify your username and
+password.
+." icon="icons/small/cloudhub-connector-24x16.png" localId="cloudhub-connector" image="icons/large/cloudhub-connector-48x32.png" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric">
+    <attribute-category caption="General" description="General.">
+      <group id="cloudhubConnectorGeneric" caption="Basic Settings">
+        <modeSwitch alwaysCombo="true" name="Cloudhub operations to execute" caption="Operation" description="Operation.">
+          <no-operation abstractElement="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" versions="[3.6.0,8.0.0]" connector-name="processor"></no-operation>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/change-application-status" modeLabel="Change application status"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/change-notification-status" modeLabel="Change notification status"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/create-and-deploy-application" modeLabel="Create and deploy application"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/create-application" modeLabel="Create application"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/create-notification" modeLabel="Create notification"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/create-tenant" modeLabel="Create tenant"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/delete-application" modeLabel="Delete application"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/delete-tenant" modeLabel="Delete tenant"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/delete-tenants" modeLabel="Delete tenants"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/deploy-application" modeLabel="Deploy application"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/get-application" modeLabel="Get application"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/get-notification" modeLabel="Get notification"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/get-tenant" modeLabel="Get tenant"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/list-applications" modeLabel="List applications"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/list-notifications" modeLabel="List notifications"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/list-tenants" modeLabel="List tenants"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/retrieve-application-logs" modeLabel="Retrieve application logs"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/update-application" modeLabel="Update application"></mode>
+          <mode modeId="http://www.mulesoft.org/schema/mule/cloudhub/update-tenant" modeLabel="Update tenant"></mode>
+        </modeSwitch>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Change Application Status" icon="icons/small/cloudhub-connector-24x16.png" localId="change-application-status" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The application domain." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="newDesiredStatus" caption="New Desired Status" description="New application desired status (Start/Stop)." supportsExpressions="true" required="true" javaType="com.mulesoft.ch.rest.model.ApplicationStatusChange.DesiredApplicationStatus">
+          <option value="START"></option>
+          <option value="STOP"></option>
+        </enum>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Change Notification Status" icon="icons/small/cloudhub-connector-24x16.png" localId="change-notification-status" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="notificationId" caption="Notification ID" description="ID of the notification." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="status" caption="Status" description="New desired status." supportsExpressions="true" required="true" javaType="com.mulesoft.ch.rest.model.Notification.NotificationStatus.Status">
+          <option value="READ"></option>
+          <option value="UNREAD"></option>
+        </enum>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Create And Deploy Application" icon="icons/small/cloudhub-connector-24x16.png" localId="create-and-deploy-application" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="file-ref" caption="File Reference" description="Mule application to deploy, Input Object type: java.io.InputStream." required="false" javaType="java.io.InputStream"></string>
+        <string name="domain" caption="Domain" description="The application domain." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="3.7.0" name="muleVersion" caption="Mule Version" description="The version of Mule, e.g. 3.7.0." required="false" javaType="java.lang.String"></string>
+        <integer defaultValue="1" min="0" step="1" name="workersCount" caption="Workers Count" description="The number of workers to deploy." required="false" javaType="java.lang.Integer"></integer>
+        <enum allowsCustom="true" name="workerSize" caption="Worker Size" description="Size of each worker (Micro/Small/Medium/Large/xLarge)." supportsExpressions="true" required="false" javaType="org.mule.modules.cloudhub.utils.WorkerType">
+          <option value="Large"></option>
+          <option value="Medium"></option>
+          <option value="Micro"></option>
+          <option value="Small"></option>
+          <option value="xLarge"></option>
+        </enum>
+        <boolean name="autoRestartMonitoring" caption="Auto Restart Monitoring" description="If enabled, Monitoring Autorestart will be enabled." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="multitenanted" caption="Multitenanted" description="Defines if the application will have multi-tenancy enabled or not." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="persistentQueues" caption="Persistent Queues" description="Defines if the Application will have PersistentQueues Enabled or not." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="vpnEnabled" caption="Vpn Enabled" description="If Enabled, the application will be hosted in a worker with VPN support." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <element-controller-map mapName="environment-variables" localName="create-and-deploy-application-environment-variables" itemName="environment-variable" caption="Environment Variables" description="Environment variables for you application." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Application" caption="Create Application" icon="icons/small/cloudhub-connector-24x16.png" localId="create-application" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The application domain." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="3.7.0" name="muleVersion" caption="Mule Version" description="The version of Mule to use. e.g. 3.7.0." required="false" javaType="java.lang.String"></string>
+        <integer defaultValue="1" min="0" step="1" name="workersCount" caption="Workers Count" description="Number of workers to deploy." required="false" javaType="java.lang.Integer"></integer>
+        <enum allowsCustom="true" name="workerSize" caption="Worker Size" description="Size of each worker (Micro/Small/Medium/Large/xLarge)." supportsExpressions="true" required="false" javaType="org.mule.modules.cloudhub.utils.WorkerType">
+          <option value="Large"></option>
+          <option value="Medium"></option>
+          <option value="Micro"></option>
+          <option value="Small"></option>
+          <option value="xLarge"></option>
+        </enum>
+        <boolean name="autoRestartMonitoring" caption="Auto Restart Monitoring" description="Support for auto restart monitoring." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="multitenanted" caption="Multitenanted" description="Support for multi tenancy." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="persistentQueues" caption="Persistent Queues" description="Support for presistent queues." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="vpnEnabled" caption="Vpn Enabled" description="Support for VPN." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <element-controller-map mapName="environment-variables" localName="create-application-environment-variables" itemName="environment-variable" caption="Environment Variables" description="Environment variables for your Mule Application." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Create Notification" icon="icons/small/cloudhub-connector-24x16.png" localId="create-notification" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The application domain." required="true" javaType="java.lang.String"></string>
+        <string name="message" caption="Message" description=" The contents of the notification. ." required="true" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="priority" caption="Priority" description=" The notification priority. ." supportsExpressions="true" required="true" javaType="com.mulesoft.ch.rest.model.Notification.NotificationLevelDO">
+          <option value="ERROR"></option>
+          <option value="INFO"></option>
+          <option value="WARN"></option>
+        </enum>
+        <element-controller-map mapName="custom-properties" localName="create-notification-custom-properties" itemName="custom-property" caption="Custom Properties" description=" a map to represent custom placeholders on the notification template ." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Tenant" caption="Create Tenant" icon="icons/small/cloudhub-connector-24x16.png" localId="create-tenant" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="tenant-ref" caption="Tenant Reference" description="An instance of  representing the tenant." required="false" javaType="com.mulesoft.ch.rest.model.Tenant"></string>
+        <string name="domain" caption="Domain" description="The domain that will own the tenant." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Application" icon="icons/small/cloudhub-connector-24x16.png" localId="delete-application" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description=" The application domain. ." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Tenant" icon="icons/small/cloudhub-connector-24x16.png" localId="delete-tenant" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The domain that owns the tenant to be deleted." required="true" javaType="java.lang.String"></string>
+        <string name="tenantId" caption="Tenant Id" description="The id of the tenant to be deleted." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Delete Tenants" icon="icons/small/cloudhub-connector-24x16.png" localId="delete-tenants" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The domain you want to clear of tenants." required="true" javaType="java.lang.String"></string>
+        <element-controller-list listName="tenant-ids" localName="delete-tenants-tenant-ids" itemName="tenant-id" caption="Tenant Ids" description="A list with tenant ids to be deleted." required="true" javaType="java.util.List&lt;java.lang.String&gt;"></element-controller-list>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="void" caption="Deploy Application" icon="icons/small/cloudhub-connector-24x16.png" localId="deploy-application" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="file-ref" caption="File Reference" description="Mule application to deploy, Input Object type: java.io.InputStream." required="false" javaType="java.io.InputStream"></string>
+        <string name="domain" caption="Domain" description="The application domain." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Application" caption="Get Application" icon="icons/small/cloudhub-connector-24x16.png" localId="get-application" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The application domain." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Notification" caption="Get Notification" icon="icons/small/cloudhub-connector-24x16.png" localId="get-notification" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="notificationId" caption="Notification ID" description="ID of the notification." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Tenant" caption="Get Tenant" icon="icons/small/cloudhub-connector-24x16.png" localId="get-tenant" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The domain owning the tenants." required="true" javaType="java.lang.String"></string>
+        <string name="tenantId" caption="Tenant Id" description="The id of the tenant you want." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="java.util.Collection&lt;com.mulesoft.ch.rest.model.Application&gt;" caption="List Applications" icon="icons/small/cloudhub-connector-24x16.png" localId="list-applications" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General."></attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.NotificationResults" caption="List Notifications" icon="icons/small/cloudhub-connector-24x16.png" localId="list-notifications" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The application Domain." required="false" javaType="java.lang.String"></string>
+        <integer defaultValue="25" min="0" step="1" name="maxResults" caption="Max Results" description="The maximum number of results to retrieve." required="false" javaType="java.lang.Integer"></integer>
+        <integer min="0" step="1" name="offset" caption="Offset" description="The offset to start listing alerts from." required="false" javaType="java.lang.Integer"></integer>
+        <enum defaultValue="READ" allowsCustom="true" name="status" caption="Status" description="The status which the notifications are in (by Default lists READ)." supportsExpressions="true" required="false" javaType="com.mulesoft.ch.rest.model.Notification.NotificationStatus.Status">
+          <option value="READ"></option>
+          <option value="UNREAD"></option>
+        </enum>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.TenantResults" caption="List Tenants" icon="icons/small/cloudhub-connector-24x16.png" localId="list-tenants" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The domain owning the tenants." required="true" javaType="java.lang.String"></string>
+        <integer defaultValue="25" min="0" step="1" name="limit" caption="Limit" description="The maximum number of results to return by default. Maximum of 100." required="false" javaType="java.lang.Integer"></integer>
+        <integer min="0" step="1" name="offset" caption="Offset" description="The offset to start searching at." required="true" javaType="java.lang.Integer"></integer>
+        <string name="query" caption="Query" description="The company name, contact name, and email of the tenant to search form. Performs a case insensitive match to any part of the tenant name." required="true" javaType="java.lang.String"></string>
+        <boolean name="enabled" caption="Enabled" description="Defines if multi-tenancy is enabled or not." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.LogResults" caption="Retrieve Application Logs" icon="icons/small/cloudhub-connector-24x16.png" localId="retrieve-application-logs" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The Application Domain." required="true" javaType="java.lang.String"></string>
+        <string name="endDate" caption="End Date" description="Enddate of the logs to retrieve." required="false" javaType="java.lang.String"></string>
+        <string name="startDate" caption="Start Date" description="Startdate of the logs to retrieve." required="false" javaType="java.lang.String"></string>
+        <integer defaultValue="100" min="0" step="1" name="limit" caption="Limit" description="Amount of log items to retrieve (Defaults to 100)." required="false" javaType="java.lang.Integer"></integer>
+        <integer min="0" step="1" name="offset" caption="Offset" description="For paging, start at." required="false" javaType="java.lang.Integer"></integer>
+        <string name="search" caption="Search" description="Specific string to search for." required="false" javaType="java.lang.String"></string>
+        <string name="worker" caption="Worker" description="Worker name." required="false" javaType="java.lang.String"></string>
+        <enum allowsCustom="true" name="priority" caption="Priority" description="Specifies log items of a specific priority (INFO, ERROR)." supportsExpressions="true" required="false" javaType="org.mule.modules.cloudhub.utils.LogPriority">
+          <option value="ALL"></option>
+          <option value="CONSOLE"></option>
+          <option value="DEBUG"></option>
+          <option value="ERROR"></option>
+          <option value="FATAL"></option>
+          <option value="INFO"></option>
+          <option value="SYSTEM"></option>
+          <option value="WARN"></option>
+        </enum>
+        <boolean name="tail" caption="Tail" description="If enabled the limit works as a tail -xxxx lines." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Application" caption="Update Application" icon="icons/small/cloudhub-connector-24x16.png" localId="update-application" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string name="domain" caption="Domain" description="The application Domain." required="true" javaType="java.lang.String"></string>
+        <string defaultValue="3.7.0" name="muleVersion" caption="Mule Version" description="The version of Mule to use. e.g. 3.7.0." required="false" javaType="java.lang.String"></string>
+        <integer defaultValue="1" min="0" step="1" name="workersCount" caption="Workers Count" description="Number of workers to deploy." required="false" javaType="java.lang.Integer"></integer>
+        <enum allowsCustom="true" name="workerSize" caption="Worker Size" description="Size of each worker (Micro/Small/Medium/Large/xLarge)." supportsExpressions="true" required="false" javaType="org.mule.modules.cloudhub.utils.WorkerType">
+          <option value="Large"></option>
+          <option value="Medium"></option>
+          <option value="Micro"></option>
+          <option value="Small"></option>
+          <option value="xLarge"></option>
+        </enum>
+        <boolean name="autoRestartMonitoring" caption="Auto Restart Monitoring" description="If enabled, Monitoring Autorestart will be enabled." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="multitenanted" caption="Multitenanted" description="Defines if the application will have multi-tenancy enabled or not." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="persistentQueues" caption="Persistent Queues" description="Defines if the Application will have PersistentQueues Enabled or not." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <boolean name="vpnEnabled" caption="Vpn Enabled" description="If Enabled, the application will be hosted in a worker with VPN support." supportsExpressions="true" required="false" javaType="java.lang.Boolean"></boolean>
+        <element-controller-map mapName="environment-variables" localName="update-application-environment-variables" itemName="environment-variable" caption="Environment Variables" description="Environment variables for your application." required="false" javaType="java.util.Map&lt;java.lang.String,java.lang.String&gt;"></element-controller-map>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+  <cloud-connector returnType="com.mulesoft.ch.rest.model.Tenant" caption="Update Tenant" icon="icons/small/cloudhub-connector-24x16.png" localId="update-tenant" image="icons/large/cloudhub-connector-48x32.png" abstract="true" extends="http://www.mulesoft.org/schema/mule/cloudhub/abstractCloudhubConnectorGeneric" metaData="static">
+    <attribute-category caption="General" description="General.">
+      <group id="general" caption="General">
+        <string defaultValue="#[payload]" name="tenant-ref" caption="Tenant Reference" description="An instance of  with the tenant's new state." required="false" javaType="com.mulesoft.ch.rest.model.Tenant"></string>
+        <string name="domain" caption="Domain" description="The domain that will own the tenant." required="true" javaType="java.lang.String"></string>
+      </group>
+    </attribute-category>
+  </cloud-connector>
+</namespace>

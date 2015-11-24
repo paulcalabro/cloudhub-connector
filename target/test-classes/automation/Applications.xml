@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+ 	<bean id="applicationA" class="com.mulesoft.cloudhub.client.Application">
+		<property name="domain" value="connectorsautomation001"/>
+		<property name="muleVersion" value="3.3.0"/>
+	</bean>
+	<bean id="applicationT" class="com.mulesoft.cloudhub.client.Application">
+		<property name="domain" value="connectorsautomationtemp001"/>
+		<property name="muleVersion" value="3.3.0"/>
+	</bean>
+	
+</beans>

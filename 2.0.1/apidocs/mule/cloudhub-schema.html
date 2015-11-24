@@ -1,0 +1,1507 @@
+
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Documentation for Mule CloudHub Connector." />
+
+<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+<title>
+
+  CloudHubConnector
+
+
+| Mule CloudHub Connector
+
+</title>
+<link href="../assets/mule-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="../assets/mule-developer-prettify.css" rel="stylesheet" type="text/css" />
+<link href="../assets/customizations.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+<script src="../assets/search_autocomplete.js" type="text/javascript"></script>
+<script src="../assets/mule-developer-docs.js" type="text/javascript"></script>
+<script src="../assets/prettify.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("../", "../assets/");
+</script>
+<script src="../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+<body class="">
+
+<div id="header">
+    <div id="headerLeft">
+    
+      <span id="masthead-title">Mule CloudHub Connector</span>
+    
+    <ul id="header-tabs" class="mule">
+    
+    	<li id="guide"><a href="../guide/install.html">
+	    	<span class="en">Install Guide</span>
+    	</a></li>
+    
+    	<li id="java"><a href="../java/packages.html">
+	    	<span class="en">Java API Reference</span>
+    	</a></li>
+    
+    	<li id="mule"><a href="../mule/modules.html">
+	    	<span class="en">Mule API Reference</span>
+    	</a></li>
+    
+    </ul>
+    </div>
+    <div id="headerRight">
+      <a href="http://www.mulesoft.com" tabindex="-1">
+      <img src="../assets//images/mulesoft-logo-final.gif" alt="MuleSoft" border="0" id="mulesoftlogo"></a><br/>
+      
+  <div id="searchContainer" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="search developer docs" name="q"
+                      value="search developer docs"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, '../')"
+                      onkeyup="return search_changed(event, false, '../')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </div>
+</div><!-- header -->
+
+
+<div class="g-unit" id="all-content">
+
+<div id="api-info-block">
+
+<div class="api-level">
+  
+
+
+  
+  
+
+</div>
+</div><!-- end api-info-block -->
+
+
+<!-- ======== START OF MODULE DATA ======== -->
+
+<div id="jd-header">
+    org.mule.modules
+<h1>mule-module-cloudhub</h1>
+
+</div><!-- end header -->
+
+<div id="naMessage"></div>
+
+<div id="jd-content" class="api apilevel-">
+
+
+<div class="jd-tagdata">
+      <table class="jd-tagtable">
+        <tbody><tr>
+          <th>Namespace</th><td>http://www.mulesoft.org/schema/mule/cloudhub</td>
+        </tr><tr>
+          <th>Schema Location</th><td>http://www.mulesoft.org/schema/mule/cloudhub/current/mule-cloudhub.xsd&nbsp;&nbsp;(<a href="cloudhub-schema.html">View Schema</a>)</td>
+        </tr>
+<tr>
+          <th>Schema Version</th><td>2.0</td>
+        </tr>
+<tr>
+          <th>Minimum Mule Version</th><td>3.6.0</td>
+        </tr>
+    </tbody></table>
+  </div>
+
+<div class="jd-descr">
+<h2>Schema</h2>
+<pre>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;xs:schema xmlns:ns2=&quot;http://www.mulesoft.org/schema/mule/devkit&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; targetNamespace=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; attributeFormDefault=&quot;unqualified&quot; elementFormDefault=&quot;qualified&quot;&gt;
+  &lt;xs:import namespace=&quot;http://www.w3.org/XML/1998/namespace&quot;&gt;&lt;/xs:import&gt;
+  &lt;xs:import namespace=&quot;http://www.springframework.org/schema/beans&quot; schemaLocation=&quot;http://www.springframework.org/schema/beans/spring-beans-3.0.xsd&quot;&gt;&lt;/xs:import&gt;
+  &lt;xs:import namespace=&quot;http://www.mulesoft.org/schema/mule/core&quot; schemaLocation=&quot;http://www.mulesoft.org/schema/mule/core/current/mule.xsd&quot;&gt;&lt;/xs:import&gt;
+  &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; substitutionGroup=&quot;mule:abstract-extension&quot; name=&quot;config&quot;&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:complexContent&gt;
+        &lt;xs:extension base=&quot;mule:abstractExtensionType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Connection Management Strategy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:sequence&gt;
+            &lt;xs:element type=&quot;mule:poolingProfileType&quot; minOccurs=&quot;0&quot; name=&quot;connection-pooling-profile&quot;&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;Characteristics of the connection pool.&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+            &lt;xs:element minOccurs=&quot;0&quot; ref=&quot;mule:abstract-reconnection-strategy&quot;&gt;
+              &lt;xs:annotation&gt;
+                &lt;xs:documentation&gt;Reconnection strategy that defines how Mule should handle a connection failure.&lt;/xs:documentation&gt;
+              &lt;/xs:annotation&gt;
+            &lt;/xs:element&gt;
+          &lt;/xs:sequence&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;name&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Give a name to this configuration so it can be later referenced by config-ref.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;longType&quot; use=&quot;optional&quot; default=&quot;0&quot; name=&quot;maxWaitTime&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Maximum time allowed to deplpoy/undeploy.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;username&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;A username&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;password&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;A password&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;https://anypoint.mulesoft.com/cloudhub/&quot; name=&quot;url&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;CloudHub URL&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;sandbox&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;SandBox name&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+        &lt;/xs:extension&gt;
+      &lt;/xs:complexContent&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:element xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; substitutionGroup=&quot;mule:abstract-extension&quot; name=&quot;token-config&quot;&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:complexContent&gt;
+        &lt;xs:extension base=&quot;mule:abstractExtensionType&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;This configuration only runs inside of CloudHub instances. Retrieves the API Token from the CloudHub instance where the connector is been run.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;name&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Give a name to this configuration so it can be later referenced by config-ref.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;longType&quot; use=&quot;optional&quot; default=&quot;0&quot; name=&quot;maxWaitTime&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Maximum time allowed to deploy/undeploy.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;https://anypoint.mulesoft.com/cloudhub/&quot; name=&quot;url&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:attribute&gt;
+        &lt;/xs:extension&gt;
+      &lt;/xs:complexContent&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeployApplicationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;deploy-application&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Deploy specified application.
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeployApplicationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;#[payload]&quot; name=&quot;file-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;mule application to deploy, Input Object type: java.io.InputStream&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application domain.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateAndDeployApplicationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-and-deploy-application&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Tries creating the specified application (if it doesn't exist already)
+and deploying afterwards.
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreateAndDeployApplicationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;environment-variables&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Environment variables for you application.&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;environment-variable&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; name=&quot;key&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;#[payload]&quot; name=&quot;file-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;mule application to deploy, Input Object type: java.io.InputStream&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application domain.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;3.7.0&quot; name=&quot;muleVersion&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The version of Mule, e.g. 3.7.0.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;1&quot; name=&quot;workersCount&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The number of workers to deploy.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;WorkerTypeEnumType&quot; use=&quot;optional&quot; name=&quot;workerSize&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Size of each worker (Micro/Small/Medium/Large/xLarge)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;persistentQueues&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Defines if the Application will have PersistentQueues Enabled or not&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;multitenanted&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Defines if the application will have multi-tenancy enabled or not&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;vpnEnabled&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;If Enabled, the application will be hosted in a worker with VPN support&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;autoRestartMonitoring&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;If enabled, Monitoring Autorestart will be enabled&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateApplicationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-application&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Creates an application with out deploying a Mule App&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreateApplicationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;environment-variables&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Environment variables for your Mule Application&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;environment-variable&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; name=&quot;key&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application domain&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;3.7.0&quot; name=&quot;muleVersion&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The version of Mule to use. e.g. 3.7.0&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;1&quot; name=&quot;workersCount&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Number of workers to deploy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;WorkerTypeEnumType&quot; use=&quot;optional&quot; name=&quot;workerSize&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Size of each worker (Micro/Small/Medium/Large/xLarge)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;persistentQueues&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Support for presistent queues&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;multitenanted&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Support for multi tenancy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;vpnEnabled&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Support for VPN&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;autoRestartMonitoring&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Support for auto restart monitoring&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;UpdateApplicationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;update-application&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Updates an application.
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;UpdateApplicationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;environment-variables&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;Environment variables for your application&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;environment-variable&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; name=&quot;key&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application Domain&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;3.7.0&quot; name=&quot;muleVersion&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The version of Mule to use. e.g. 3.7.0&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;1&quot; name=&quot;workersCount&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Number of workers to deploy&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;WorkerTypeEnumType&quot; use=&quot;optional&quot; name=&quot;workerSize&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Size of each worker (Micro/Small/Medium/Large/xLarge)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;persistentQueues&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Defines if the Application will have PersistentQueues Enabled or not&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;multitenanted&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Defines if the application will have multi-tenancy enabled or not&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;vpnEnabled&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;If Enabled, the application will be hosted in a worker with VPN support&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;autoRestartMonitoring&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;If enabled, Monitoring Autorestart will be enabled&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;ListApplicationsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;list-applications&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;List applications.
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;ListApplicationsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetApplicationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-application&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get an application.
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetApplicationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application domain.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;RetrieveApplicationLogsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;retrieve-application-logs&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Get application log&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;RetrieveApplicationLogsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The Application Domain&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;endDate&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Enddate of the logs to retrieve&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;startDate&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Startdate of the logs to retrieve&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;100&quot; name=&quot;limit&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Amount of log items to retrieve (Defaults to 100)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; name=&quot;offset&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;For paging, start at&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;LogPriorityEnumType&quot; use=&quot;optional&quot; name=&quot;priority&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specifies log items of a specific priority (INFO, ERROR)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;search&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specific string to search for&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;tail&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;If enabled the limit works as a tail -xxxx lines&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;worker&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Worker name&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;ChangeApplicationStatusType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;change-application-status&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Change Application Status&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;ChangeApplicationStatusType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application domain&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;DesiredApplicationStatusEnumType&quot; use=&quot;required&quot; name=&quot;newDesiredStatus&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;New application desired status (Start/Stop)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteApplicationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-application&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Delete an application.
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteApplicationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;&amp;lt;p&amp;gt; The application domain. &amp;lt;/p&amp;gt;&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;ListNotificationsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;list-notifications&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+List a user's notifications.
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;
+&amp;lt;p&amp;gt;
+In the case of a multitenant application it searches for the
+notifications registered for the current tenant.
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;ListNotificationsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application Domain&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;25&quot; name=&quot;maxResults&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The maximum number of results to retrieve.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; name=&quot;offset&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The offset to start listing alerts from.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;StatusEnumType&quot; use=&quot;optional&quot; default=&quot;READ&quot; name=&quot;status&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The status which the notifications are in (by Default lists READ)&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateNotificationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-notification&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Create a notification inside CloudHub.
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;
+&amp;lt;p&amp;gt;
+If the notification is sent after an exception, it attaches the
+exception.message and exception.stacktrace as as custom properties of the
+notification.
+&amp;lt;p/&amp;gt;
+Those custom properties can be accessed from Cloudhub console with the
+names 'exception.message' and 'exception.stacktrace'
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;
+&amp;lt;p&amp;gt;
+In the case of multitenant applications the connector will create a
+notification for a particular tenant. (the one that is executing the
+flow)
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreateNotificationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;1&quot; name=&quot;custom-properties&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&amp;lt;p&amp;gt; a map to represent custom placeholders on the notification template &amp;lt;/p&amp;gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:choice&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;custom-property&quot;&gt;
+                    &lt;xs:complexType&gt;
+                      &lt;xs:simpleContent&gt;
+                        &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                          &lt;xs:attribute type=&quot;xs:string&quot; name=&quot;key&quot;&gt;&lt;/xs:attribute&gt;
+                        &lt;/xs:extension&gt;
+                      &lt;/xs:simpleContent&gt;
+                    &lt;/xs:complexType&gt;
+                  &lt;/xs:element&gt;
+                &lt;/xs:sequence&gt;
+                &lt;xs:sequence&gt;
+                  &lt;xs:any minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; processContents=&quot;lax&quot;&gt;&lt;/xs:any&gt;
+                &lt;/xs:sequence&gt;
+              &lt;/xs:choice&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;message&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;&amp;lt;p&amp;gt; The contents of the notification. &amp;lt;/p&amp;gt;&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;NotificationLevelDOEnumType&quot; use=&quot;required&quot; name=&quot;priority&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;&amp;lt;p&amp;gt; The notification priority. &amp;lt;/p&amp;gt;&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The application domain.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;ChangeNotificationStatusType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;change-notification-status&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Change the notification status (READ or UNREAD)&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;ChangeNotificationStatusType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;notificationId&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;ID of the notification&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;StatusEnumType&quot; use=&quot;required&quot; name=&quot;status&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;New desired status&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetNotificationType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-notification&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Retrieves a notification by their ID&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetNotificationType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;notificationId&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;ID of the notification&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;ListTenantsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;list-tenants&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;List all available tenants for the current domain
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;ListTenantsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the domain owning the tenants&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;25&quot; name=&quot;limit&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The maximum number of results to return by default. Maximum of 100.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;required&quot; name=&quot;offset&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The offset to start searching at&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;query&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;The company name, contact name, and email of the tenant to search form. Performs a case insensitive match to any part of the tenant name.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;enabled&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Defines if multi-tenancy is enabled or not&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;CreateTenantType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;create-tenant&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Creates a tenant
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;CreateTenantType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;#[payload]&quot; name=&quot;tenant-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;an instance of  representing the tenant&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the domain that will own the tenant&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;GetTenantType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;get-tenant&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Returns an specific tenant
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;GetTenantType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the domain owning the tenants&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;tenantId&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the id of the tenant you want&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;UpdateTenantType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;update-tenant&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Updates a tenant
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;UpdateTenantType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; default=&quot;#[payload]&quot; name=&quot;tenant-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;an instance of  with the tenant's new state&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the domain that will own the tenant&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteTenantType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-tenant&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Deletes a given tenant
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteTenantType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the domain that owns the tenant to be deleted&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;tenantId&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the id of the tenant to be deleted&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;DeleteTenantsType&quot; substitutionGroup=&quot;mule:abstract-message-processor&quot; name=&quot;delete-tenants&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&amp;lt;p&amp;gt;
+Deletes all tenants for a given domain
+&amp;lt;/p&amp;gt;
+&amp;lt;p/&amp;gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;DeleteTenantsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractMessageProcessorType&quot;&gt;
+        &lt;xs:sequence&gt;
+          &lt;xs:element minOccurs=&quot;1&quot; maxOccurs=&quot;1&quot; name=&quot;tenant-ids&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;a list with tenant ids to be deleted&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+            &lt;xs:complexType&gt;
+              &lt;xs:sequence&gt;
+                &lt;xs:element minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot; name=&quot;tenant-id&quot;&gt;
+                  &lt;xs:complexType&gt;
+                    &lt;xs:simpleContent&gt;
+                      &lt;xs:extension base=&quot;xs:string&quot;&gt;
+                        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;value-ref&quot;&gt;&lt;/xs:attribute&gt;
+                      &lt;/xs:extension&gt;
+                    &lt;/xs:simpleContent&gt;
+                  &lt;/xs:complexType&gt;
+                &lt;/xs:element&gt;
+              &lt;/xs:sequence&gt;
+              &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;ref&quot;&gt;
+                &lt;xs:annotation&gt;
+                  &lt;xs:documentation&gt;The reference object for this parameter&lt;/xs:documentation&gt;
+                &lt;/xs:annotation&gt;
+              &lt;/xs:attribute&gt;
+            &lt;/xs:complexType&gt;
+          &lt;/xs:element&gt;
+        &lt;/xs:sequence&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;the domain you want to clear of tenants&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:element xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; type=&quot;PollNotificationsType&quot; substitutionGroup=&quot;mule:abstract-inbound-endpoint&quot; name=&quot;poll-notifications&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;Poll notifications&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+  &lt;/xs:element&gt;
+  &lt;xs:complexType name=&quot;PollNotificationsType&quot;&gt;
+    &lt;xs:complexContent&gt;
+      &lt;xs:extension xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:abstractInboundEndpointType&quot;&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;required&quot; name=&quot;config-ref&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Specify which configuration to use for this invocation.&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute type=&quot;xs:string&quot; use=&quot;optional&quot; name=&quot;domain&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Domain to filter notifications&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;5000&quot; name=&quot;poolingFrequency&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Pooling frequency&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;integerType&quot; use=&quot;optional&quot; default=&quot;50&quot; name=&quot;amountToRetrieve&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Amount to retrieve each time&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+        &lt;xs:attribute xmlns=&quot;http://www.mulesoft.org/schema/mule/cloudhub&quot; type=&quot;booleanType&quot; use=&quot;optional&quot; name=&quot;markAsRead&quot;&gt;
+          &lt;xs:annotation&gt;
+            &lt;xs:documentation&gt;Boolean to mark as read after been processed&lt;/xs:documentation&gt;
+          &lt;/xs:annotation&gt;
+        &lt;/xs:attribute&gt;
+      &lt;/xs:extension&gt;
+    &lt;/xs:complexContent&gt;
+  &lt;/xs:complexType&gt;
+  &lt;xs:simpleType name=&quot;NotificationLevelDOEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;INFO&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;ERROR&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;WARN&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;StatusEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;READ&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;UNREAD&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;WorkerTypeEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;Micro&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Small&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Medium&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;Large&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;xLarge&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;DesiredApplicationStatusEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;STOP&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;START&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;LogPriorityEnumType&quot;&gt;
+    &lt;xs:annotation&gt;
+      &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+    &lt;/xs:annotation&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;ALL&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;ERROR&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;FATAL&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;INFO&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;SYSTEM&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;CONSOLE&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;WARN&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;DEBUG&quot;&gt;
+            &lt;xs:annotation&gt;
+              &lt;xs:documentation&gt;&lt;/xs:documentation&gt;
+            &lt;/xs:annotation&gt;
+          &lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;OnNoTokenPolicyEnumType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:enumeration value=&quot;EXCEPTION&quot;&gt;&lt;/xs:enumeration&gt;
+          &lt;xs:enumeration value=&quot;STOP_FLOW&quot;&gt;&lt;/xs:enumeration&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;integerType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:integer&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;decimalType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:decimal&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;floatType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:float&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;doubleType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:double&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;dateTimeType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:dateTime&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;longType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:long&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;byteType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:byte&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;booleanType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:boolean&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;anyUriType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:anyURI&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+  &lt;xs:simpleType name=&quot;charType&quot;&gt;
+    &lt;xs:union&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction base=&quot;xs:string&quot;&gt;
+          &lt;xs:minLength value=&quot;1&quot;&gt;&lt;/xs:minLength&gt;
+          &lt;xs:maxLength value=&quot;1&quot;&gt;&lt;/xs:maxLength&gt;
+        &lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+      &lt;xs:simpleType&gt;
+        &lt;xs:restriction xmlns:mule=&quot;http://www.mulesoft.org/schema/mule/core&quot; base=&quot;mule:propertyPlaceholderType&quot;&gt;&lt;/xs:restriction&gt;
+      &lt;/xs:simpleType&gt;
+    &lt;/xs:union&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</pre>
+</div><!-- jd-descr -->
+
+<div id="footer">
+Generated by <a href="http://www.mulesoft.com/devkit">Mule DevKit</a>. Document generation technology based on <a href="http://code.google.com/p/doclava/">Google's Doclava</a>.
+</div> <!-- end footer -->
+
+</div> <!-- jd-content -->
+
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript">
+init(); /* initialize mule-developer-docs.js */
+</script>
+
+</body>
+</html>
