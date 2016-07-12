@@ -1,8 +1,8 @@
 /**
  * Mule CloudHub Connector
- *
+ * <p>
  * Copyright (c) MuleSoft, Inc.  All rights reserved.  http://www.mulesoft.com
- *
+ * <p>
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
  * LICENSE.txt file.
@@ -32,21 +32,22 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import static org.mule.modules.cloudhub.utils.WorkerType.Medium;
+
 /*
 * @TODO: This must be split into several classes to be compliant with the certification !!!!. 
  */
 public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnector> {
 
-    public static final String STRING_TO_FIND_IN_LOGS = "Your application is started.";
-    public static String DOMAIN_NAME;
-    static Boolean isSetUp = Boolean.FALSE;
-    static Boolean isDeployed = Boolean.FALSE;
-    public static final String DOMAIN = "domain";
-    public static final String CH_APP_NAME = "ch-connector-tests-delete-me";
-    public static String MULE_VERSION = "3.7.0";
-    public static Integer WORKERS_COUNT = 1;
-    public static WorkerType WORKER_TYPE = WorkerType.Medium;
-
+    private static final String STRING_TO_FIND_IN_LOGS = "Your application is started.";
+    private static final String DOMAIN = "domain";
+    private static final String CH_APP_NAME = "ch-connector-tests-delete-me";
+    private static String DOMAIN_NAME;
+    private static boolean isSetUp = false;
+    private static boolean isDeployed = false;
+    private static String MULE_VERSION = "3.8.0";
+    private static Integer WORKERS_COUNT = 1;
+    private static WorkerType WORKER_TYPE = Medium;
 
     public CloudHubConnectorTestCases() {
         this.setConnectorClass(CloudHubConnector.class);
@@ -132,7 +133,7 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
         }
         Assert.assertEquals(Boolean.TRUE, founded);
     }
-    
+
     @Ignore
     @Test
     public void retrieveLogs() throws InterruptedException {
@@ -144,13 +145,12 @@ public class CloudHubConnectorTestCases extends AbstractTestCase<CloudHubConnect
         Boolean founded = false;
         Integer timesToTry = 0;
 
-        while(!founded && timesToTry < 20){
+        while (!founded && timesToTry < 20) {
             logResults = getConnector().retrieveApplicationLogs(DOMAIN_NAME, null, null, 1, null, null, null, Boolean.TRUE, null);
             founded = logResults.getData().get(0).getMessage().contains(STRING_TO_FIND_IN_LOGS);
             Thread.sleep(5000);
             timesToTry++;
         }
-
 
         Assert.assertEquals(Boolean.TRUE, founded);
     }

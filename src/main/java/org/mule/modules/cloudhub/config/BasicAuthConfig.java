@@ -16,51 +16,20 @@ import org.mule.api.ConnectionException;
 import org.mule.api.ConnectionExceptionCode;
 import org.mule.api.annotations.*;
 import org.mule.api.annotations.components.ConnectionManagement;
-import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.display.Password;
 import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 
 /**
- * Connection Management Strategy
+ * Basic Auth Configuration
  *
  * @author MuleSoft, Inc.
  */
 @ConnectionManagement(friendlyName = "Basic Auth Authentication")
-public class BasicAuthConfig implements Config {
+public class BasicAuthConfig extends BaseCloudHubConfig {
 
     private CloudHubConnectionImpl cloudHubClient;
-
-    public Long getMaxWaitTime() {
-        return maxWaitTime;
-    }
-
-    public void setMaxWaitTime(Long maxWaitTime) {
-        this.maxWaitTime = maxWaitTime;
-    }
-
-    /**
-     * Maximum time allowed to deplpoy/undeploy.
-     */
-    @Configurable
-    @Default(value = "0")
-    @FriendlyName("Maximum time allowed to deploy or undeploy.")
-    private Long maxWaitTime;
-    
-    /**
-     * Specifies the amount of time, in milliseconds, that the consumer will wait for a response before it times out. Default value is 0, which means infinite.
-     */
-    @Configurable
-    @Default("0")
-    private Integer readTimeout;
-
-    /**
-     * Specifies the amount of time, in milliseconds, that the consumer will attempt to establish a connection before it times out. Default value is 0, which means infinite.
-     */
-    @Configurable
-    @Default("0")
-    private Integer connectionTimeout;
 
     /**
      * Connect
@@ -69,8 +38,6 @@ public class BasicAuthConfig implements Config {
      * @param password A password
      * @param url CloudHub URL
      * @param sandbox SandBox name
-     * @param connectionTimeout Specifies the amount of time, in milliseconds, that the consumer will attempt to establish a connection before it times out. Default value is 0, which means infinite
-     * @param readTimeout Specifies the amount of time, in milliseconds, that the consumer will wait for a response before it times out. Default value is 0, which means infinite
      * @throws ConnectionException
      */
     @Connect
@@ -95,20 +62,22 @@ public class BasicAuthConfig implements Config {
     }
 
     /**
-     * Are we connected
+     * Check if the CH Connection is still valid
      */
     @ValidateConnection
     public boolean isConnected() {
         if (cloudHubClient == null) {
             return false;
         } else {
-            return cloudHubClient.isCsAuthentication();
+            try {
+                cloudHubClient.retrieveAccount();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 
-    /**
-     * Are we connected
-     */
     @ConnectionIdentifier
     public String connectionId() {
         return cloudHubClient.getUsername();
@@ -117,20 +86,5 @@ public class BasicAuthConfig implements Config {
     public CloudHubConnectionImpl getClient() {
         return cloudHubClient;
     }
-    
-    public Integer getReadTimeout() {
-        return readTimeout;
-    }
 
-    public void setReadTimeout(Integer readTimeout) {
-        this.readTimeout = readTimeout;
-    }
-    
-    public Integer getConnectionTimeout() {
-        return connectionTimeout;
-    }
-
-    public void setConnectionTimeout(Integer connectionTimeout) {
-        this.connectionTimeout = connectionTimeout;
-    }
 }

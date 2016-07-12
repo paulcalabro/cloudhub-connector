@@ -12,42 +12,19 @@ package org.mule.modules.cloudhub.config;
 import com.mulesoft.cloudhub.client.CloudHubConnectionImpl;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.components.Configuration;
-import org.mule.api.annotations.display.FriendlyName;
 import org.mule.api.annotations.param.Default;
 
 /**
  * This configuration only runs inside of CloudHub instances. Retrieves the API Token from the CloudHub instance where the connector is been run.
  */
 @Configuration( configElementName = "token-config", friendlyName = "Inhered Token Authentication")
-public class TokenConfig implements Config {
+public class TokenConfig extends BaseCloudHubConfig {
 
     private CloudHubConnectionImpl cloudHubClient;
-
-    /**
-     * Maximum time allowed to deploy/undeploy.
-     */
-    @Configurable
-    @Default(value = "0")
-    @FriendlyName("Maximum time allowed to deploy or undeploy.")
-    private Long maxWaitTime;
 
     @Configurable
     @Default("https://anypoint.mulesoft.com/cloudhub/")
     private String url;
-    
-    /**
-     * Specifies the amount of time, in milliseconds, that the consumer will wait for a response before it times out. Default value is 0, which means infinite.
-     */
-    @Configurable
-    @Default("0")
-    private Integer readTimeout;
-
-    /**
-     * Specifies the amount of time, in milliseconds, that the consumer will attempt to establish a connection before it times out. Default value is 0, which means infinite.
-     */
-    @Configurable
-    @Default("0")
-    private Integer connectionTimeout;
 
     public CloudHubConnectionImpl getClient() {
         if(cloudHubClient == null){
@@ -56,35 +33,11 @@ public class TokenConfig implements Config {
         return cloudHubClient;
     }
 
-    public Long getMaxWaitTime() {
-        return maxWaitTime;
-    }
-
     public String getUrl() {
         return url;
     }
 
     public void setUrl(String url) {
         this.url = url;
-    }
-    
-    public Integer getReadTimeout() {
-        return readTimeout;
-    }
-
-    public void setReadTimeout(Integer readTimeout) {
-        this.readTimeout = readTimeout;
-    }
-    
-    public Integer getConnectionTimeout() {
-        return connectionTimeout;
-    }
-
-    public void setConnectionTimeout(Integer connectionTimeout) {
-        this.connectionTimeout = connectionTimeout;
-    }
-
-    public void setMaxWaitTime(Long maxWaitTime) {
-        this.maxWaitTime = maxWaitTime;
     }
 }

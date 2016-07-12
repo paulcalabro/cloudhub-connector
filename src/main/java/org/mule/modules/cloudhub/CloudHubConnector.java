@@ -21,7 +21,7 @@ import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
 import org.mule.api.callback.SourceCallback;
-import org.mule.modules.cloudhub.config.Config;
+import org.mule.modules.cloudhub.config.BaseCloudHubConfig;
 import org.mule.modules.cloudhub.utils.LogPriority;
 import org.mule.modules.cloudhub.utils.WorkerType;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class CloudHubConnector {
     private static final Logger  logger = LoggerFactory.getLogger(CloudHubConnector.class);
 
     @org.mule.api.annotations.Config
-    private Config config;
+    private BaseCloudHubConfig config;
 
     /**
      * Deploy specified application.
@@ -116,7 +116,7 @@ public class CloudHubConnector {
      * @return The created application
      */
     @Processor
-    public Application createApplication(String domain, @Default("3.7.0") String muleVersion, @Default("1") Integer workersCount,
+    public Application createApplication(String domain, @Default("3.8.0") String muleVersion, @Default("1") Integer workersCount,
                                          @Optional WorkerType workerSize, @Optional Map<String, String> environmentVariables, @Optional Boolean persistentQueues, @Optional Boolean multitenanted,
                                          @Optional Boolean vpnEnabled, @Optional Boolean autoRestartMonitoring) {
         Application app = buildApplication(domain, muleVersion, workersCount, workerSize, environmentVariables, persistentQueues, multitenanted, vpnEnabled, autoRestartMonitoring);
@@ -512,7 +512,7 @@ public class CloudHubConnector {
         return System.getProperty(DOMAIN_SYSTEM_PROPERTY);
     }
 
-    public Config getConfig() {
+    public BaseCloudHubConfig getConfig() {
         return config;
     }
 
@@ -532,7 +532,7 @@ public class CloudHubConnector {
         }
     }
 
-    public void setConfig(Config config) {
+    public void setConfig(BaseCloudHubConfig config) {
         this.config = config;
     }
 
