@@ -34,10 +34,24 @@ public class TokenConfig implements Config {
     @Configurable
     @Default("https://anypoint.mulesoft.com/cloudhub/")
     private String url;
+    
+    /**
+     * Specifies the amount of time, in milliseconds, that the consumer will wait for a response before it times out. Default value is 0, which means infinite.
+     */
+    @Configurable
+    @Default("0")
+    private Integer readTimeout;
+
+    /**
+     * Specifies the amount of time, in milliseconds, that the consumer will attempt to establish a connection before it times out. Default value is 0, which means infinite.
+     */
+    @Configurable
+    @Default("0")
+    private Integer connectionTimeout;
 
     public CloudHubConnectionImpl getClient() {
         if(cloudHubClient == null){
-            cloudHubClient = new CloudHubConnectionImpl(url, null, null, null, false);
+            cloudHubClient = new CloudHubConnectionImpl(url, null, null, null, readTimeout, connectionTimeout, false);
     }
         return cloudHubClient;
     }
@@ -52,6 +66,22 @@ public class TokenConfig implements Config {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+    
+    public Integer getReadTimeout() {
+        return readTimeout;
+    }
+
+    public void setReadTimeout(Integer readTimeout) {
+        this.readTimeout = readTimeout;
+    }
+    
+    public Integer getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(Integer connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
     }
 
     public void setMaxWaitTime(Long maxWaitTime) {

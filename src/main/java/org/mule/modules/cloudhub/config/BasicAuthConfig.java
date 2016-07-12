@@ -47,6 +47,20 @@ public class BasicAuthConfig implements Config {
     @Default(value = "0")
     @FriendlyName("Maximum time allowed to deploy or undeploy.")
     private Long maxWaitTime;
+    
+    /**
+     * Specifies the amount of time, in milliseconds, that the consumer will wait for a response before it times out. Default value is 0, which means infinite.
+     */
+    @Configurable
+    @Default("0")
+    private Integer readTimeout;
+
+    /**
+     * Specifies the amount of time, in milliseconds, that the consumer will attempt to establish a connection before it times out. Default value is 0, which means infinite.
+     */
+    @Configurable
+    @Default("0")
+    private Integer connectionTimeout;
 
     /**
      * Connect
@@ -55,13 +69,15 @@ public class BasicAuthConfig implements Config {
      * @param password A password
      * @param url CloudHub URL
      * @param sandbox SandBox name
+     * @param connectionTimeout Specifies the amount of time, in milliseconds, that the consumer will attempt to establish a connection before it times out. Default value is 0, which means infinite
+     * @param readTimeout Specifies the amount of time, in milliseconds, that the consumer will wait for a response before it times out. Default value is 0, which means infinite
      * @throws ConnectionException
      */
     @Connect
     @TestConnectivity
     public void connect(@ConnectionKey String username, @Password String password, @Default("https://anypoint.mulesoft.com/cloudhub/") String url, @Optional String sandbox) throws ConnectionException {
         try {
-            cloudHubClient = new CloudHubConnectionImpl(url, username, password, sandbox, false);
+            cloudHubClient = new CloudHubConnectionImpl(url, username, password, sandbox, readTimeout, connectionTimeout, false);
             cloudHubClient.getSupportedMuleVersions();
         } catch (CloudHubException e) {
             throw new ConnectionException(ConnectionExceptionCode.INCORRECT_CREDENTIALS, e.getMessage(), e.getMessage(),e);
@@ -100,5 +116,21 @@ public class BasicAuthConfig implements Config {
 
     public CloudHubConnectionImpl getClient() {
         return cloudHubClient;
+    }
+    
+    public Integer getReadTimeout() {
+        return readTimeout;
+    }
+
+    public void setReadTimeout(Integer readTimeout) {
+        this.readTimeout = readTimeout;
+    }
+    
+    public Integer getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(Integer connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
     }
 }
