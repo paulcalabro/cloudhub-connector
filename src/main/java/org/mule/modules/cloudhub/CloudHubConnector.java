@@ -17,6 +17,7 @@ import org.mule.api.annotations.Connector;
 import org.mule.api.annotations.Processor;
 import org.mule.api.annotations.Source;
 import org.mule.api.annotations.display.FriendlyName;
+import org.mule.api.annotations.licensing.RequiresEnterpriseLicense;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.RefOnly;
@@ -45,6 +46,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  *
  * @author MuleSoft, Inc.
  */
+@RequiresEnterpriseLicense(allowEval = true)
 @Connector(name = "cloudhub", schemaVersion = "2.0", friendlyName = "Cloudhub", minMuleVersion = "3.6.0")
 public class CloudHubConnector {
 
