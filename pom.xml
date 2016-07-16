@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.mulesoft.cloudhub</groupId>
             <artifactId>cloudhub-client-api</artifactId>
-            <version>1.7.2-HYDRA</version>
+            <version>1.0.0-ch-connector</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
