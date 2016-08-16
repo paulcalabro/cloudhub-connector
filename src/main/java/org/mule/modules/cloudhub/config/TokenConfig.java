@@ -17,7 +17,7 @@ import org.mule.api.annotations.param.Default;
 /**
  * This configuration only runs inside of CloudHub instances. Retrieves the API Token from the CloudHub instance where the connector is been run.
  */
-@Configuration( configElementName = "token-config", friendlyName = "Inhered Token Authentication")
+@Configuration( configElementName = "token-config", friendlyName = "Inherited Token Authentication")
 public class TokenConfig extends BaseCloudHubConfig {
 
     private CloudHubConnectionImpl cloudHubClient;
